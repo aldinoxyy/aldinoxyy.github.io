@@ -2,50 +2,49 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ALDINO AKBAR</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%}
-body{background:#070707;color:#fff;font-family:'Space Grotesk',sans-serif;display:flex;flex-direction:column;min-height:100vh}
-.hero{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 20px;background:radial-gradient(500px at 50% 0%, #1c1c08 0%, #070707 70%)}
-.avatar{width:170px;height:170px;border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 60px rgba(255,215,0,0.5);object-fit:cover;margin-bottom:24px}
-h1{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;letter-spacing:-2px}
-.tag{margin-top:10px;color:#777;font-size:14px;letter-spacing:5px}
-.desc{margin-top:16px;color:#888;font-size:15px;max-width:340px;line-height:1.6}
-.btns{width:100%;max-width:360px;display:flex;flex-direction:column;gap:12px;margin-top:32px}
-.btn{width:100%;padding:16px;border-radius:100px;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:1px;text-align:center;transition:0.3s;display:block}
-.btn-gold{background:#FFD700;color:#000;box-shadow:0 0 30px rgba(255,215,0,0.3)}
-.btn-gold:active{transform:scale(0.98)}
-.btn-dark{background:#151515;color:#fff;border:1px solid #222}
-.btn-dark:hover{border-color:#FFD700;color:#FFD700}
-.skills{width:100%;padding:50px 20px;background:#0a0a0a;border-top:1px solid #111;display:flex;flex-direction:column;align-items:center}
-.skills h2{font-family:'Syne';font-size:20px;margin-bottom:20px;letter-spacing:-0.5px}
-.card{width:100%;max-width:360px;background:#141414;border:1px solid #222;border-radius:20px;padding:22px;text-align:left}
-.card b{color:#FFD700;font-size:11px;letter-spacing:3px}
-.card p{margin-top:8px;font-size:19px;font-weight:700;line-height:1.3}
-.card span{color:#666;font-size:13px;display:block;margin-top:8px}
+body{background:#080808;color:#fff;font-family:system-ui,sans-serif}
+.wrap{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:radial-gradient(600px at 50% 0%,#1c1c0a 0%,#080808 70%)}
+.avatar{width:150px;height:150px;border-radius:50%;border:3px solid #FFD700;object-fit:cover;box-shadow:0 0 40px rgba(255,215,0,.5);margin-bottom:22px}
+h1{font-family:'Syne';font-size:42px;font-weight:800;line-height:1}
+.sub{margin-top:8px;color:#666;font-size:11px;letter-spacing:4px}
+.desc{margin-top:14px;color:#888;font-size:14px;max-width:300px;line-height:1.5}
+.btns{width:100%;max-width:320px;margin-top:28px;display:flex;flex-direction:column;gap:10px}
+.btn{width:100%;display:block;text-align:center;padding:15px 0;border-radius:100px;text-decoration:none;font-weight:800;font-size:13px}
+.btn-gold{background:#FFD700;color:#000}
+.btn-dark{background:#141414;color:#fff;border:1px solid #222}
+.skills{width:100%;padding:40px 20px;background:#0a0a0a;display:flex;flex-direction:column;align-items:center}
+.card{width:100%;max-width:320px;background:#151515;border:1px solid #222;border-radius:20px;padding:20px;text-align:left}
+.card b{color:#FFD700;font-size:10px;letter-spacing:2px}
+.card p{margin-top:6px;font-size:18px;font-weight:700}
+.card span{color:#666;font-size:12px;display:block;margin-top:6px}
 </style>
 </head>
 <body>
-<div class="hero">
-<img src="avatar.jpg" class="avatar" onerror="this.src='https://github.com/aldinoxyy.png'">
+<div class="wrap">
+<img src="https://aldinoxyy.github.io/avatar.jpg" class="avatar" id="ava">
 <h1>ALDINO AKBAR</h1>
-<div class="tag">STARBOY • MONEY</div>
+<div class="sub">STARBOY • MONEY</div>
 <p class="desc">Building bots while they sleep. Night worker, money chaser.</p>
 <div class="btns">
-<a class="btn btn-gold" href="https://instagram.com/alaaxaa_" target="_blank">INSTAGRAM — alaaxaa_</a>
-<a class="btn btn-dark" href="https://www.tiktok.com/@alaaxaa_" target="_blank">TIKTOK — alaaxaa_</a>
+<a class="btn btn-gold" href="https://instagram.com/alaaxaa_" target="_blank">INSTAGRAM</a>
+<a class="btn btn-dark" href="https://www.tiktok.com/@alaaxaa_" target="_blank">TIKTOK</a>
 </div>
 </div>
 <div class="skills">
-<h2>MY SKILL</h2>
 <div class="card">
 <b>MAIN SKILL</b>
 <p>Membuat Bot WhatsApp</p>
-<span>Baileys • Node.js • Auto System 24/7 • Full Script</span>
+<span>Baileys • Node.js • Auto System 24/7</span>
 </div>
 </div>
+<script>
+// fallback kalo avatar.jpg belum ada, pake foto lu yang asli dari HP
+document.getElementById('ava').onerror = function(){this.src='https://i.pravatar.cc/400?u=aldino';}
+</script>
 </body>
 </html>
