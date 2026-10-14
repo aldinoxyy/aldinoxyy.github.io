@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html>
-<head><title>Web Gw di Termux</title>
-<style>body{font-family:sans-serif;text-align:center;padding:50px;background:#111;color:#fff}h1{color:#0ff}</style>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALDINO AKBAR - STARBOY</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+.gold{color:#FFD700}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;position:relative;background:radial-gradient(circle at 50% 0%, #1a1a0a 0%, #080808 70%);}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:repeating-linear-gradient(0deg, rgba(255,215,0,0.03) 0px, transparent 1px, transparent 2px);pointer-events:none}
+.badge{border:1px solid #FFD700;color:#FFD700;padding:6px 16px;border-radius:100px;font-size:12px;letter-spacing:3px;margin-bottom:20px}
+.avatar{width:140px;height:140px;border-radius:50%;border:3px solid #FFD700;box-shadow:0 0 40px rgba(255,215,0,0.4);object-fit:cover;margin-bottom:24px;background:#111}
+h1{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;letter-spacing:-2px;line-height:0.9}
+h1 span{display:block;font-size:18px;letter-spacing:8px;color:#666;margin-top:10px;font-weight:400}
+.tagline{margin-top:16px;color:#888;font-size:16px;max-width:400px}
+.btns{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;justify-content:center}
+.btn{padding:14px 28px;border-radius:100px;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:1px;transition:0.3s;display:flex;align-items:center;gap:8px}
+.btn-gold{background:#FFD700;color:#000;box-shadow:0 0 20px rgba(255,215,0,0.3)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(255,215,0,0.6)}
+.btn-outline{border:1px solid #333;color:#fff;background:rgba(255,255,255,0.05)}
+.btn-outline:hover{border-color:#FFD700;color:#FFD700}
+.skills{padding:60px 20px;background:#0c0c0c;border-top:1px solid #1a1a1a}
+.section-title{text-align:center;font-family:'Syne';font-size:28px;margin-bottom:30px;letter-spacing:-1px}
+.card{max-width:500px;margin:0 auto;background:linear-gradient(180deg,#141414,#0a0a0a);border:1px solid #222;border-radius:24px;padding:28px;position:relative;overflow:hidden}
+.card::after{content:'$';position:absolute;right:-20px;bottom:-30px;font-size:140px;font-family:'Syne';color:rgba(255,215,0,0.05);font-weight:800}
+.card h3{color:#FFD700;font-size:14px;letter-spacing:3px;margin-bottom:8px}
+.card p{font-size:22px;font-weight:700;line-height:1.2}
+.card span{display:block;margin-top:12px;color:#666;font-size:14px}
+.footer{text-align:center;padding:30px;color:#333;font-size:12px;letter-spacing:2px}
+</style>
 </head>
 <body>
-<h1>🚀 WEB GW ONLINE DARI TERMUX!</h1>
-<p>Ini 100% gratis tanpa hosting</p>
-<p id="jam"></p>
-<script>setInterval(()=>document.getElementById('jam').innerHTML=new Date().toLocaleString(),1000)</script>
+<div class="hero">
+<div class="badge">STARBOY EDITION</div>
+<img src="https://github.com/aldinoxyy.png" class="avatar" onerror="this.src='https://i.pravatar.cc/300?u=aldino'">
+<h1>ALDINO AKBAR <span>ALA AXAA_</span></h1>
+<p class="tagline">Building digital money. Bot architect & night thinker. Not rich yet, but the vibe is $$$.</p>
+<div class="btns">
+<a class="btn btn-gold" href="https://instagram.com/alaaxaa_" target="_blank">INSTAGRAM ↗</a>
+<a class="btn btn-outline" href="https://tiktok.com/@alaaxaa_" target="_blank">TIKTOK ↗</a>
+</div>
+</div>
+<div class="skills">
+<div class="section-title">SKILLS // MONEY MAKER</div>
+<div class="card">
+<h3>MAIN SKILL</h3>
+<p>Membuat Bot WhatsApp<br>Auto Reply, Auto System, Full Javascript</p>
+<span>• Baileys • Node.js • Hosting 24/7 • Anti-Delay</span>
+</div>
+</div>
+<div class="footer">© 2026 ALDINO AKBAR — STARBOY MONEY</div>
 </body>
 </html>
