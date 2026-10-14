@@ -1,47 +1,117 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ALDINO AKBAR</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Secret Code</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#070707;color:#fff;font-family:system-ui,sans-serif;overflow-x:hidden}
-.hero{min-height:100vh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px;position:relative}
-.bg{position:absolute;inset:0;background:linear-gradient(180deg,#111,#070707);z-index:0}
-.content{position:relative;z-index:1;width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.photo{width:100%;border-radius:32px;overflow:hidden;border:2px solid #FFD700;box-shadow:0 0 50px rgba(0,0,0,.8),0 0 20px rgba(255,215,0,.2);line-height:0}
-.photo img{width:100%;display:block}
-.name{margin-top:22px;font-family:'Syne';font-size:38px;font-weight:800;letter-spacing:-1px}
-.badge{margin-top:8px;color:#FFD700;font-size:10px;letter-spacing:4px;border:1px solid rgba(255,215,0,.3);padding:6px 14px;border-radius:100px}
-.btns{width:100%;margin-top:22px;display:flex;flex-direction:column;gap:10px}
-.btn{width:100%;padding:15px;border-radius:100px;text-align:center;text-decoration:none;font-weight:800;font-size:13px;letter-spacing:1px}
-.gold{background:#FFD700;color:#000}
-.dark{background:#141414;color:#fff;border:1px solid #222}
-.card{width:100%;margin-top:20px;background:#141414;border:1px solid #222;border-radius:20px;padding:18px;text-align:left}
-.card b{color:#FFD700;font-size:10px;letter-spacing:2px}
-.card p{font-size:18px;font-weight:700;margin-top:6px}
-.card span{color:#666;font-size:12px;margin-top:6px;display:block}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#ffeef2;font-family:Poppins,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.page{display:none;width:100%;max-width:420px;min-height:100vh;padding:20px;position:relative}
+.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pink-bg{background:radial-gradient(#ffe3eb,#ffd4de);position:fixed;inset:0;z-index:-1}
+.card{background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border-radius:24px;padding:22px;width:100%;box-shadow:0 10px 30px rgba(255,120,150,.15);border:1px solid #fff}
+.title{font-family:Pacifico;color:#ff5a8a;font-size:22px;text-align:center}
+.heart-photo{display:flex;gap:6px;justify-content:center;margin:12px 0}
+.heart{width:90px;height:90px;clip-path:path("M45 80 C 15 55, 0 35, 20 15 C 35 0, 55 5, 45 25 C 35 5, 55 0, 70 15 C 90 35, 75 55, 45 80 Z");background:#ddd;overflow:hidden;border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.1);transform:rotate(-5deg)}
+.heart:nth-child(2){transform:rotate(5deg)}
+.heart img{width:100%;height:100%;object-fit:cover}
+.code-boxes{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.code-box{width:38px;height:38px;background:#fff;border-radius:10px;border:1.5px solid #ffc2d1;display:flex;align-items:center;justify-content:center;font-size:14px;color:#ff5a8a}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:240px;margin:0 auto}
+.keypad button{height:48px;border-radius:14px;border:none;background:#fff;color:#ff6b8a;font-weight:600;font-size:18px;box-shadow:0 2px 8px rgba(255,100,130,.12)}
+.keypad button:active{background:#ff5a8a;color:#fff}
+.keypad .ok{background:#ff3b6a;color:#fff}
+.gifts{display:flex;gap:12px;justify-content:center;margin-top:20px}
+.gift{width:90px;cursor:pointer;transition:.2s;text-align:center}
+.gift:active{transform:scale(0.92)}
+.gift img{width:100%}
+.surprise-card{background:#fffef7;border:2px dashed #ff9ab5;border-radius:20px;padding:18px;width:100%;margin-top:10px}
+.btn-next{background:#ff5a8a;color:#fff;border:none;padding:8px 18px;border-radius:20px;position:absolute;top:18px;right:18px;font-size:12px}
 </style>
 </head>
 <body>
-<div class="hero">
-<div class="bg"></div>
-<div class="content">
-<div class="photo"><img src="avatar.jpg" alt="Aldino"></div>
-<div class="badge">PORTFOLIO • STARBOY • 2024</div>
-<div class="name">ALDINO AKBAR</div>
-<div class="btns">
-<a class="btn gold" href="https://instagram.com/alaaxaa_" target="_blank">INSTAGRAM</a>
-<a class="btn dark" href="https://tiktok.com/@alaaxaa_" target="_blank">TIKTOK</a>
+<div class="pink-bg"></div>
+
+<!-- PAGE 1: ENTER CODE -->
+<div class="page active" id="p1">
+<p class="title">Enter our secret code 💖</p>
+<div class="heart-photo">
+<div class="heart"><img src="https://i.imgur.com/8Km9tLL.jpg"></div>
+<div class="heart"><img src="https://i.imgur.com/8Km9tLL.jpg"></div>
 </div>
-<div class="card">
-<b>SKILL</b>
-<p>Membuat Bot WhatsApp</p>
-<span>Baileys • Node.js • Auto System 24/7 • Full Script Pro</span>
+<p style="font-size:11px;color:#ff8aa8;margin-top:6px">hint: 122011</p>
+<div class="code-boxes" id="boxes"></div>
+<div class="keypad">
+<button onclick="press(1)">1</button><button onclick="press(2)">2</button><button onclick="press(3)">3</button>
+<button onclick="press(4)">4</button><button onclick="press(5)">5</button><button onclick="press(6)">6</button>
+<button onclick="press(7)">7</button><button onclick="press(8)">8</button><button onclick="press(9)">9</button>
+<button onclick="del()">⌫</button><button onclick="press(0)">0</button><button class="ok" onclick="check()">♥</button>
+</div>
+<p id="msg" style="height:14px;font-size:11px;color:#ff3b6a;margin-top:10px"></p>
+</div>
+
+<!-- PAGE 2: UNLOCKED -->
+<div class="page" id="p2">
+<p class="title">You unlocked it</p><p style="font-size:13px;color:#a05a6a">Your surprises are waiting for you</p>
+<div class="gifts">
+<div class="gift" onclick="openGift(1)"><div style="font-size:60px">🎁</div><p style="font-size:10px">Tulips</p></div>
+<div class="gift" onclick="openGift(2)"><div style="font-size:60px">🎁</div><p style="font-size:10px">Playlist</p></div>
+<div class="gift" onclick="openGift(3)"><div style="font-size:60px">🎁</div><p style="font-size:10px">Letter</p></div>
 </div>
 </div>
+
+<!-- PAGE 3: TULIPS -->
+<div class="page" id="p3">
+<button class="btn-next" onclick="showPage('p2')">← Back</button>
+<p class="title" style="font-size:18px">Your Favorite Tulips</p>
+<div class="surprise-card" style="text-align:center">
+<div style="font-size:80px">💐</div>
+<p style="font-size:12px;color:#ff5a8a;margin-top:8px">You make my heart bloom.<br>Life feels sweeter with you<br>You make every moment sweeter.</p>
+<p style="font-size:12px;color:#ff5a8a;margin-top:8px">I choose you every day<br>My love for you keeps growing<br>My heart will always choose you</p>
 </div>
+<button class="btn-next" style="position:relative;top:0;right:0;margin-top:12px" onclick="showPage('p4')">Next →</button>
+</div>
+
+<!-- PAGE 4: PLAYLIST -->
+<div class="page" id="p4">
+<button class="btn-next" onclick="showPage('p2')">← Back</button>
+<p class="title" style="font-size:18px">A Playlist Made For You</p><p style="font-size:11px">Songs that somehow sound like us</p>
+<div class="surprise-card" style="display:flex;gap:14px;align-items:center">
+<div style="width:80px;height:80px;background:#ff5a8a;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">LOVER</div>
+<div style="width:120px;height:120px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff">♫</div>
+</div>
+<button class="btn-next" style="position:relative;top:0;right:0;margin-top:12px" onclick="showPage('p5')">Next →</button>
+</div>
+
+<!-- PAGE 5: LETTER -->
+<div class="page" id="p5">
+<button class="btn-next" onclick="showPage('p2')">← Back</button>
+<p class="title" style="font-size:18px">A Letter From My Heart</p>
+<div class="surprise-card" style="background:#fff7d6">
+<p style="font-size:12px;line-height:1.6;color:#5a3a3a">
+You make my life feel more beautiful and meaningful, and I feel so lucky to have you. I love you wholeheartedly, and I can't wait to continue loving you for the rest of my life.<br><br>
+You make me smile, you make me feel safe, and you bring so much happiness into my world. I know I tell you this every day, but you truly are the most beautiful person in my eyes.<br><br>
+Thank you for being you and for filling my heart with so much love. No matter what happens, I will always choose you.<br><br>
+<b style="color:#ff5a8a">Always, forever. 💖</b>
+</p>
+</div>
+</div>
+
+<script>
+const PIN="122011";
+let cur="";
+const boxesDiv=document.getElementById('boxes');
+for(let i=0;i<6;i++){let d=document.createElement('div');d.className='code-box';boxesDiv.appendChild(d)}
+function upd(){document.querySelectorAll('.code-box').forEach((b,i)=>b.textContent=i<cur.length?"♥":"")}
+function press(n){if(cur.length<6){cur+=n;upd();if(cur.length===6)check()}}
+function del(){cur=cur.slice(0,-1);upd()}
+function check(){
+ if(cur===PIN){showPage('p2');cur="";upd()}
+ else{msg.textContent="Wrong code, try 122011";cur="";upd();setTimeout(()=>msg.textContent="",2000)}
+}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function openGift(n){if(n===1)showPage('p3');if(n===2)showPage('p4');if(n===3)showPage('p5')}
+upd();
+</script>
 </body>
 </html>
