@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<style>body{background:#05070d;color:#fff;font-family:'Inter';min-height:100vh;background-image:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.9)),url('../spotify/bg.jpg');background-size:cover}.card{max-width:500px;margin:20px auto;background:rgba(18,22,36,.85);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,.08)} input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;margin:8px 0}.btn{width:100%;padding:14px;border-radius:12px;border:none;background:#8ecfff;color:#000;font-weight:700;cursor:pointer;margin-top:8px}.code{font-size:32px;letter-spacing:6px;text-align:center;margin:16px 0;color:#8ecfff;font-family:'Cormorant Garamond'}.menu{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}.menu-btn{width:100%;padding:12px;margin:6px 0;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;text-align:left}</style>
+</head><body>
+<div style="text-align:center;padding:20px;font-family:'Cormorant Garamond';font-size:28px">Panel <span style="color:#8ecfff">LèxaaMj</span></div>
+<div class="card">
+<h3 style="font-weight:300;letter-spacing:3px;font-size:11px;opacity:.5">LOGIN BUYER</h3>
+<input id="user" placeholder="username">
+<input id="pass" type="password" placeholder="password">
+<input id="nomor" placeholder="nomor WA 62xxxx">
+<button class="btn" onclick="mintaKode()">MINTA KODE 8 DIGIT</button>
+<div class="code" id="kode">-</div>
+<div id="status" style="text-align:center;font-size:11px;letter-spacing:2px;opacity:.6">belum connect</div>
+
+<div class="menu">
+<h3 style="font-weight:300;letter-spacing:3px;font-size:11px;opacity:.5">MENU BOT</h3>
+<button class="menu-btn" onclick="openSpotify()">🎵 Spotify - SEARCH & FULL DOWNLOAD [AKTIF]</button>
+<button class="menu-btn" style="opacity:.3">📤 Bot Pushkontak [COMING SOON]</button>
+<button class="menu-btn" style="opacity:.3">📥 Bot Download [COMING SOON]</button>
+<button class="menu-btn" style="opacity:.3">🐛 Bot Bug [COMING SOON]</button>
+<div id="spotifyBox" style="display:none;margin-top:12px">
+<input id="q" placeholder="cari lagu - gata only...">
+<button class="btn" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff" onclick="searchSpotify()">SEARCH</button>
+<div id="results"></div>
+</div>
+</div>
+</div>
+<script>
+const API_URL = 'https://GANTI_LINK_CLOUDFLARE_LU_DISINI'; // GANTI NANTI BOS
+async function mintaKode(){
+  let u=document.getElementById('user').value, p=document.getElementById('pass').value, n=document.getElementById('nomor').value;
+  document.getElementById('status').innerText='connecting...'; document.getElementById('kode').innerText='...';
+  try{
+    let r=await fetch(API_URL+'/api/spotify/pairing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p,targetNumber:n})});
+    let j=await r.json();
+    if(j.success){ document.getElementById('kode').innerText=j.pairingCode; document.getElementById('status').innerText=j.pairingCode=='ALREADY_CONNECTED'?'CONNECTED ✅':'Masukin kode di WA > Perangkat Tertaut'; }
+    else document.getElementById('status').innerText=j.msg;
+  }catch(e){ document.getElementById('status').innerText='Server Termux belum jalan / tunnel mati'; }
+}
+function openSpotify(){ document.getElementById('spotifyBox').style.display='block'; }
+async function searchSpotify(){ let q=document.getElementById('q').value; document.getElementById('results').innerHTML='searching...'; let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q)); let j=await r.json(); if(j.success){ document.getElementById('results').innerHTML=j.trackList.slice(0,5).map(t=>`<div style="display:flex;gap:10px;margin:10px 0;background:rgba(255,255,255,.05);padding:10px;border-radius:12px"><img src="${t.cover}" style="width:50px;height:50px;border-radius:8px"><div><b style="font-size:12px">${t.title}</b><br><small style="opacity:.5">${t.artists}</small><br><a href="https://api.spotifydown.com/download/${t.id}" target="_blank" style="color:#8ecfff;font-size:11px">download full</a></div></div>`).join(''); } }
+</script></body></html>

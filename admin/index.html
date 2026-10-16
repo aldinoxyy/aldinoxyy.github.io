@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>body{background:#05070d;color:#fff;font-family:'Inter';padding:20px;background-image:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),url('../spotify/bg.jpg');background-size:cover;min-height:100vh}.card{max-width:600px;margin:auto;background:rgba(18,22,36,.85);padding:20px;border-radius:20px;border:1px solid rgba(255,255,255,.08)} input{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff}.btn{padding:10px 16px;border-radius:10px;border:none;background:#8ecfff;font-weight:700;cursor:pointer;margin:4px} table{width:100%;margin-top:16px;font-size:13px} td{padding:8px;border-bottom:1px solid rgba(255,255,255,.08)}</style>
+</head><body>
+<div class="card">
+<h2 style="font-weight:300;letter-spacing:2px">ADMIN LEXAA - ATUR LISENSI</h2>
+<input id="user" placeholder="username buyer baru">
+<input id="pass" placeholder="password buyer">
+<input id="exp" type="date">
+<button class="btn" onclick="addUser()">+ TAMBAH BUYER</button>
+<button class="btn" style="background:#ffffff22;color:#fff" onclick="exportJson()">EXPORT users.json</button>
+<table id="table"></table>
+<p style="opacity:.4;font-size:11px;margin-top:16px">1. Tambah buyer disini<br>2. Klik EXPORT -> copy text -> paste ke ~/lexaa-backend/users.json<br>3. Restart node server.js</p>
+</div>
+<script>
+let users=JSON.parse(localStorage.getItem('lexaa_users')||'[{"username":"buyer1","password":"lexa123","active":true,"expired":"2026-12-31"}]');
+function render(){ document.getElementById('table').innerHTML='<tr><td>USER</td><td>PASS</td><td>EXP</td><td>AKSI</td></tr>'+users.map((u,i)=>`<tr><td>${u.username}</td><td>${u.password}</td><td>${u.expired}</td><td><button onclick="del(${i})">hapus</button></td></tr>`).join(''); }
+function addUser(){ let u=document.getElementById('user').value, p=document.getElementById('pass').value, e=document.getElementById('exp').value; if(!u||!p) return alert('isi dulu'); users.push({username:u,password:p,active:true,expired:e||'2026-12-31'}); localStorage.setItem('lexaa_users',JSON.stringify(users)); render(); }
+function del(i){ users.splice(i,1); localStorage.setItem('lexaa_users',JSON.stringify(users)); render(); }
+function exportJson(){ prompt('Copy ini ke ~/lexaa-backend/users.json', JSON.stringify(users,null,2)); }
+render();
+</script></body></html>
