@@ -33,34 +33,109 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 </style>
 </head>
 <body>
-<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">IG SIMPLE + TT LAMA</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
+<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">IG SIMPLE TT LAMA SPOTIFY FIX</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
 <div class="t">Lèxaa <span>Download</span></div>
 <div class="sub">SPOTIFY • TIKTOK • IG • YT • HD NO WM</div>
-<div class="box"><input id="q" placeholder="paste link ig / tiktok / yt / spotify..."><button onclick="handle()">DOWNLOAD</button></div>
-<div id="status">ig = simple • tiktok = foto 1 jpg hd (lama)</div>
+<div class="box"><input id="q" placeholder="paste link ig / tiktok / yt / spotify atau judul lagu..."><button onclick="handle()">DOWNLOAD</button></div>
+<div id="status">ig = simple download by LèxaaMj • tiktok = foto 1 jpg hd • spotify fix</div>
 <div class="results" id="results"></div>
 <div class="footer">© 2026 download by LèxaaMj</div>
 <script>
 const statusEl=document.getElementById('status'),resultsEl=document.getElementById('results');
 function detect(u){u=u.toLowerCase();if(u.includes('tiktok'))return 'tiktok';if(u.includes('instagram'))return 'ig';if(u.includes('youtube')||u.includes('youtu.be'))return 'yt';if(u.includes('spotify'))return 'spotify';return 'search';}
 function extractUrl(t){const m=t.match(/https?:\/\/[^\s]+/i);return m?m[0].replace(/[.,;!\)]+$/,'').trim():t.trim();}
+function getSpotifyId(url){let m=url.match(/track\/([a-zA-Z0-9]+)/);return m?m[1]:null;}
 async function handle(){
  const raw=document.getElementById('q').value.trim();if(!raw)return;
- const url=extractUrl(raw);document.getElementById('q').value=url;
+ const url=extractUrl(raw);
  const t=detect(url);
- if(t==='search')searchSpotify(url);
+ if(t==='search'){searchSpotify(raw);}
  else if(t==='tiktok')dlTikTok(url);
  else if(t==='ig')dlIG(url);
  else if(t==='yt')dlYT(url);
- else if(t==='spotify')searchSpotify(url);
+ else if(t==='spotify')searchSpotify(raw);
 }
 async function searchSpotify(q){
- statusEl.innerText='searching...';resultsEl.innerHTML='';
- try{let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));let j=await r.json();if(j.success&&j.trackList.length){resultsEl.innerHTML=j.trackList.map(t=>`<div class="card"><img src="${t.cover}"><div style="flex:1"><b>${t.title}</b><small>${t.artists}</small><div class="btns"><button class="btn btn2" onclick="dlSpotify('${t.id}','${t.title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div></div></div>`).join('');return;}}catch(e){}
-}
-async function dlSpotify(id,title){try{let r=await fetch('https://api.spotifydown.com/download/'+id);let j=await r.json();if(j.success&&j.link){downloadFile(j.link,title+'.mp3');return;}}catch(e){}}
+ resultsEl.innerHTML='';
+ // KALO LINK SPOTIFY LANGSUNG - EXTRACT ID
+ let spotifyId=getSpotifyId(q);
+ if(spotifyId){
+  statusEl.innerText='spotify • fetching track id '+spotifyId+'...';
+  resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Spotify • Fetching...</b><small>${spotifyId} • hd mp3 original</small></div></div>`;
+  try{
+   // coba download langsung
+   let r=await fetch('https://api.spotifydown.com/download/'+spotifyId);
+   let j=await r.json();
+   if(j.success){
+    statusEl.innerText='spotify • mp3 original ready • hd audio';
+    resultsEl.innerHTML=`
+    <div class="card">
+      <img src="${j.metadata?.cover||'https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png'}">
+      <div style="flex:1">
+        <b>${j.metadata?.title||'Spotify Track'} • MP3 Original</b>
+        <small>${j.metadata?.artists||'Spotify'} • mp3 = mp3 • hd audio • ${j.metadata?.album||''}</small>
+        <div class="btns"><button class="btn btn2" onclick="downloadFile('${j.link}','${(j.metadata?.title||'spotify').replace(/'/g,'')}.mp3')">DOWNLOAD MP3</button></div>
+      </div>
+    </div>`;
+    return;
+   }
+  }catch(e){ console.log('spotify direct fail',e); }
+  // fallback kalau download API gagal, coba metadata dulu
+  try{
+   let r2=await fetch('https://api.spotifydown.com/metadata/track/'+spotifyId);
+   let j2=await r2.json();
+   if(j2.success){
+    resultsEl.innerHTML=`
+    <div class="card">
+      <img src="${j2.cover}">
+      <div style="flex:1">
+        <b>${j2.title} • MP3 Original</b>
+        <small>${j2.artists} • mp3 = mp3 • hd audio</small>
+        <div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${spotifyId}','${j2.title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div>
+      </div>
+    </div>`;
+    statusEl.innerText='spotify • ready';
+    return;
+   }
+  }catch(e){}
+ }
 
-// TIKTOK = KODE LAMA KAYA DI SCREENSHOT LU - FOTO 1 JPG HD NO WM
+ // KALO BUKAN LINK, TAPI JUDUL LAGU - SEARCH
+ statusEl.innerText='spotify • searching '+q+'...';
+ try{
+  let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));
+  let j=await r.json();
+  if(j.success&&j.trackList&&j.trackList.length){
+   statusEl.innerText=`spotify • ${j.trackList.length} results • hd audio`;
+   resultsEl.innerHTML=j.trackList.map(t=>`
+    <div class="card">
+      <img src="${t.cover}">
+      <div style="flex:1">
+        <b>${t.title} • MP3 Original</b>
+        <small>${t.artists} • mp3 = mp3 • hd audio</small>
+        <div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${t.id}','${t.title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div>
+      </div>
+    </div>`).join('');
+   return;
+  }
+ }catch(e){ console.log('search fail',e); }
+ statusEl.innerText='spotify • gak ketemu, coba judul lain atau link track';
+ resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Spotify gak ketemu</b><small>coba paste link track spotify langsung contoh https://open.spotify.com/track/.... atau ketik judul lain</small></div></div>`;
+}
+async function dlSpotifyId(id,title){
+ statusEl.innerText='spotify • downloading '+title+'...';
+ try{
+  let r=await fetch('https://api.spotifydown.com/download/'+id);
+  let j=await r.json();
+  if(j.success&&j.link){
+   downloadFile(j.link,title+'.mp3');
+   statusEl.innerText='spotify • downloaded • hd audio';
+   return;
+  }
+ }catch(e){}
+ statusEl.innerText='spotify • gagal download, coba lagi';
+}
+async function dlSpotify(id,title){ dlSpotifyId(id,title); }
 async function dlTikTok(url){
  statusEl.innerText='tiktok • hd...';
  resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Fetching TikTok HD...</b><small>@ofcsilent • foto = foto hd</small></div></div>`;
@@ -71,7 +146,6 @@ async function dlTikTok(url){
    let d=j.data;
    let author=d.author?.unique_id?`@${d.author.unique_id}`:'@ofcsilent';
    if(d.images&&d.images.length){
-    // FOTO SLIDE - KAYA SCREENSHOT LU
     statusEl.innerText=`tiktok • ${d.images.length} foto • hd no wm`;
     let musicBtn=d.music?`<div class="card"><div style="flex:1"><b>Music • MP3 Original</b><small>mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.music}','tiktok_music.mp3')">DOWNLOAD MP3</button></div></div></div>`:'';
     resultsEl.innerHTML=d.images.map((img,i)=>`
@@ -84,7 +158,6 @@ async function dlTikTok(url){
         </div>
       </div>`).join('')+musicBtn;
    }else{
-    // VIDEO
     statusEl.innerText='tiktok • video hd • no wm';
     resultsEl.innerHTML=`
       <div class="card">
@@ -92,27 +165,22 @@ async function dlTikTok(url){
         <div style="flex:1">
           <b>Video • MP4 HD No WM</b>
           <small>${author} • mp4 = mp4 hd • no wm</small>
-          <div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd_no_wm.mp4')">DOWNLOAD MP4 HD</button><button class="btn btn2" onclick="downloadFile('${d.hdplay||d.play}','tiktok_hd.mp4')">DOWNLOAD HD</button></div>
+          <div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd_no_wm.mp4')">DOWNLOAD MP4 HD</button></div>
         </div>
-      </div>
-      ${d.music?`<div class="card"><div style="flex:1"><b>Music • MP3 Original</b><small>mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.music}','tiktok_music.mp3')">DOWNLOAD MP3</button></div></div></div>`:''}
-    `;
+      </div>`;
    }
    return;
   }
- }catch(e){ console.log(e); }
- statusEl.innerText='tiktok • gagal, coba lagi';
+ }catch(e){}
 }
 async function dlYT(url){
  statusEl.innerText='yt • hd...';
  try{let res=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});let data=await res.json();if(data.url){resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Video • MP4 HD</b><small>yt • mp4 = mp4 hd</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${data.url}','yt_hd.mp4')">DOWNLOAD MP4 HD</button></div></div></div>`;statusEl.innerText='yt • ready';return;}}catch(e){}
 }
-
-// IG = KHUSUS SIMPLE 1 TOMBOL DOWNLOAD + download by LèxaaMj
 async function dlIG(url){
  const igId=url.split('/p/')[1]?.split('/')[0]||url.split('/reel/')[1]?.split('/')[0]||url.split('/reels/')[1]?.split('/')[0]||url.split('/')[4]||'';
  statusEl.innerText='ig • fetching hd...';
- resultsEl.innerHTML=`<div class="preview"><div class="info"><b class="by">download by LèxaaMj</b><small>fetching ig hd...</small></div></div>`;
+ resultsEl.innerHTML=`<div class="preview"><div class="info"><b class="by">download by LèxaaMj</b><small>fetching...</small></div></div>`;
  try{
   let r=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});
   let j=await r.json();
@@ -128,7 +196,6 @@ async function dlIG(url){
    return;
   }
  }catch(e){}
- // fallback direct cdn
  resultsEl.innerHTML=`
  <div class="preview">
   <img class="p" src="https://instagram.com/p/${igId}/media/?size=l" onerror="this.src='bg.jpg'">
@@ -137,10 +204,9 @@ async function dlIG(url){
    <button class="btn-download" onclick="downloadFile('https://instagram.com/p/${igId}/media/?size=l','ig_${igId}_hd.jpg')">Download</button>
   </div>
  </div>`;
- statusEl.innerText='ig • hd ready • download by LèxaaMj';
 }
 function downloadFile(url,name){
- const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • download by LèxaaMj';
+ const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • '+name;
 }
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')handle();});
 </script>
