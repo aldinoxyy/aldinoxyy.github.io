@@ -17,27 +17,24 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 .box button{background:#8ecfff;color:#000;border:none;padding:12px 22px;border-radius:22px;font-size:10px;font-weight:700;letter-spacing:1.5px;cursor:pointer}
 #status{text-align:center;margin-top:18px;font-size:11px;letter-spacing:2px;opacity:.6;text-transform:uppercase;min-height:16px}
 .results{max-width:580px;margin:16px auto;padding:0 14px;flex:1;width:100%}
-.card{background:rgba(18,22,36,.8);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;display:flex;gap:14px;margin-bottom:10px;backdrop-filter:blur(10px)}
-.card img{width:62px;height:62px;border-radius:10px;object-fit:cover}
-.card b{font-size:13.5px;font-weight:500;display:block}
-.card small{opacity:.45;font-size:11px;display:block;margin-top:2px}
-.btns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
-.btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18);padding:7px 16px;border-radius:20px;font-size:10px;letter-spacing:1px;cursor:pointer}
-.btn2{border-color:#8ecfff;color:#8ecfff;background:rgba(142,207,255,.12)}
-.preview{background:rgba(18,22,36,.95);border:1px solid rgba(142,207,255,.25);border-radius:18px;overflow:hidden;margin-bottom:12px}
-.preview video,.preview img.p,.preview iframe{width:100%;height:480px;object-fit:contain;display:block;background:#000;border:none}
+.card{background:rgba(18,22,36,.85);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px;display:flex;gap:14px;margin-bottom:10px;backdrop-filter:blur(10px)}
+.preview{background:rgba(18,22,36,.96);border:1px solid rgba(142,207,255,.25);border-radius:18px;overflow:hidden;margin-bottom:12px}
+.preview video,.preview img.p{width:100%;max-height:540px;object-fit:contain;display:block;background:#000}
 .info{padding:14px}
+.btns{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18);padding:7px 16px;border-radius:20px;font-size:10px;cursor:pointer}
+.btn2{border-color:#8ecfff;color:#8ecfff;background:rgba(142,207,255,.12)}
 .footer{margin-top:auto;text-align:center;padding:30px 0 20px;opacity:.35;font-size:10px}
 </style>
 </head>
 <body>
-<div class="h"><div><div class="logo"><span>Spotify</span> LèxaaMj</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">IG NO ABOUT BLANK V3</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
+<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">WEB FIX V5 NO ABOUT BLANK</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
 <div class="t">Lèxaa <span>Download</span></div>
 <div class="sub">SPOTIFY • TIKTOK FOTO VIDEO • IG REELS POST • YT • HD NO WM</div>
 <div class="box"><input id="q" placeholder="paste link ig / tiktok / yt / spotify..."><button onclick="handle()">DOWNLOAD</button></div>
-<div id="status">fix about:blank • ig direct hd embed</div>
+<div id="status">web fix v5 • tanpa ddinsta • anti about:blank • anti blokir indo</div>
 <div class="results" id="results"></div>
-<div class="footer">© 2026 Lèxaa Download • Fix About Blank<br>mp4=mp4 foto=foto hd</div>
+<div class="footer">© 2026 Lèxaa Download • Fix Web V5 - Tanpa DDInstagram</div>
 <script>
 const statusEl=document.getElementById('status'),resultsEl=document.getElementById('results');
 function detect(u){u=u.toLowerCase();if(u.includes('tiktok'))return 'tiktok';if(u.includes('instagram'))return 'ig';if(u.includes('youtube')||u.includes('youtu.be'))return 'yt';if(u.includes('spotify'))return 'spotify';return 'search';}
@@ -48,91 +45,65 @@ async function handle(){
  const t=detect(url);
  if(t==='search')searchSpotify(url);
  else if(t==='tiktok')dlTikTok(url);
- else if(t==='ig')dlIG_NO_BLANK(url);
+ else if(t==='ig')dlIG_V5(url);
  else if(t==='yt')dlYT(url);
  else if(t==='spotify')searchSpotify(url);
 }
 async function searchSpotify(q){
  statusEl.innerText='searching...';resultsEl.innerHTML='';
- try{let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));let j=await r.json();if(j.success&&j.trackList.length){statusEl.innerText=j.trackList.length+' results';resultsEl.innerHTML=j.trackList.map(t=>`<div class="card"><img src="${t.cover}"><div style="flex:1"><b>${t.title}</b><small>${t.artists}</small><div class="btns"><button class="btn btn2" onclick="dlSpotify('${t.id}','${t.title.replace(/'/g,'')}')">download mp3 hd</button></div></div></div>`).join('');return;}}catch(e){}
+ try{let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));let j=await r.json();if(j.success&&j.trackList.length){statusEl.innerText=j.trackList.length+' results';resultsEl.innerHTML=j.trackList.map(t=>`<div class="card"><div style="flex:1"><b>${t.title}</b><small>${t.artists}</small></div></div>`).join('');return;}}catch(e){}
 }
-async function dlSpotify(id,title){try{let r=await fetch('https://api.spotifydown.com/download/'+id);let j=await r.json();if(j.success&&j.link){downloadFile(j.link,title+'.mp3');return;}}catch(e){}}
 async function dlTikTok(url){
  statusEl.innerText='tiktok • hd...';
- try{let r=await fetch('https://www.tikwm.com/api/?url='+encodeURIComponent(url)+'&hd=1');let j=await r.json();if(j.data){let d=j.data;if(d.images&&d.images.length){resultsEl.innerHTML=d.images.map((img,i)=>`<div class="card"><img src="${img}"><div style="flex:1"><b>Foto ${i+1} HD</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${img}','foto_${i+1}.jpg')">DOWNLOAD JPG HD</button></div></div></div>`).join('');}else{resultsEl.innerHTML=`<div class="preview"><video class="p" src="${d.play}" poster="${d.cover}" controls playsinline></video><div class="info"><b>${d.title||'TikTok HD'}</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd.mp4')">DOWNLOAD MP4 HD NO WM</button></div></div></div>`;}statusEl.innerText='tiktok • ready';return;}}catch(e){}
+ try{let r=await fetch('https://www.tikwm.com/api/?url='+encodeURIComponent(url)+'&hd=1');let j=await r.json();if(j.data){let d=j.data;if(d.images&&d.images.length){resultsEl.innerHTML=d.images.map((img,i)=>`<div class="preview"><img class="p" src="${img}"><div class="info"><b>Foto ${i+1} HD</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${img}','foto_${i+1}.jpg')">DOWNLOAD JPG HD</button></div></div></div>`).join('');}else{resultsEl.innerHTML=`<div class="preview"><video class="p" src="${d.play}" poster="${d.cover}" controls playsinline></video><div class="info"><b>${d.title||'TikTok HD'}</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd.mp4')">DOWNLOAD MP4 HD NO WM</button></div></div></div>`;}statusEl.innerText='tiktok • ready';return;}}catch(e){}
 }
 async function dlYT(url){
  statusEl.innerText='yt • hd...';
  try{let res=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});let data=await res.json();if(data.url){resultsEl.innerHTML=`<div class="preview"><div class="info"><b>${data.filename||'YouTube HD'}</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${data.url}','yt_hd.mp4')">DOWNLOAD MP4 HD</button></div></div></div>`;statusEl.innerText='yt • ready';return;}}catch(e){}
 }
-
-// IG FIX NO ABOUT BLANK - PAKAI EMBED + DIRECT PROXY
-async function dlIG_NO_BLANK(url){
+async function dlIG_V5(url){
  const igId=url.split('/p/')[1]?.split('/')[0]||url.split('/reel/')[1]?.split('/')[0]||url.split('/reels/')[1]?.split('/')[0]||url.split('/')[4]||'';
- statusEl.innerText='ig • fetching hd no about:blank...';
- resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>IG • Fetching HD Direct...</b><small>${igId} • tanpa about:blank • embed langsung</small></div></div>`;
-
- // 1 - coba wuk.sh dulu
+ statusEl.innerText='ig • wuk.sh hd (anti blokir)...';
+ resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>IG • Fetching HD Direct...</b><small>${igId} • tanpa ddinsta.com • anti about:blank</small></div></div>`;
  try{
   let r=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});
   let j=await r.json();
   if(j.url){
-   const isV=j.url.includes('.mp4');
-   statusEl.innerText=`ig ${isV?'reels':'post'} • hd ready • no blank`;
-   resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls playsinline></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b>IG ${isV?'Reels':'Post'} • HD NO WM • Direct</b><small>mp4=mp4 foto=foto hd • langsung download tanpa about:blank</small><div class="btns"><button class="btn btn2" style="width:100%;padding:12px" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">DOWNLOAD ${isV?'MP4':'JPG'} HD NO WM</button></div></div></div>`;
+   const isV=j.url.includes('.mp4')||j.url.includes('video');
+   statusEl.innerText=`ig ${isV?'reels':'post'} • hd ready • direct cdn`;
+   resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls playsinline></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b>IG ${isV?'Reels':'Post'} • HD NO WM • Direct</b><small>mp4=mp4 foto=foto hd • tanpa about:blank • tanpa ddinsta • anti blokir indo</small><div class="btns"><button class="btn btn2" style="width:100%;padding:12px" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">DOWNLOAD ${isV?'MP4':'JPG'} HD NO WM</button><button class="btn" onclick="window.open('${j.url}','_blank')">OPEN DIRECT HD</button></div></div></div>`;
    return;
   }
   if(j.picker&&j.picker.length){
    statusEl.innerText=`ig carousel • ${j.picker.length} files • hd`;
-   resultsEl.innerHTML=j.picker.map((p,i)=>`<div class="preview">${p.type==='video'?`<video class="p" src="${p.url}" controls></video>`:`<img class="p" src="${p.url||p.thumb}">`}<div class="info"><b>File ${i+1} • HD No WM</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${p.url}','ig_${i+1}_hd.${p.ext||'mp4'}')">DOWNLOAD ${p.ext?.toUpperCase()||'HD'} NO WM</button></div></div></div>`).join('');
+   resultsEl.innerHTML=j.picker.map((p,i)=>`<div class="preview">${p.type==='video'?`<video class="p" src="${p.url}" controls></video>`:`<img class="p" src="${p.url||p.thumb}">`}<div class="info"><b>File ${i+1} • HD No WM</b><div class="btns"><button class="btn btn2" onclick="downloadFile('${p.url}','ig_${i+1}_hd.${p.ext||'mp4'}')">DOWNLOAD HD NO WM</button></div></div></div>`).join('');
    return;
   }
  }catch(e){}
-
- // 2 - JIKA API GAGAL, PAKAI EMBED LANGSUNG (ANTI ABOUT BLANK) - VIDEO LANGSUNG MUNCUL DI WEB LU!
- statusEl.innerText='ig • embed direct hd • no blank';
+ statusEl.innerText='ig • fallback direct preview (no ddinsta)';
  resultsEl.innerHTML=`
  <div class="preview">
-  <iframe class="p" src="https://www.ddinstagram.com/p/${igId}/embed/" loading="lazy" allowfullscreen></iframe>
+  <img class="p" src="https://instagram.com/p/${igId}/media/?size=l" onerror="this.src='bg.jpg'">
   <div class="info">
-   <b>IG Post/Reels • HD • Embed Direct (No About Blank)</b>
-   <small>id: ${igId} • video/foto langsung muncul di atas • tanpa buka tab baru • tap tahan video/foto untuk save = HD No WM</small>
+   <b>IG HD • Direct Preview (Tanpa DD)</b>
+   <small>id: ${igId} • foto dari ig cdn langsung • tanpa ddinsta.com • anti about:blank • klik bawah untuk hd</small>
    <div class="btns" style="margin-top:12px">
-     <button class="btn btn2" style="width:100%;padding:12px" onclick="window.open('https://www.ddinstagram.com/p/${igId}/','_blank')">BUKA VERSI FULL HD (TAP HOLD SAVE)</button>
+     <button class="btn btn2" style="width:100%;padding:12px" onclick="window.open('https://instagram.com/p/${igId}/media/?size=l','_blank')">BUKA JPG HD DIRECT (TAP HOLD SAVE = HD)</button>
    </div>
    <div class="btns">
-     <button class="btn" onclick="window.open('https://instagram.com/p/${igId}/media/?size=l','_blank')">OPEN JPG HD DIRECT (FOTO)</button>
-     <button class="btn" onclick="window.open('https://www.ddinstagram.com/reel/${igId}/','_blank')">REELS HD FULL</button>
+     <button class="btn btn2" onclick="window.open('https://snapinsta.app/?url=${encodeURIComponent(url)}','_blank')">SNAPINSTA HD</button>
+     <button class="btn btn2" onclick="window.open('https://igram.world/?url=${encodeURIComponent(url)}','_blank')">IGRAM HD</button>
    </div>
   </div>
- </div>
- <div class="card"><div style="flex:1"><b>Cara Save HD No WM (tanpa about:blank):</b><small>1. Video/foto udah muncul di embed di atas<br>2. Tap tahan video/foto → Save video / Save image<br>3. Otomatis HD No WM, gak perlu download via tombol<br>4. Kalo mau tombol, klik BUKA VERSI FULL HD</small></div></div>
- `;
-
- // 3 - coba ambil direct mp4 via proxy untuk tombol download langsung
- try{
-  const proxyUrl='https://api.allorigins.win/get?url='+encodeURIComponent('https://www.ddinstagram.com/p/'+igId+'/');
-  let r=await fetch(proxyUrl);
-  let j=await r.json();
-  let html=j.contents;
-  let m=html.match(/"video_url":"([^"]+)"/);
-  if(m){
-   let v=m[1].replace(/\\u0026/g,'&').replace(/\\/g,'');
-   document.querySelector('.info').innerHTML+=`<div class="btns" style="margin-top:8px"><button class="btn btn2" style="width:100%;padding:12px;background:#fff;color:#000" onclick="downloadFile('${v}','ig_${igId}_hd.mp4')">DOWNLOAD MP4 HD DIRECT (NO ABOUT BLANK)</button></div>`;
-   // ganti iframe jadi video langsung
-   resultsEl.innerHTML=`<div class="preview"><video class="p" src="${v}" controls playsinline autoplay></video><div class="info"><b>IG Reels • HD Direct MP4 • No About Blank</b><small>mp4 = mp4 hd • direct cdn instagram • no wm</small><div class="btns"><button class="btn btn2" style="width:100%;padding:12px" onclick="downloadFile('${v}','ig_${igId}_hd.mp4')">DOWNLOAD MP4 HD NO WM</button></div></div></div>`+resultsEl.innerHTML;
-  }
- }catch(e){}
+ </div>`;
 }
 function downloadFile(url,name){
- // JANGAN PAKE download attribute buat link html, cuma buat media langsung
- if(url.includes('.mp4')||url.includes('.jpg')||url.includes('.jpeg')||url.includes('.png')||url.includes('scontent')||url.includes('fbcdn')){
+ if(url.includes('.mp4')||url.includes('.jpg')||url.includes('scontent')||url.includes('fbcdn')){
    const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();
- }else{
-   window.open(url,'_blank');
- }
+ }else{ window.open(url,'_blank'); }
  statusEl.innerText='downloaded • '+name;
 }
+document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')handle();});
 </script>
 </body>
 </html>
