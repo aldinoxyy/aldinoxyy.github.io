@@ -1,35 +1,27 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin LèxaaMj</title>
-<style>body{background:#0a0c13;color:#fff;font-family:Inter,sans-serif;padding:20px}.box{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:20px;margin-top:20px}.btn{width:100%;padding:14px;border-radius:12px;border:none;font-weight:700;color:#fff;margin-top:10px;cursor:pointer}.blue{background:#0a84ff}.red{background:#ff2a4d}.dark{background:#1a1e2a} input,textarea{width:100%;padding:12px;border-radius:10px;background:#0a0c13;border:1px solid #2a2e3e;color:#fff;margin-top:8px}</style>
+<style>body{background:#0a0c13;color:#fff;font-family:Inter,sans-serif;padding:20px}.card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:20px;margin-top:20px}input{width:100%;padding:12px;border-radius:10px;background:#0a0c13;border:1px solid #2a2e3e;color:#fff;margin-top:8px}.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:800;margin-top:10px;cursor:pointer}.green{background:#00c950;color:#fff}.red{background:#ff2a2a;color:#fff}</style>
 </head><body>
-<h2>Admin Panel LèxaaMj</h2>
-<p style="color:#8b90a3;font-size:13px">Atur status pembeli: BERHASIL atau GAGAL</p>
-<div class="box">
-  <p>WA Pembeli:</p><input id="wa" placeholder="08xxxxxxxxxx">
-  <p style="margin-top:12px">Produk:</p><input id="prod" placeholder="Bot GB LèxaaMj">
-  <p style="margin-top:12px">Alasan Gagal (jika tolak):</p><textarea id="alasan" placeholder="Contoh: Bukti transfer tidak valid / belum bayar"></textarea>
-  <button class="btn blue" onclick="setStatus('success')">✅ Konfirmasi BERHASIL</button>
-  <button class="btn red" onclick="setStatus('failed')">❌ Tolak / GAGAL</button>
-  <p id="info" style="margin-top:12px;font-size:13px"></p>
+<h2>Panel Admin LèxaaMj</h2><p style="color:#8b90a3;font-size:13px">Ketik WA pembeli lalu pencet Selesai / Gagal</p>
+<div class="card">
+<p>WA Pembeli</p><input id="wa" placeholder="08xxxxxxxxxx">
+<button class="btn green" onclick="selesai()">SELESAI</button>
+<button class="btn red" onclick="gagal()">GAGAL</button>
+<p id="out" style="margin-top:12px;font-size:13px;color:#4ade80"></p>
 </div>
 <script>
-function setStatus(type){
-  const wa=document.getElementById('wa').value.trim();
-  const prod=document.getElementById('prod').value.trim();
-  const alasan=document.getElementById('alasan').value.trim()||'Pembayaran belum diterima';
-  if(!wa) return alert('Isi WA dulu Bos');
-  if(type=='success'){
-    localStorage.setItem('lexa_status_'+wa,'success');
-    localStorage.setItem('lexa_prod_'+wa,prod);
-    document.getElementById('info').innerHTML='<span style="color:#4ade80">Berhasil! Status '+wa+' jadi BERHASIL</span>';
-    const link=`https://aldinoxyy.github.io/?wa=${wa}&status=success`;
-    setTimeout(()=>{prompt('Copy link BERHASIL kirim ke pembeli:',link)},500);
-  } else {
-    localStorage.setItem('lexa_status_'+wa,'failed');
-    localStorage.setItem('lexa_reason_'+wa,alasan);
-    document.getElementById('info').innerHTML='<span style="color:#ff4d6d">Status '+wa+' ditandai GAGAL: '+alasan+'</span>';
-    const link=`https://aldinoxyy.github.io/?wa=${wa}&status=failed&reason=${encodeURIComponent(alasan)}`;
-    setTimeout(()=>{prompt('Copy link GAGAL kirim ke pembeli:',link)},500);
-  }
+function selesai(){
+ let wa=document.getElementById('wa').value.trim(); if(!wa) return alert('isi WA');
+ localStorage.setItem('lexa_status_'+wa,'success');
+ let link=`https://aldinoxyy.github.io/?wa=${wa}&status=success`;
+ document.getElementById('out').innerHTML='Pembeli '+wa+' jadi SELESAI<br>Link: '+link;
+ prompt('Copy link SELESAI ini kirim ke pembeli:',link);
+}
+function gagal(){
+ let wa=document.getElementById('wa').value.trim(); if(!wa) return alert('isi WA');
+ localStorage.setItem('lexa_status_'+wa,'failed');
+ let link=`https://aldinoxyy.github.io/?wa=${wa}&status=failed`;
+ document.getElementById('out').innerHTML='<span style=color:#ff6467>Pembeli '+wa+' jadi GAGAL<br>Link: '+link+'</span>';
+ prompt('Copy link GAGAL ini kirim ke pembeli:',link);
 }
 </script>
 </body></html>
