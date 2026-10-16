@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LèxaaMj - Premium Digital Files</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
@@ -11,149 +12,272 @@ body{background:#0a0c13;color:#fff;min-height:100vh}
 .splash-line{width:80px;height:2px;background:#1e2333;overflow:hidden;position:relative;margin-bottom:18px}
 .splash-line::after{content:'';position:absolute;inset:0;background:#fff;animation:load 1.2s ease}
 @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
-.splash-title{font-size:26px;font-weight:800;transform:translateY(15px);opacity:0;animation:up.6s.3s forwards}
-.splash-sub{margin-top:8px;font-size:12px;letter-spacing:4px;color:#6b7085;opacity:0;animation:up.6s.5s forwards}
+.splash-title{font-size:26px;font-weight:800;transform:translateY(15px);opacity:0;animation:up .6s .3s forwards}
+.splash-sub{margin-top:8px;font-size:12px;letter-spacing:4px;color:#6b7085;opacity:0;animation:up .6s .5s forwards}
 @keyframes up{to{opacity:1;transform:translateY(0)}}
 header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #1a1e2a}
-.logo{font-weight:800}.logo span{display:block;font-size:10px;letter-spacing:2px;color:#6b7085;font-weight:400}
+.logo{font-weight:800}
+.logo span{display:block;font-size:10px;letter-spacing:2px;color:#6b7085;font-weight:400}
 .steps{display:flex;gap:14px;padding:16px 20px;overflow:auto;border-bottom:1px solid #141826}
 .step{display:flex;align-items:center;gap:6px;color:#4a4f63;font-size:12px;white-space:nowrap}
-.step.active{color:#fff}.step b{width:22px;height:22px;border-radius:50%;background:#1a1e2a;display:grid;place-items:center;font-size:11px;border:1px solid #252a3a}.step.active b{background:#0a84ff;border-color:#0a84ff;color:#fff}
-.page{display:none;padding:20px}.page.active{display:block}
+.step.active{color:#fff}
+.step b{width:22px;height:22px;border-radius:50%;background:#1a1e2a;display:grid;place-items:center;font-size:11px;border:1px solid #252a3a}
+.step.active b{background:#0a84ff;border-color:#0a84ff;color:#fff}
+.page{display:none;padding:20px}
+.page.active{display:block}
 h1{font-size:28px;line-height:1.1}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:14px;display:flex;flex-direction:column}
 .card h3{font-size:14px;margin-top:8px;min-height:36px}
-.card.desc{font-size:11px;color:#8b90a3;margin-top:6px;flex-grow:1;min-height:38px;line-height:1.3}
+.card .desc{font-size:11px;color:#8b90a3;margin-top:6px;flex-grow:1;min-height:38px;line-height:1.4}
 .price{margin-top:10px;font-weight:800}
 .btn{width:100%;padding:12px;border-radius:10px;border:none;font-weight:600;cursor:pointer;margin-top:10px}
-.btn-dark{background:#1a1e2a;color:#fff}.btn-blue{background:#0a84ff;color:#fff}
+.btn-dark{background:#1a1e2a;color:#fff}
+.btn-blue{background:#0a84ff;color:#fff}
 input{width:100%;background:#12151f;border:1px solid #0a84ff;border-radius:12px;padding:14px;color:#fff;margin-top:12px}
 .detail{margin-top:20px;border-top:1px solid #1a1e2a;padding-top:14px}
 .detail-row{display:flex;justify-content:space-between;margin-top:12px;font-size:14px;color:#9aa0b3}
-.qris-box{background:#fff;padding:10px;border-radius:16px;width:280px;margin:20px auto}.qris-box img{width:100%;display:block}
+.qris-box{background:#fff;padding:10px;border-radius:16px;width:280px;margin:20px auto}
+.qris-box img{width:100%;display:block}
 .badge{background:#0a1a2a;color:#0a84ff;padding:6px 10px;border-radius:8px;font-size:11px;display:inline-block;border:1px solid #123}
-.warn{color:#ff4d6d;font-size:12px;margin-top:14px;line-height:1.4;background:#1a1216;padding:10px;border-radius:8px;border:1px solid #2a1520}
-footer{padding:30px 20px;border-top:1px solid #1a1e2a;color:#5a5f72;text-align:center;margin-top:20px}
+.warn{color:#ff4d6d;font-size:12px;margin-top:14px;background:#1a1216;padding:10px;border-radius:8px;border:1px solid #2a1520}
 .success-icon{width:60px;height:60px;background:#0a2a1a;border-radius:50%;display:grid;place-items:center;color:#4ade80;font-size:30px;margin:0 auto}
+footer{padding:30px 20px;border-top:1px solid #1a1e2a;color:#5a5f72;text-align:center;margin-top:20px}
 </style>
 </head>
 <body>
-<div id="splash"><div class="splash-line"></div><div class="splash-title">Welcome to LèxaaMj's</div><div class="splash-sub">PREMIUM DIGITAL FILES</div></div>
-<header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL FILES</span></div><div style="color:#6b7085;font-size:13px">Order</div></header>
-<div class="steps"><div class="step active" id="s1"><b>1</b> Produk</div><div class="step" id="s2"><b>2</b> Data</div><div class="step" id="s3"><b>3</b> Pembayaran</div><div class="step" id="s4"><b>4</b> Status</div></div>
 
-<div id="page1" class="page active"><h1>Pilih produk<br>yang kamu butuhkan.</h1><p style="color:#8b90a3;margin-top:8px;font-size:13px">Pilih produk, masukkan WA, bayar via QRIS.</p><div class="grid" id="grid"></div><footer><b style="color:#8b90a3">LèxaaMj</b><br>© 2026 LèxaaMj. All rights reserved.</footer></div>
+<div id="splash">
+  <div class="splash-line"></div>
+  <div class="splash-title">Welcome to LèxaaMj's</div>
+  <div class="splash-sub">PREMIUM DIGITAL FILES</div>
+</div>
 
-<div id="page2" class="page"><h1>Data Pengiriman</h1><p style="color:#8b90a3;margin-top:8px;font-size:13px">Masukkan nomor WhatsApp untuk menerima aplikasi.</p><div style="margin-top:20px"><label style="font-size:14px;font-weight:600">Nomor WhatsApp</label><input id="wa" placeholder="08xxxxxxxxxx"><p style="color:#8b90a3;font-size:12px;margin-top:10px">Aplikasi akan dikirim ke nomor WhatsApp ini setelah pembayaran dikonfirmasi.</p></div><div style="margin-top:24px"><button class="btn btn-dark" onclick="go(1)">Kembali</button><button class="btn btn-blue" onclick="toPesanan()">Lanjut</button></div><div class="detail"><small style="color:#5a5f72">PRODUK DIPILIH</small><h2 id="p2-nama" style="margin-top:6px">-</h2><div class="detail-row"><span>Harga</span><b id="p2-harga" style="color:#fff">-</b></div></div></div>
+<header>
+  <div class="logo">LèxaaMj <span>PREMIUM DIGITAL FILES</span></div>
+  <div style="color:#6b7085;font-size:13px">Order</div>
+</header>
 
-<div id="page2b" class="page"><h1>Pesanan Kamu</h1><p style="color:#8b90a3;margin-top:8px;font-size:13px">Pastikan detail pesanan sudah benar.</p><div class="detail"><div class="detail-row"><span>Produk</span><b id="p2b-nama" style="color:#fff">-</b></div><div class="detail-row"><span>Nomor WhatsApp</span><b id="p2b-wa" style="color:#fff">-</b></div><div class="detail-row" style="margin-top:20px;border-top:1px solid #1a1e2a;padding-top:16px"><span>Total</span><b id="p2b-total" style="color:#fff;font-size:22px">Rp 0</b></div></div><div style="margin-top:24px"><button class="btn btn-dark" onclick="go(2)">Kembali</button><button class="btn btn-blue" onclick="go(3)">Lanjut Pembayaran</button></div></div>
+<div class="steps">
+  <div class="step active"><b>1</b> Produk</div>
+  <div class="step" id="st2"><b>2</b> Data</div>
+  <div class="step" id="st3"><b>3</b> Pembayaran</div>
+  <div class="step" id="st4"><b>4</b> Status</div>
+</div>
 
-<div id="page3" class="page" style="text-align:center"><span class="badge">QRIS</span><h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1><p style="color:#8b90a3;margin-top:6px;font-size:13px">Total pembayaran</p><h2 id="p3-total" style="font-size:28px;margin-top:4px">Rp 0</h2><div class="qris-box"><img id="qris" src="qris.jpg"></div><p style="color:#6b7085;font-size:11px;margin-top:12px">Scan QRIS menggunakan aplikasi pembayaran pilihanmu. Setelah selesai, tekan tombol di bawah.</p><div style="display:flex;gap:12px;margin-top:20px"><button class="btn btn-dark" onclick="go(2)" style="flex:1">Kembali</button><button class="btn btn-blue" onclick="go(4)" style="flex:2">Saya Sudah Bayar</button></div></div>
+<!-- PAGE 1 PRODUK -->
+<div id="page1" class="page active">
+  <h1>Pilih produk<br>yang kamu butuhkan.</h1>
+  <p style="color:#8b90a3;margin-top:8px;font-size:13px">Pilih produk, masukkan WA, bayar via QRIS.</p>
+  <div class="grid" id="grid"></div>
+  <footer><b style="color:#8b90a3">LèxaaMj</b><br>© 2026 LèxaaMj. All rights reserved.</footer>
+</div>
 
+<!-- PAGE 2 DATA WA -->
+<div id="page2" class="page">
+  <h1>Data Pengiriman</h1>
+  <p style="color:#8b90a3;margin-top:8px;font-size:13px">Masukkan nomor WhatsApp untuk menerima aplikasi.</p>
+  <div style="margin-top:20px">
+    <label style="font-size:14px;font-weight:600">Nomor WhatsApp</label>
+    <input id="wa" placeholder="08xxxxxxxxxx">
+    <p style="color:#8b90a3;font-size:12px;margin-top:10px">Aplikasi akan dikirim ke nomor WhatsApp ini setelah pembayaran dikonfirmasi.</p>
+  </div>
+  <div style="margin-top:24px">
+    <button class="btn btn-dark" onclick="go1()">Kembali</button>
+    <button class="btn btn-blue" onclick="toPesanan()">Lanjut</button>
+  </div>
+  <div class="detail">
+    <small style="color:#5a5f72">PRODUK DIPILIH</small>
+    <h2 id="p2-nama" style="margin-top:6px">-</h2>
+    <div class="detail-row"><span>Harga</span><b id="p2-harga" style="color:#fff">-</b></div>
+  </div>
+</div>
+
+<!-- PAGE 2B PESANAN KAMU -->
+<div id="page2b" class="page">
+  <h1>Pesanan Kamu</h1>
+  <p style="color:#8b90a3;margin-top:8px;font-size:13px">Pastikan detail pesanan sudah benar.</p>
+  <div class="detail">
+    <div class="detail-row"><span>Produk</span><b id="p2b-nama" style="color:#fff">-</b></div>
+    <div class="detail-row"><span>Nomor WhatsApp</span><b id="p2b-wa" style="color:#fff">-</b></div>
+    <div class="detail-row" style="margin-top:20px;border-top:1px solid #1a1e2a;padding-top:16px"><span>Total</span><b id="p2b-total" style="color:#fff;font-size:22px">Rp 0</b></div>
+  </div>
+  <div style="margin-top:24px">
+    <button class="btn btn-dark" onclick="go2()">Kembali</button>
+    <button class="btn btn-blue" onclick="go3()">Lanjut Pembayaran</button>
+  </div>
+</div>
+
+<!-- PAGE 3 QRIS -->
+<div id="page3" class="page" style="text-align:center">
+  <span class="badge">QRIS</span>
+  <h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1>
+  <p style="color:#8b90a3;margin-top:6px;font-size:13px">Total pembayaran</p>
+  <h2 id="p3-total" style="font-size:28px;margin-top:4px">Rp 0</h2>
+  <div class="qris-box"><img id="qris" src="qris.jpg"></div>
+  <p style="color:#6b7085;font-size:11px;margin-top:12px">Scan QRIS menggunakan aplikasi pembayaran pilihanmu. Setelah selesai, tekan tombol di bawah.</p>
+  <div style="display:flex;gap:12px;margin-top:20px">
+    <button class="btn btn-dark" onclick="go2()" style="flex:1">Kembali</button>
+    <button class="btn btn-blue" onclick="go4()" style="flex:2">Saya Sudah Bayar</button>
+  </div>
+</div>
+
+<!-- PAGE 4 STATUS -->
 <div id="page4" class="page">
-  <!-- STATUS PENDING / GAGAL -->
-  <div id="status-fail">
+  <!-- STATUS GAGAL / BELUM BAYAR -->
+  <div id="failBox">
     <div style="width:40px;height:40px;background:#2a1520;border-radius:50%;display:grid;place-items:center;color:#ff4d6d;font-weight:800">!</div>
     <h1 style="margin-top:16px">Anda Belum Melakukan Pembayaran</h1>
     <p style="color:#8b90a3;margin-top:8px;font-size:13px">Sistem belum menerima konfirmasi pembayaran. Silakan lakukan pembayaran melalui QRIS terlebih dahulu.</p>
-    <div class="detail"><div class="detail-row"><span>Produk</span><b id="p4-nama" style="color:#fff">-</b></div><div class="detail-row"><span>WhatsApp</span><b id="p4-wa" style="color:#fff">-</b></div><div class="detail-row"><span>Total</span><b id="p4-total" style="color:#fff">-</b></div></div>
-    <p class="warn" id="p4-reason">Pembayaran belum terverifikasi. Admin akan cek manual via WhatsApp.</p>
-    <button class="btn btn-blue" onclick="ulang()">Ulangi Pembayaran</button>
-    <button class="btn btn-dark" onclick="checkSuccess()">🔄 Cek Status Pembayaran</button>
-    <button class="btn btn-dark" onclick="go(1)">Pesan Produk Lain</button>
+    <div class="detail">
+      <div class="detail-row"><span>Produk</span><b id="p4-nama" style="color:#fff">-</b></div>
+      <div class="detail-row"><span>WhatsApp</span><b id="p4-wa" style="color:#fff">-</b></div>
+      <div class="detail-row"><span>Total</span><b id="p4-total" style="color:#fff">-</b></div>
+    </div>
+    <p class="warn">Pembayaran belum terverifikasi. Menunggu konfirmasi Admin.</p>
+    <button class="btn btn-blue" onclick="go3()">Ulangi Pembayaran</button>
+    <button class="btn btn-dark" onclick="cek()">🔄 Cek Status Pembayaran</button>
+    <button class="btn btn-dark" onclick="go1()">Pesan Produk Lain</button>
   </div>
-  <!-- STATUS BERHASIL -->
-  <div id="status-success" style="display:none;text-align:center">
+
+  <!-- STATUS SELESAI / BERHASIL -->
+  <div id="successBox" style="display:none;text-align:center">
     <div class="success-icon">✓</div>
-    <h1 style="margin-top:16px">Pembayaran Berhasil!</h1>
-    <p style="color:#8b90a3;margin-top:8px;font-size:14px">Terima kasih banyak, Bosku! 🙏</p>
-    <p style="color:#8b90a3;margin-top:12px;font-size:13px;line-height:1.6">Pesanan kamu untuk <b id="s-nama" style="color:#fff"></b> sudah kami konfirmasi.<br>File akan segera kami kirim ke WhatsApp <b id="s-wa" style="color:#4ade80"></b>.<br><br>Thanks sudah order di <b>LèxaaMj Premium Digital Files</b>! Semoga bermanfaat dan ditunggu order selanjutnya! ✨</p>
-    <div class="detail" style="text-align:left"><div class="detail-row"><span>Status</span><b style="color:#4ade80">LUNAS & SELESAI</b></div><div class="detail-row"><span>Total Dibayar</span><b id="s-total" style="color:#fff">-</b></div></div>
-    <button class="btn btn-blue" onclick="waAdmin()">Chat Admin untuk File</button>
-    <button class="btn btn-dark" onclick="go(1)">Pesan Produk Lain</button>
+    <h1 style="margin-top:16px">Pembayaran Selesai dan Berhasil!</h1>
+    <p style="color:#8b90a3;margin-top:10px;font-size:14px;line-height:1.6">
+      Terima kasih telah membeli di <b style="color:#fff">LèxaaMj Premium Digital Files</b>! 🙏<br><br>
+      Pesanan kamu <b id="s-nama" style="color:#fff"></b> sudah <span style="color:#4ade80">LUNAS</span>.<br>
+      File akan segera kami kirim ke WhatsApp <b id="s-wa" style="color:#4ade80"></b>.<br><br>
+      Thanks Bosku, semoga berkah dan ditunggu orderan selanjutnya! ✨
+    </p>
+    <div class="detail" style="text-align:left">
+      <div class="detail-row"><span>Status</span><b style="color:#4ade80">SELESAI & BERHASIL</b></div>
+      <div class="detail-row"><span>Total Dibayar</span><b id="s-total" style="color:#fff">-</b></div>
+    </div>
+    <button class="btn btn-blue" onclick="chatAdmin()">Chat Admin untuk File</button>
+    <button class="btn btn-dark" onclick="go1()">Pesan Produk Lain</button>
   </div>
 </div>
 
 <script>
 const ADMIN_WA="6285642367261";
 const produk=[
-{id:'spotify',nama:'Spotify Premium',desc:'Access Account Spotify Premium Unlimited',harga:10000},
-{id:'sosmed',nama:'Download All Sosmed HD No WM',desc:'Tools Download TikTok, IG, YT HD Tanpa Watermark',harga:15000},
-{id:'bugwa',nama:'Bot Bug WA LèxaaMj',desc:'Bot Bug WA Button ForClose, No Click, dll',harga:15000},
-{id:'termux',nama:'Tools Termux',desc:'Tools Termux Lengkap, Full Ajaran LèxaaMj',harga:50000},
-{id:'botgb',nama:'Bot GB LèxaaMj',desc:'Full Fitur Auto Detect, Kick Otomatis, Anti Kudeta',harga:10000},
-{id:'push',nama:'Bot Push Kontak WA LèxaaMj',desc:'Bot Push Kontak Anti Delay, GB Terbuka / Tertutup ON & Anti Banned',harga:10000},
+  {id:'spotify',nama:'Spotify Premium',desc:'Access Account Spotify Premium Unlimited',harga:10000},
+  {id:'sosmed',nama:'Download All Sosmed HD No WM',desc:'Tools Download TikTok, IG, YT HD Tanpa Watermark',harga:15000},
+  {id:'bugwa',nama:'Bot Bug WA LèxaaMj',desc:'Bot Bug WA Button ForClose, No Click, dll',harga:15000},
+  {id:'termux',nama:'Tools Termux',desc:'Tools Termux Lengkap, Full Ajaran LèxaaMj',harga:50000},
+  {id:'botgb',nama:'Bot GB LèxaaMj',desc:'Full Fitur Auto Detect, Kick Otomatis, Anti Kudeta',harga:10000},
+  {id:'push',nama:'Bot Push Kontak WA LèxaaMj',desc:'Bot Push Kontak Anti Delay, GB Terbuka / Tertutup ON & Anti Banned',harga:10000},
 ];
-let sel=null, waNum="";
+
+let sel=null;
+let waNum="";
 const grid=document.getElementById('grid');
-produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small style="color:#5a5f72">0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn btn-dark" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
-function setStep(n){document.querySelectorAll('.step').forEach((e,i)=>{e.classList.toggle('active',i+1<=n)});}
-function go(n){
+
+produk.forEach((p,i)=>{
+  grid.innerHTML+=`
+    <div class="card">
+      <small style="color:#5a5f72">0${i+1}</small>
+      <h3>${p.nama}</h3>
+      <div class="desc">${p.desc}</div>
+      <div class="price">Rp${p.harga.toLocaleString('id-ID')}</div>
+      <button class="btn btn-dark" onclick="pilih('${p.id}')">Beli Sekarang</button>
+    </div>`;
+});
+
+function setS(n){
+  document.querySelectorAll('.step').forEach((e,i)=>e.classList.toggle('active',i<n));
+}
+
+function go1(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  if(n==1){document.getElementById('page1').classList.add('active');setStep(1)}
-  if(n==2){document.getElementById('page2').classList.add('active');setStep(2)}
-  if(n==3){document.getElementById('page3').classList.add('active');setStep(3);document.getElementById('qris').src='qris.jpg?v='+Date.now()}
-  if(n==4){document.getElementById('page4').classList.add('active');setStep(4);checkSuccess();bayarWA()}
+  document.getElementById('page1').classList.add('active');
+  setS(1);
 }
-function pilih(id){sel=produk.find(x=>x.id==id);document.getElementById('p2-nama').innerText=sel.nama;document.getElementById('p2-harga').innerText='Rp '+sel.harga.toLocaleString('id-ID');go(2);window.scrollTo(0,0);}
+function go2(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page2').classList.add('active');
+  setS(2);
+}
+function go3(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page3').classList.add('active');
+  setS(3);
+  document.getElementById('qris').src='qris.jpg?v='+Date.now();
+}
+function go4(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page4').classList.add('active');
+  setS(4);
+  cek();
+  let t=`Halo LèxaaMj%0ASudah bayar:%0AProduk: ${sel.nama}%0AWA: ${waNum}`;
+  window.open(`https://wa.me/${ADMIN_WA}?text=${t}`,'_blank');
+}
+
+function pilih(id){
+  sel=produk.find(x=>x.id==id);
+  document.getElementById('p2-nama').innerText=sel.nama;
+  document.getElementById('p2-harga').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page2').classList.add('active');
+  setS(2);
+  window.scrollTo(0,0);
+}
+
 function toPesanan(){
-  const v=document.getElementById('wa').value.trim(); if(v.length<8){alert('Masukkan No WA dulu Bos');return;}
+  let v=document.getElementById('wa').value.trim();
+  if(v.length<8) return alert('Isi WA dulu Bos');
   waNum=v;
-  document.getElementById('p2b-nama').innerText=sel.nama; document.getElementById('p2b-wa').innerText=waNum; document.getElementById('p2b-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.getElementById('p2b-nama').innerText=sel.nama;
+  document.getElementById('p2b-wa').innerText=waNum;
+  document.getElementById('p2b-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
   document.getElementById('p3-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
-  document.getElementById('p4-nama').innerText=sel.nama; document.getElementById('p4-wa').innerText=waNum; document.getElementById('p4-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
-  document.getElementById('s-nama').innerText=sel.nama; document.getElementById('s-wa').innerText=waNum; document.getElementById('s-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById('page2b').classList.add('active'); setStep(2);
+  document.getElementById('p4-nama').innerText=sel.nama;
+  document.getElementById('p4-wa').innerText=waNum;
+  document.getElementById('p4-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.getElementById('s-nama').innerText=sel.nama;
+  document.getElementById('s-wa').innerText=waNum;
+  document.getElementById('s-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page2b').classList.add('active');
 }
-function bayarWA(){
-  const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${sel.nama}%0AHarga: Rp${sel.harga}%0AWA Pembeli: ${waNum}%0AMohon dicek`;
-  window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
-}
-function checkSuccess(){
-  let stat=localStorage.getItem('lexa_status_'+waNum);
-  const params=new URLSearchParams(window.location.search);
-  const urlWA=params.get('wa');
-  const urlStatus=params.get('status');
-  const urlReason=params.get('reason');
-  if(urlWA){
-    waNum=urlWA;
-    if(urlStatus) localStorage.setItem('lexa_status_'+waNum,urlStatus);
-    if(urlReason) localStorage.setItem('lexa_reason_'+waNum,urlReason);
-    stat=urlStatus||localStorage.getItem('lexa_status_'+waNum);
-    // isi data minimal biar ga kosong
-    if(!sel){ sel=produk[0]; document.getElementById('s-nama').innerText=localStorage.getItem('lexa_prod_'+waNum)||'Produk'; document.getElementById('s-wa').innerText=waNum; document.getElementById('p4-nama').innerText=localStorage.getItem('lexa_prod_'+waNum)||'-'; document.getElementById('p4-wa').innerText=waNum; }
+
+function cek(){
+  let s=localStorage.getItem('lexa_status_'+waNum);
+  let p=new URLSearchParams(location.search);
+  let w=p.get('wa');
+  let st=p.get('status');
+  if(w){
+    waNum=w;
+    if(st) localStorage.setItem('lexa_status_'+waNum,st);
+    s=st||localStorage.getItem('lexa_status_'+waNum);
   }
-  const reason=localStorage.getItem('lexa_reason_'+waNum);
-  if(stat=='success'){
-    document.getElementById('status-fail').style.display='none';
-    document.getElementById('status-success').style.display='block';
-  } else if(stat=='failed'){
-    document.getElementById('status-fail').style.display='block';
-    document.getElementById('status-success').style.display='none';
-    document.getElementById('p4-reason').innerText='❌ Ditolak Admin: '+(reason||'Pembayaran tidak valid');
+  if(s=='success'){
+    document.getElementById('failBox').style.display='none';
+    document.getElementById('successBox').style.display='block';
   } else {
-    document.getElementById('status-fail').style.display='block';
-    document.getElementById('status-success').style.display='none';
-    document.getElementById('p4-reason').innerText='Pembayaran belum terverifikasi. Admin akan cek manual via WhatsApp.';
+    document.getElementById('failBox').style.display='block';
+    document.getElementById('successBox').style.display='none';
   }
 }
-function waAdmin(){
-  const text=`Halo LèxaaMj%0APembayaran saya SUDAH SELESAI%0AProduk: ${sel?sel.nama:'-'}%0AWA: ${waNum}%0AMinta file nya ya, thanks!`;
-  window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
+
+function chatAdmin(){
+  window.open(`https://wa.me/${ADMIN_WA}?text=Halo%20Min%20file%20${sel?sel.nama:''}%20WA%20${waNum}%20sudah%20lunas`,'_blank');
 }
-function ulang(){go(3)}
+
 window.addEventListener('load',()=>{
-  const params=new URLSearchParams(window.location.search);
-  if(params.get('wa') && params.get('status')){
-    waNum=params.get('wa');
-    checkSuccess();
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  let p=new URLSearchParams(location.search);
+  if(p.get('wa')){
+    waNum=p.get('wa');
+    if(p.get('status')) localStorage.setItem('lexa_status_'+waNum,p.get('status'));
+    document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
     document.getElementById('page4').classList.add('active');
-    setStep(4);
+    setS(4);
+    cek();
   }
 });
-setTimeout(()=>document.getElementById('splash').classList.add('hide'),2200);
+
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),1800);
 </script>
 </body>
 </html>
