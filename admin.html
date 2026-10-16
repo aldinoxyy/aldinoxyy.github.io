@@ -26,7 +26,7 @@ tr.gagal{opacity:0.4;text-decoration:line-through}
 </head>
 <body>
 <h1>Dashboard LèxaaMj</h1>
-<p>Admin WA: 085642367261 - Klik SELESAI/GAGAL auto keubah di buyer juga</p>
+<p>dashboard bulanan LèxaaMj - owner 085642367261 - access by LèxaaMj</p>
 <div class="box">
 <button class="btn" onclick="load()">Refresh Data</button>
 <button class="btn btn2" onclick="clearData()">Hapus Semua</button>
@@ -64,7 +64,6 @@ function ubahStatus(index,statusBaru){
  load();
  let linkStatus=statusBaru.includes('Selesai')?'success':'failed';
  let link=`https://aldinoxyy.github.io/?wa=${wa}&status=${linkStatus}`;
- alert('Status '+wa+' jadi '+statusBaru+'\nKirim link ini ke buyer:\n'+link);
  prompt('Copy link untuk buyer:',link);
 }
 function clearData(){if(confirm('Yakin hapus semua?')){localStorage.removeItem('lexa_orders');load();}}
