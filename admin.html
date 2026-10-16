@@ -8,17 +8,25 @@
 body{background:#080a0f;color:#fff;font-family:system-ui;padding:20px}
 h1{font-size:22px}
 p{color:#8b90a3;font-size:13px;margin-top:6px}
-.btn{background:#0a84ff;border:none;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600;font-size:13px}
+.btn{background:#0a84ff;border:none;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px}
 .btn2{background:#1a1e2a}
+.btn-selesai{background:#00c853}
+.btn-gagal{background:#ff1744}
 table{width:100%;border-collapse:collapse;margin-top:20px;background:#12151f;border-radius:12px;overflow:hidden}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #1e2333;font-size:13px}
+th,td{padding:10px;text-align:left;border-bottom:1px solid #1e2333;font-size:12px}
 th{color:#8b90a3;font-size:11px;letter-spacing:1px}
 .box{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.status{padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
+.status-menunggu{background:#332a00;color:#ffcc00}
+.status-selesai{background:#003d1f;color:#00e676}
+.status-gagal{background:#3d000f;color:#ff5252}
+tr.selesai{opacity:0.6}
+tr.gagal{opacity:0.4;text-decoration:line-through}
 </style>
 </head>
 <body>
 <h1>Dashboard LèxaaMj</h1>
-<p>Admin WA: 085642367261 - Jangan share link ini ke siapapun!</p>
+<p>Admin WA: 085642367261 - Klik status buat ubah jadi Selesai / Gagal</p>
 <div class="box">
 <button class="btn" onclick="load()">Refresh Data</button>
 <button class="btn btn2" onclick="clearData()">Hapus Semua</button>
@@ -32,22 +40,43 @@ th{color:#8b90a3;font-size:11px;letter-spacing:1px}
 <th>HARGA</th>
 <th>WA PEMBELI</th>
 <th>STATUS</th>
+<th>AKSI</th>
 </tr>
 </thead>
 <tbody></tbody>
 </table>
-<p style="margin-top:20px">Cara pakai: Pembeli yang klik "Saya Sudah Bayar" di web utama bakal masuk kesini + langsung chat ke WA lu.</p>
+
 <script>
 function load(){
  const list=JSON.parse(localStorage.getItem('lexa_orders')||'[]');
  const tbody=document.querySelector('#tbl tbody');
  tbody.innerHTML='';
- list.forEach(r=>{
-  tbody.innerHTML+=`<tr><td>${r.waktu}</td><td>${r.produk}</td><td>Rp${r.harga}</td><td>${r.wa_pembeli}</td><td>${r.status}</td></tr>`;
+ list.forEach((r,i)=>{
+  let cls='status-menunggu';
+  let trCls='';
+  if(r.status.includes('Selesai')){cls='status-selesai';trCls='selesai';}
+  if(r.status.includes('Gagal')){cls='status-gagal';trCls='gagal';}
+  tbody.innerHTML+=`<tr class="${trCls}">
+  <td>${r.waktu}</td>
+  <td>${r.produk}</td>
+  <td>Rp${r.harga}</td>
+  <td>${r.wa_pembeli}</td>
+  <td><span class="status ${cls}">${r.status}</span></td>
+  <td>
+    <button class="btn btn-selesai" onclick="ubahStatus(${i},'Pembelian Selesai')">Selesai</button>
+    <button class="btn btn-gagal" onclick="ubahStatus(${i},'Pembelian Gagal')">Gagal</button>
+  </td>
+  </tr>`;
  });
  if(!list.length){
-  tbody.innerHTML='<tr><td colspan=5 style="color:#8b90a3;text-align:center;padding:20px">Belum ada pembeli yang klik Saya Sudah Bayar</td></tr>';
+  tbody.innerHTML='<tr><td colspan=6 style="color:#8b90a3;text-align:center;padding:20px">Belum ada pembeli yang klik Saya Sudah Bayar</td></tr>';
  }
+}
+function ubahStatus(index,statusBaru){
+ let list=JSON.parse(localStorage.getItem('lexa_orders')||'[]');
+ list[index].status=statusBaru;
+ localStorage.setItem('lexa_orders',JSON.stringify(list));
+ load();
 }
 function clearData(){
  if(confirm('Yakin hapus semua data pembeli?')){
