@@ -24,10 +24,10 @@ header{display:flex;justify-content:space-between;align-items:center;padding:18p
 <header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL STORE</span></div><div style="font-size:13px;color:#8b90a3">Order</div></header>
 <div class="stepper"><div class="step active" id="s1"><b>1</b> Produk</div><div class="step" id="s2"><b>2</b> Data</div><div class="step" id="s3"><b>3</b> Pembayaran</div><div class="step" id="s4"><b>4</b> Status</div></div>
 <div id="page-produk" class="hero"><h1>Pilih produk<br>yang kamu butuhkan.</h1><p>Pilih produk, masukkan nomor WhatsApp, lalu selesaikan pembayaran melalui QRIS.</p><div class="grid" id="produk-grid"></div></div>
-<div id="page-data" class="section"><h1>Data Pengiriman</h1><p style="color:#8b90a3;font-size:14px;margin-top:6px">Masukkan nomor WhatsApp untuk menerima produk.</p><label style="display:block;margin-top:20px;font-size:14px">Nomor WhatsApp</label><input id="wa" placeholder="08xxxxxxxxxx"><p style="font-size:12px;color:#8b90a3;margin-top:8px">Produk akan dikirim ke nomor ini setelah pembayaran dikonfirmasi.</p><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('produk')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="go('konfirmasi')" style="flex:2">Lanjut</button></div><div id="pilih-info" style="margin-top:20px;color:#8b90a3;font-size:13px"></div></div>
-<div id="page-konfirmasi" class="section"><h1>Pesanan Kamu</h1><p style="color:#8b90a3;font-size:14px">Pastikan detail pesanan sudah benar.</p><div style="margin-top:24px;background:#12151f;border-radius:16px;padding:16px"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#8b90a3">Produk</span><b id="c-produk"></b></div><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#8b90a3">Nomor WhatsApp</span><b id="c-wa"></b></div><div style="display:flex;justify-content:space-between;border-top:1px solid #1e2333;padding-top:12px"><span>Total</span><b id="c-total" style="font-size:20px"></b></div></div><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('data')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="go('bayar')" style="flex:2">Lanjut Pembayaran</button></div></div>
-<div id="page-bayar" class="section" style="text-align:center"><div style="background:#0a2a4a;display:inline-block;padding:6px 12px;border-radius:20px;font-size:11px;color:#4db0ff">QRIS SERBA BISA</div><h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1><p style="color:#8b90a3;margin-top:6px">Total pembayaran</p><h2 id="b-total" style="font-size:28px">Rp 0</h2><div class="qris-box"><img src="qris.jpg" alt="QRIS LèxaaMj"></div><p style="font-size:12px;color:#8b90a3">Scan QRIS milik LèxaaMj. Setelah bayar, klik Saya Sudah Bayar.</p><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('konfirmasi')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="bayar()" style="flex:2">Saya Sudah Bayar</button></div></div>
-<div id="page-status" class="section" style="text-align:center"><h1 style="margin-top:40px">Pesanan Dikirim ke Admin</h1><p style="color:#8b90a3;margin-top:10px;font-size:14px">Kamu akan diarahkan ke WhatsApp Admin LèxaaMj untuk konfirmasi.</p><div style="margin:20px auto;background:#12151f;padding:16px;border-radius:16px;text-align:left;max-width:400px"><div style="display:flex;justify-content:space-between"><span style="color:#8b90a3">Produk</span><b id="s-produk"></b></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="color:#8b90a3">WhatsApp</span><b id="s-wa"></b></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="color:#8b90a3">Total</span><b id="s-total"></b></div></div><button class="btn btn-primary" onclick="kirimWA()" style="max-width:400px;margin:20px auto;display:block">Chat Admin Sekarang</button></div>
+<div id="page-data" class="section"><h1>Data Pengiriman</h1><p style="color:#8b90a3;font-size:14px;margin-top:6px">Masukkan nomor WhatsApp untuk menerima produk.</p><label style="display:block;margin-top:20px;font-size:14px">Nomor WhatsApp</label><input id="wa" placeholder="08xxxxxxxxxx"><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('produk')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="go('konfirmasi')" style="flex:2">Lanjut</button></div><div id="pilih-info" style="margin-top:20px;color:#8b90a3;font-size:13px"></div></div>
+<div id="page-konfirmasi" class="section"><h1>Pesanan Kamu</h1><div style="margin-top:24px;background:#12151f;border-radius:16px;padding:16px"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#8b90a3">Produk</span><b id="c-produk"></b></div><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#8b90a3">Nomor WhatsApp</span><b id="c-wa"></b></div><div style="display:flex;justify-content:space-between;border-top:1px solid #1e2333;padding-top:12px"><span>Total</span><b id="c-total" style="font-size:20px"></b></div></div><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('data')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="go('bayar')" style="flex:2">Lanjut Pembayaran</button></div></div>
+<div id="page-bayar" class="section" style="text-align:center"><h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1><h2 id="b-total" style="font-size:28px">Rp 0</h2><div class="qris-box"><img src="qris.jpg" alt="QRIS"></div><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('konfirmasi')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="bayar()" style="flex:2">Saya Sudah Bayar</button></div></div>
+<div id="page-status" class="section" style="text-align:center"><h1 style="margin-top:40px">Pesanan Dikirim ke Admin</h1><div style="margin:20px auto;background:#12151f;padding:16px;border-radius:16px;text-align:left;max-width:400px"><div style="display:flex;justify-content:space-between"><span style="color:#8b90a3">Produk</span><b id="s-produk"></b></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="color:#8b90a3">WhatsApp</span><b id="s-wa"></b></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="color:#8b90a3">Total</span><b id="s-total"></b></div></div><button class="btn btn-primary" onclick="kirimWA()" style="max-width:400px;margin:20px auto;display:block">Chat Admin Sekarang</button></div>
 <script>
 const ADMIN_WA="6285642367261";
 const produk=[
@@ -41,18 +41,15 @@ const produk=[
 let selected=null;
 const grid=document.getElementById('produk-grid');
 produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small>0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
-function pilih(id){selected=produk.find(x=>x.id==id);document.getElementById('pilih-info').innerHTML=`<b>PRODUK DIPILIH</b><br><b style="color:#fff;font-size:16px">${selected.nama}</b><br>Rp${selected.harga.toLocaleString('id-ID')}`;go('data');}
+function pilih(id){selected=produk.find(x=>x.id==id);document.getElementById('pilih-info').innerHTML=`<b>PRODUK DIPILIH</b><br><b style="color:#fff;font-size:16px">${selected.nama}</b>`;go('data');}
 function go(page){
- document.querySelectorAll('.hero,.section').forEach(e=>{e.style.display='none';e.classList.remove('active')});
+ document.querySelectorAll('.hero,.section').forEach(e=>{e.style.display='none'});
  document.querySelectorAll('.step').forEach(e=>e.classList.remove('active'));
  if(page=='produk'){document.getElementById('page-produk').style.display='block';document.getElementById('s1').classList.add('active')}
  if(page=='data'){document.getElementById('page-data').style.display='block';document.getElementById('s1').classList.add('active');document.getElementById('s2').classList.add('active')}
- if(page=='konfirmasi'){
-  if(!selected||!document.getElementById('wa').value){alert('Isi nomor WA dulu');return go('data')}
-  document.getElementById('page-konfirmasi').style.display='block';document.getElementById('c-produk').innerText=selected.nama;document.getElementById('c-wa').innerText=document.getElementById('wa').value;document.getElementById('c-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');
- }
- if(page=='bayar'){document.getElementById('page-bayar').style.display='block';document.getElementById('b-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');document.getElementById('s1').classList.add('active');document.getElementById('s2').classList.add('active');document.getElementById('s3').classList.add('active')}
- if(page=='status'){document.getElementById('page-status').style.display='block';document.getElementById('s-produk').innerText=selected.nama;document.getElementById('s-wa').innerText=document.getElementById('wa').value;document.getElementById('s-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');document.getElementById('s1').classList.add('active');document.getElementById('s2').classList.add('active');document.getElementById('s3').classList.add('active');document.getElementById('s4').classList.add('active');}
+ if(page=='konfirmasi'){if(!selected||!document.getElementById('wa').value){alert('Isi nomor WA dulu');return go('data')}document.getElementById('page-konfirmasi').style.display='block';document.getElementById('c-produk').innerText=selected.nama;document.getElementById('c-wa').innerText=document.getElementById('wa').value;document.getElementById('c-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');}
+ if(page=='bayar'){document.getElementById('page-bayar').style.display='block';document.getElementById('b-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');}
+ if(page=='status'){document.getElementById('page-status').style.display='block';document.getElementById('s-produk').innerText=selected.nama;document.getElementById('s-wa').innerText=document.getElementById('wa').value;document.getElementById('s-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');}
  window.scrollTo(0,0);
 }
 function bayar(){
@@ -60,14 +57,20 @@ function bayar(){
  const data={produk:selected.nama,harga:selected.harga,wa_pembeli:wa,waktu:new Date().toLocaleString('id-ID'),status:'Menunggu Konfirmasi'};
  let list=JSON.parse(localStorage.getItem('lexa_orders')||'[]'); list.unshift(data); localStorage.setItem('lexa_orders',JSON.stringify(list));
  localStorage.setItem('last_order',JSON.stringify(data));
- go('status');
- setTimeout(kirimWA,800);
+ go('status');setTimeout(kirimWA,800);
 }
 function kirimWA(){
  const last=JSON.parse(localStorage.getItem('last_order')||'{}');
- const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${last.produk}%0AHarga: Rp${last.harga}%0ANo WA Saya: ${last.wa_pembeli}%0AWaktu: ${last.waktu}%0A%0AMohon dicek QRIS dan kirim filenya ya.`;
+ const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${last.produk}%0AHarga: Rp${last.harga}%0ANo WA Saya: ${last.wa_pembeli}%0A%0AMohon dicek QRIS`;
  window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
 }
 </script>
+
+<footer style="margin-top:40px;padding:30px 20px;border-top:1px solid #1a1e2a;text-align:left;color:#5a5f72">
+<div style="font-weight:800;color:#8b90a3;font-size:14px">LèxaaMj</div>
+<div style="font-size:12px;margin-top:6px">© 2026 LèxaaMj. All rights reserved.</div>
+<div style="font-size:11px;margin-top:4px;color:#3a3f52">Premium Digital Store</div>
+</footer>
+
 </body>
 </html>
