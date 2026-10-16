@@ -30,68 +30,39 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 .info b.by{display:block;font-size:13px;font-weight:600;letter-spacing:1px;margin-bottom:12px}
 .btn-download{width:100%;background:#8ecfff;color:#000;border:none;padding:14px;border-radius:14px;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;margin-top:6px}
 .footer{margin-top:auto;text-align:center;padding:30px 0 20px;opacity:.35;font-size:10px}
+.footer a{color:#8ecfff;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">YT FIX V2</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
+<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">IG TT YT ONLY</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
 <div class="t">Lèxaa <span>Download</span></div>
-<div class="sub">SPOTIFY • TIKTOK • IG • YT • HD NO WM</div>
-<div class="box"><input id="q" placeholder="paste link yt / ig / tiktok / spotify..."><button onclick="handle()">DOWNLOAD</button></div>
-<div id="status">yt fix • ig simple • tiktok foto 1 jpg hd • spotify anti blokir</div>
+<div class="sub">TIKTOK FOTO VIDEO • IG REELS POST • YT • HD NO WM</div>
+<div class="box"><input id="q" placeholder="paste link ig / tiktok / youtube..."><button onclick="handle()">DOWNLOAD</button></div>
+<div id="status">fokus ig tiktok yt • ig simple download by LèxaaMj • spotify pindah ke web spotify</div>
 <div class="results" id="results"></div>
-<div class="footer">© 2026 download by LèxaaMj</div>
+<div class="footer">© 2026 download by LèxaaMj • Spotify? <a href="https://aldinoxyy.github.io/spotify/" target="_blank">buka web spotify</a></div>
 <script>
 const statusEl=document.getElementById('status'),resultsEl=document.getElementById('results');
-function detect(u){u=u.toLowerCase();if(u.includes('tiktok'))return 'tiktok';if(u.includes('instagram'))return 'ig';if(u.includes('youtube')||u.includes('youtu.be'))return 'yt';if(u.includes('spotify'))return 'spotify';return 'search';}
+function detect(u){u=u.toLowerCase();if(u.includes('tiktok'))return 'tiktok';if(u.includes('instagram'))return 'ig';if(u.includes('youtube')||u.includes('youtu.be'))return 'yt';return 'none';}
 function extractUrl(t){const m=t.match(/https?:\/\/[^\s]+/i);return m?m[0].replace(/[.,;!\)]+$/,'').trim():t.trim();}
-function getSpotifyId(url){let m=url.match(/track\/([a-zA-Z0-9]+)/);return m?m[1]:null;}
 function getYTId(url){let m=url.match(/(?:v=|\.be\/|shorts\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
 async function handle(){
  const raw=document.getElementById('q').value.trim();if(!raw)return;
  const url=extractUrl(raw);
  const t=detect(url);
- if(t==='search')searchSpotify(raw);
- else if(t==='tiktok')dlTikTok(url);
+ if(t==='none'){
+  // kalo bukan link ig/tiktok/yt, kasih tau pindah ke spotify web
+  if(raw.toLowerCase().includes('spotify')){
+   resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Spotify pindah web!</b><small>fitur spotify dihapus dari sini, udah punya web sendiri</small><div class="btns"><button class="btn btn2" onclick="window.open('https://aldinoxyy.github.io/spotify/','_blank')">BUKA WEB SPOTIFY</button></div></div></div>`;
+   statusEl.innerText='spotify pindah ke web spotify';
+   return;
+  }
+  resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Link tidak dikenali</b><small>paste link ig / tiktok / youtube ya lek</small></div></div>`;
+  return;
+ }
+ if(t==='tiktok')dlTikTok(url);
  else if(t==='ig')dlIG(url);
  else if(t==='yt')dlYT(url);
- else if(t==='spotify')searchSpotify(raw);
-}
-async function fetchWithProxy(url){
- const proxies=['','https://api.allorigins.win/get?url=','https://corsproxy.io/?'];
- for(let p of proxies){
-  try{
-   let full=p===''?url:(p.includes('allorigins')?p+encodeURIComponent(url):p+encodeURIComponent(url));
-   let r=await fetch(full);
-   if(!r.ok) continue;
-   if(p.includes('allorigins')){let j=await r.json(); return JSON.parse(j.contents);}
-   else{let j=await r.json(); return j;}
-  }catch(e){ continue; }
- }
- throw new Error('proxy fail');
-}
-async function searchSpotify(q){
- resultsEl.innerHTML='';
- let spotifyId=getSpotifyId(q);
- if(spotifyId){
-  statusEl.innerText='spotify • fetching '+spotifyId+'...';
-  try{
-   let o=await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`).then(r=>r.json());
-   let title=o.title||'Spotify Track';
-   resultsEl.innerHTML=`<div class="card"><img src="${o.thumbnail_url||'bg.jpg'}"><div style="flex:1"><b>${title} • MP3 Original</b><small>spotify • mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${spotifyId}','${title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div></div></div>`;
-   statusEl.innerText='spotify • ready • anti blokir';
-   return;
-  }catch(e){}
- }
- statusEl.innerText='spotify • searching '+q+'...';
- try{
-  let j=await fetchWithProxy('https://api.spotifydown.com/search/'+encodeURIComponent(q));
-  if(j.trackList){resultsEl.innerHTML=j.trackList.map(t=>`<div class="card"><img src="${t.cover}"><div style="flex:1"><b>${t.title} • MP3 Original</b><small>${t.artists}</small><div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${t.id}','${t.title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div></div></div>`).join('');statusEl.innerText='spotify • '+j.trackList.length+' results';return;}
- }catch(e){}
- statusEl.innerText='spotify • coba link track langsung';
-}
-async function dlSpotifyId(id,title){
- try{let j=await fetchWithProxy('https://api.spotifydown.com/download/'+id);if(j.link){downloadFile(j.link,title+'.mp3');return;}}catch(e){}
- window.open('https://spotifydown.com/?url=https://open.spotify.com/track/'+id,'_blank');
 }
 async function dlTikTok(url){
  statusEl.innerText='tiktok • hd...';
@@ -109,72 +80,40 @@ async function dlTikTok(url){
    }return;
   }
  }catch(e){}
+ statusEl.innerText='tiktok • gagal';
 }
-
-// YT FIX - 3 SERVER + THUMBNAIL + FALLBACK
 async function dlYT(url){
  let ytId=getYTId(url)||'';
  statusEl.innerText='yt • fetching hd...';
- resultsEl.innerHTML=`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>Video • MP4 HD • Fetching...</b><small>yt • ${ytId} • mp4 = mp4 hd • anti blokir</small></div></div>`;
-
+ resultsEl.innerHTML=`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>Video • MP4 HD • Fetching...</b><small>yt • ${ytId}</small></div></div>`;
  let servers=['https://co.wuk.sh/api/json','https://api.cobalt.tools/api/json'];
  for(let srv of servers){
   try{
-   let res=await fetch(srv,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({url:url,vQuality:'1080',filenamePattern:'basic'})});
+   let res=await fetch(srv,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});
    let data=await res.json();
    if(data.url){
-    statusEl.innerText='yt • mp4 hd ready • no wm';
+    statusEl.innerText='yt • mp4 hd ready';
     resultsEl.innerHTML=`
       <div class="card">
-        <img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}">
+        <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg">
         <div style="flex:1">
           <b>Video • MP4 HD No WM</b>
-          <small>yt • mp4 = mp4 hd • ${data.filename||ytId} • no wm • 1080p</small>
-          <div class="btns">
-            <button class="btn btn2" onclick="downloadFile('${data.url}','yt_${ytId}_1080p.mp4')">DOWNLOAD MP4 HD</button>
-            <button class="btn" onclick="window.open('${data.url}','_blank')">OPEN DIRECT</button>
-          </div>
+          <small>yt • mp4 = mp4 hd • ${data.filename||ytId} • 1080p</small>
+          <div class="btns"><button class="btn btn2" onclick="downloadFile('${data.url}','yt_${ytId}_1080p.mp4')">DOWNLOAD MP4 HD</button><button class="btn" onclick="window.open('${data.url}','_blank')">OPEN DIRECT</button></div>
         </div>
       </div>
       <div class="card">
-        <img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}">
-        <div style="flex:1">
-          <b>Music • MP3 Original</b>
-          <small>mp3 = mp3 • hd audio • extract audio</small>
-          <div class="btns"><button class="btn btn2" onclick="dlYTMp3('${url}','${ytId}')">DOWNLOAD MP3</button></div>
-        </div>
+        <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg">
+        <div style="flex:1"><b>Music • MP3 Original</b><small>mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="dlYTMp3('${url}','${ytId}')">DOWNLOAD MP3</button></div></div>
       </div>`;
     return;
    }
-   if(data.picker&&data.picker.length){
-    resultsEl.innerHTML=data.picker.map((p,i)=>`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>${p.type==='video'?'Video':'Audio'} • ${p.ext||'MP4'} HD</b><small>yt • ${p.type} = ${p.ext}</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${p.url}','yt_${i}.${p.ext||'mp4'}')">DOWNLOAD ${p.ext?.toUpperCase()||'MP4'} HD</button></div></div></div>`).join('');
-    statusEl.innerText='yt • '+data.picker.length+' files ready';
-    return;
-   }
-  }catch(e){ console.log('yt server fail',srv,e); continue; }
+  }catch(e){ continue; }
  }
-
- // FALLBACK KALO SEMUA SERVER MATI - TETEP MUNCUL THUMBNAIL + TOMBOL MANUAL
- statusEl.innerText='yt • fallback • manual download';
  resultsEl.innerHTML=`
   <div class="card">
-    <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" onerror="this.src='bg.jpg'">
-    <div style="flex:1">
-      <b>Video • MP4 HD No WM</b>
-      <small>yt • ${ytId} • mp4 = mp4 hd • fallback manual • no wm</small>
-      <div class="btns">
-        <button class="btn btn2" onclick="window.open('https://www.y2mate.is/youtube/${ytId}','_blank')">DOWNLOAD MP4 HD (Y2MATE)</button>
-        <button class="btn" onclick="window.open('https://savefrom.net/${ytId}','_blank')">SAVEFROM</button>
-        <button class="btn" onclick="window.open('https://10downloader.com/download-youtube-video/${ytId}','_blank')">10DOWNLOADER</button>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div style="flex:1">
-      <b>Music • MP3 Original</b>
-      <small>mp3 = mp3 • hd audio • fallback</small>
-      <div class="btns"><button class="btn btn2" onclick="window.open('https://www.y2mate.is/youtube/${ytId}?format=mp3','_blank')">DOWNLOAD MP3</button></div>
-    </div>
+    <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg">
+    <div style="flex:1"><b>Video • MP4 HD No WM</b><small>yt • ${ytId} • fallback</small><div class="btns"><button class="btn btn2" onclick="window.open('https://www.y2mate.is/youtube/${ytId}','_blank')">DOWNLOAD MP4 HD (Y2MATE)</button></div></div>
   </div>`;
 }
 async function dlYTMp3(url,ytId){
@@ -196,6 +135,9 @@ async function dlIG(url){
    const isV=j.url.includes('.mp4');
    resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">Download</button></div></div>`;
    statusEl.innerText='ig • hd ready • download by LèxaaMj';return;
+  }
+  if(j.picker){
+   resultsEl.innerHTML=j.picker.map((p,i)=>`<div class="preview">${p.type==='video'?`<video class="p" src="${p.url}" controls></video>`:`<img class="p" src="${p.url||p.thumb}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${p.url}','ig_${i+1}_hd.${p.ext||'mp4'}')">Download</button></div></div>`).join('');return;
   }
  }catch(e){}
  resultsEl.innerHTML=`<div class="preview"><img class="p" src="https://instagram.com/p/${igId}/media/?size=l"><div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('https://instagram.com/p/${igId}/media/?size=l','ig_${igId}_hd.jpg')">Download</button></div></div>`;
