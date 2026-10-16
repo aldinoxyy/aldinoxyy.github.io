@@ -1,79 +1,66 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="id">
+<head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Our Secret Code</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<title>LèxaaMj - Premium Digital Store</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#ffe4ec;font-family:Poppins,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
-.page{display:none;width:100%;max-width:400px;min-height:100vh;padding:24px;flex-direction:column;align-items:center;justify-content:center}
-.page.active{display:flex}
-.bg{position:fixed;inset:0;background:radial-gradient(circle at 30% 20%,#fff0f5,#ffcad4 70%);z-index:-1}
-.title{font-family:Pacifico;color:#ff4d7e;font-size:26px}
-.hearts{display:flex;gap:18px;margin:18px 0;position:relative}
-.h-wrap{position:relative;width:110px;height:110px}
-.h-frame{width:110px;height:110px;background:#fff;padding:6px;clip-path:path("M55 98 C 20 68, -5 40, 18 15 C 32 -2, 55 2, 55 22 C 55 2, 78 -2, 92 15 C 115 40, 90 68, 55 98 Z");box-shadow:0 6px 18px rgba(255,80,120,.25);border:3px solid #fff}
-.h-frame img{width:100%;height:100%;object-fit:cover;clip-path:path("M49 92 C 18 62, -2 36, 16 13 C 28 -1, 49 2, 49 18 C 49 2, 70 -1, 82 13 C 98 36, 80 62, 49 92 Z")}
-.bow{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:18px}
-.boxes{display:flex;gap:8px;margin:18px 0}.box{width:42px;height:42px;background:#fff;border-radius:12px;border:1.5px solid #ffb3c6;display:flex;align-items:center;justify-content:center;color:#ff4d7e}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:240px}.keypad button{height:50px;border-radius:14px;border:none;background:#fff;color:#ff4d7e;font-weight:600;font-size:18px}
-.keypad .ok{background:#ff3b6a;color:#fff}
-.gift-card{width:100%;background:rgba(255,255,255,.9);border-radius:20px;padding:18px;text-align:center;margin-top:12px}
-.back{position:absolute;top:16px;left:16px;background:#fff;border:none;padding:6px 14px;border-radius:20px;color:#ff4d7e;font-size:12px}
-</style></head><body>
-<div class="bg"></div>
-<audio id="bgm" loop><source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4ded2a8d1e.mp3" type="audio/mpeg"></audio>
-
-<div class="page active" id="p1">
-<p class="title">Enter our secret code 💖</p>
-<div class="hearts">
-<div class="h-wrap"><div class="bow">🎀</div><div class="h-frame"><img src="https://i.imgur.com/8Km9tLL.jpg"></div></div>
-<div class="h-wrap"><div class="bow">🎀</div><div class="h-frame"><img src="https://i.imgur.com/8Km9tLL.jpg"></div></div>
-</div>
-<p style="font-size:11px;color:#ff8aa3">hint: 122011</p>
-<div class="boxes" id="boxes"></div>
-<div class="keypad">
-<button onclick="press(1)">1</button><button onclick="press(2)">2</button><button onclick="press(3)">3</button>
-<button onclick="press(4)">4</button><button onclick="press(5)">5</button><button onclick="press(6)">6</button>
-<button onclick="press(7)">7</button><button onclick="press(8)">8</button><button onclick="press(9)">9</button>
-<button onclick="del()">⌫</button><button onclick="press(0)">0</button><button class="ok" onclick="check()">♥</button>
-</div>
-<p id="msg" style="font-size:11px;color:#ff3b6a;height:14px;margin-top:10px"></p>
-</div>
-
-<div class="page" id="p2">
-<p class="title">You unlocked it</p><p style="font-size:13px;color:#9a5a6b">Your surprises are waiting</p>
-<div style="display:flex;gap:14px;margin-top:20px">
-<div onclick="openG(1)"><div style="font-size:64px">🎁</div><p style="font-size:10px;text-align:center">Tulips</p></div>
-<div onclick="openG(2)"><div style="font-size:64px">🎁</div><p style="font-size:10px;text-align:center">Playlist</p></div>
-<div onclick="openG(3)"><div style="font-size:64px">🎁</div><p style="font-size:10px;text-align:center">Letter</p></div>
-</div>
-</div>
-
-<div class="page" id="p3">
-<button class="back" onclick="back()">← Back</button>
-<p class="title" style="font-size:20px">Your Favorite Tulips</p>
-<div class="gift-card"><div style="font-size:70px">💐</div><p style="font-size:12px;color:#ff4d7e;margin-top:8px">You make my heart bloom<br>I choose you every day</p>
-<audio controls autoplay style="margin-top:12px;width:100%"><source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4ded2a8d1e.mp3"></audio>
-<p style="font-size:10px;color:#ffb0c2">*musik otomatis nyala pas buka kado 1</p></div>
-</div>
-
-<div class="page" id="p4">
-<button class="back" onclick="back()">← Back</button>
-<p class="title" style="font-size:20px">A Playlist Made For You</p>
-<div class="gift-card"><div style="width:80px;height:80px;background:#ff4d7e;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:8px;margin:0 auto;font-weight:800">LOVER</div><p style="font-size:12px;margin-top:10px">Songs that sound like us</p></div>
-</div>
-
-<div class="page" id="p5">
-<button class="back" onclick="back()">← Back</button>
-<p class="title" style="font-size:20px">A Letter From My Heart</p>
-<div class="gift-card" style="text-align:left;background:#fffbe6"><p style="font-size:12px;line-height:1.7">You make my life beautiful and meaningful, I feel so lucky to have you. Thank you for being you and filling my heart with so much love. I will always choose you. Always, forever 💖</p></div>
-</div>
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{background:#080a0f;color:#fff;min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #1a1e2a}
+.logo{font-weight:800;font-size:18px}.logo span{color:#aaa;font-weight:400;font-size:10px;display:block;letter-spacing:2px}
+.stepper{display:flex;gap:18px;padding:20px;overflow:auto}.step{display:flex;align-items:center;gap:6px;color:#5a5f72;font-size:13px}.step.active{color:#2f8bff}.step b{width:20px;height:20px;border-radius:50%;background:#1a1e2a;display:grid;place-items:center;font-size:11px}.step.active b{background:#2f8bff;color:#fff}
+.hero{padding:10px 20px 20px}.hero h1{font-size:38px;line-height:0.95;letter-spacing:-1px}.hero p{color:#8b90a3;margin-top:12px;font-size:14px;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px}.card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:16px}.card h3{margin-top:8px;font-size:16px}.card p{font-size:12px;color:#8b90a3;margin-top:6px;min-height:32px}.price{margin-top:12px;font-size:20px;font-weight:800}.btn{margin-top:12px;width:100%;background:#1a1e2a;border:none;color:#fff;padding:12px;border-radius:10px;font-weight:600;cursor:pointer}.btn-primary{background:#0a84ff}.section{padding:0 20px;display:none}.section.active{display:block}input{width:100%;background:#12151f;border:1px solid #2f8bff;border-radius:12px;padding:14px;color:#fff;margin-top:10px}.qris-box{background:#fff;padding:12px;border-radius:16px;width:260px;margin:20px auto}.qris-box img{width:100%}
+</style>
+</head>
+<body>
+<header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL STORE</span></div><div style="font-size:13px;color:#8b90a3">Order</div></header>
+<div class="stepper"><div class="step active" id="s1"><b>1</b> Produk</div><div class="step" id="s2"><b>2</b> Data</div><div class="step" id="s3"><b>3</b> Pembayaran</div><div class="step" id="s4"><b>4</b> Status</div></div>
+<div id="page-produk" class="hero"><h1>Pilih produk<br>yang kamu butuhkan.</h1><p>Pilih produk, masukkan nomor WhatsApp, lalu selesaikan pembayaran melalui QRIS.</p><div class="grid" id="produk-grid"></div></div>
+<div id="page-data" class="section"><h1>Data Pengiriman</h1><p style="color:#8b90a3;font-size:14px;margin-top:6px">Masukkan nomor WhatsApp untuk menerima produk.</p><label style="display:block;margin-top:20px;font-size:14px">Nomor WhatsApp</label><input id="wa" placeholder="08xxxxxxxxxx"><p style="font-size:12px;color:#8b90a3;margin-top:8px">Produk akan dikirim ke nomor ini setelah pembayaran dikonfirmasi.</p><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('produk')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="go('konfirmasi')" style="flex:2">Lanjut</button></div><div id="pilih-info" style="margin-top:20px;color:#8b90a3;font-size:13px"></div></div>
+<div id="page-konfirmasi" class="section"><h1>Pesanan Kamu</h1><p style="color:#8b90a3;font-size:14px">Pastikan detail pesanan sudah benar.</p><div style="margin-top:24px;background:#12151f;border-radius:16px;padding:16px"><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#8b90a3">Produk</span><b id="c-produk"></b></div><div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#8b90a3">Nomor WhatsApp</span><b id="c-wa"></b></div><div style="display:flex;justify-content:space-between;border-top:1px solid #1e2333;padding-top:12px"><span>Total</span><b id="c-total" style="font-size:20px"></b></div></div><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('data')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="go('bayar')" style="flex:2">Lanjut Pembayaran</button></div></div>
+<div id="page-bayar" class="section" style="text-align:center"><div style="background:#0a2a4a;display:inline-block;padding:6px 12px;border-radius:20px;font-size:11px;color:#4db0ff">QRIS SERBA BISA</div><h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1><p style="color:#8b90a3;margin-top:6px">Total pembayaran</p><h2 id="b-total" style="font-size:28px">Rp 0</h2><div class="qris-box"><img src="qris.jpg" alt="QRIS LèxaaMj"></div><p style="font-size:12px;color:#8b90a3">Scan QRIS milik LèxaaMj. Setelah bayar, klik Saya Sudah Bayar.</p><div style="margin-top:20px;display:flex;gap:12px"><button class="btn" onclick="go('konfirmasi')" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="bayar()" style="flex:2">Saya Sudah Bayar</button></div></div>
+<div id="page-status" class="section" style="text-align:center"><h1 style="margin-top:40px">Pesanan Dikirim ke Admin</h1><p style="color:#8b90a3;margin-top:10px;font-size:14px">Kamu akan diarahkan ke WhatsApp Admin LèxaaMj untuk konfirmasi.</p><div style="margin:20px auto;background:#12151f;padding:16px;border-radius:16px;text-align:left;max-width:400px"><div style="display:flex;justify-content:space-between"><span style="color:#8b90a3">Produk</span><b id="s-produk"></b></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="color:#8b90a3">WhatsApp</span><b id="s-wa"></b></div><div style="display:flex;justify-content:space-between;margin-top:8px"><span style="color:#8b90a3">Total</span><b id="s-total"></b></div></div><button class="btn btn-primary" onclick="kirimWA()" style="max-width:400px;margin:20px auto;display:block">Chat Admin Sekarang</button></div>
 <script>
-const PIN="122011";let cur="";const boxC=document.getElementById('boxes');for(let i=0;i<6;i++){let d=document.createElement('div');d.className='box';boxC.appendChild(d)}
-function upd(){document.querySelectorAll('.box').forEach((b,i)=>b.textContent=i<cur.length?"♥":"")}
-function press(n){if(cur.length<6){cur+=n;upd();if(cur.length==6)check()}}function del(){cur=cur.slice(0,-1);upd()}
-function check(){if(cur===PIN){document.getElementById('p1').classList.remove('active');document.getElementById('p2').classList.add('active');document.getElementById('bgm').play().catch(()=>{});cur="";upd()}else{msg.textContent="Wrong code";cur="";upd()}}
-function openG(n){document.getElementById('p2').classList.remove('active');document.getElementById('p'+(n+2)).classList.add('active');if(n==1)document.getElementById('bgm').play()}
-function back(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('p2').classList.add('active')}
-upd();
-</script></body></html>
+const ADMIN_WA="6285642367261";
+const produk=[
+{id:'spotify',nama:'Spotify Premium',desc:'Akun Spotify Premium 1 bulan',harga:10000},
+{id:'sosmed',nama:'Download All Sosmed HD No WM',desc:'Tools download TikTok IG YT HD tanpa watermark',harga:15000},
+{id:'bugwa',nama:'Bug WA',desc:'Kumpulan Bug WA',harga:15000},
+{id:'termux',nama:'Tools Termux',desc:'Paket tools premium Termux',harga:50000},
+{id:'botgb',nama:'Bot GB',desc:'Bot WhatsApp GB siap pakai',harga:10000},
+{id:'push',nama:'Bot Push Kontak WA',desc:'Bot push kontak otomatis',harga:10000},
+];
+let selected=null;
+const grid=document.getElementById('produk-grid');
+produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small style="color:#5a5f72">0${i+1}</small><h3>${p.nama}</h3><p>${p.desc}</p><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
+function pilih(id){selected=produk.find(x=>x.id==id);document.getElementById('pilih-info').innerHTML=`<b>PRODUK DIPILIH</b><br><b style="color:#fff;font-size:16px">${selected.nama}</b><br>Rp${selected.harga.toLocaleString('id-ID')}`;go('data');}
+function go(page){
+ document.querySelectorAll('.hero,.section').forEach(e=>{e.style.display='none';e.classList.remove('active')});
+ document.querySelectorAll('.step').forEach(e=>e.classList.remove('active'));
+ if(page=='produk'){document.getElementById('page-produk').style.display='block';document.getElementById('s1').classList.add('active')}
+ if(page=='data'){document.getElementById('page-data').style.display='block';document.getElementById('s1').classList.add('active');document.getElementById('s2').classList.add('active')}
+ if(page=='konfirmasi'){
+  if(!selected||!document.getElementById('wa').value){alert('Isi nomor WA dulu');return go('data')}
+  document.getElementById('page-konfirmasi').style.display='block';document.getElementById('c-produk').innerText=selected.nama;document.getElementById('c-wa').innerText=document.getElementById('wa').value;document.getElementById('c-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');
+ }
+ if(page=='bayar'){document.getElementById('page-bayar').style.display='block';document.getElementById('b-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');document.getElementById('s1').classList.add('active');document.getElementById('s2').classList.add('active');document.getElementById('s3').classList.add('active')}
+ if(page=='status'){document.getElementById('page-status').style.display='block';document.getElementById('s-produk').innerText=selected.nama;document.getElementById('s-wa').innerText=document.getElementById('wa').value;document.getElementById('s-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');document.getElementById('s1').classList.add('active');document.getElementById('s2').classList.add('active');document.getElementById('s3').classList.add('active');document.getElementById('s4').classList.add('active');}
+ window.scrollTo(0,0);
+}
+function bayar(){
+ const wa=document.getElementById('wa').value;
+ const data={produk:selected.nama,harga:selected.harga,wa_pembeli:wa,waktu:new Date().toLocaleString('id-ID'),status:'Menunggu Konfirmasi'};
+ let list=JSON.parse(localStorage.getItem('lexa_orders')||'[]'); list.unshift(data); localStorage.setItem('lexa_orders',JSON.stringify(list));
+ localStorage.setItem('last_order',JSON.stringify(data));
+ go('status');
+ setTimeout(kirimWA,800);
+}
+function kirimWA(){
+ const last=JSON.parse(localStorage.getItem('last_order')||'{}');
+ const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${last.produk}%0AHarga: Rp${last.harga}%0ANo WA Saya: ${last.wa_pembeli}%0AWaktu: ${last.waktu}%0A%0AMohon dicek QRIS dan kirim filenya ya.`;
+ window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
+}
+</script>
+</body>
+</html>
