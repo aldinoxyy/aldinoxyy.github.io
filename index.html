@@ -10,7 +10,14 @@ header{display:flex;justify-content:space-between;align-items:center;padding:18p
 .logo{font-weight:800;font-size:18px}.logo span{color:#aaa;font-weight:400;font-size:10px;display:block;letter-spacing:2px}
 .stepper{display:flex;gap:18px;padding:20px;overflow:auto}.step{display:flex;align-items:center;gap:6px;color:#5a5f72;font-size:13px}.step.active{color:#2f8bff}.step b{width:20px;height:20px;border-radius:50%;background:#1a1e2a;display:grid;place-items:center;font-size:11px}.step.active b{background:#2f8bff;color:#fff}
 .hero{padding:10px 20px 20px}.hero h1{font-size:38px;line-height:0.95;letter-spacing:-1px}.hero p{color:#8b90a3;margin-top:12px;font-size:14px;line-height:1.5}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px}.card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:16px}.card h3{margin-top:8px;font-size:16px}.card p{font-size:12px;color:#8b90a3;margin-top:6px;min-height:32px}.price{margin-top:12px;font-size:20px;font-weight:800}.btn{margin-top:12px;width:100%;background:#1a1e2a;border:none;color:#fff;padding:12px;border-radius:10px;font-weight:600;cursor:pointer}.btn-primary{background:#0a84ff}.section{padding:0 20px;display:none}.section.active{display:block}input{width:100%;background:#12151f;border:1px solid #2f8bff;border-radius:12px;padding:14px;color:#fff;margin-top:10px}.qris-box{background:#fff;padding:12px;border-radius:16px;width:260px;margin:20px auto}.qris-box img{width:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px;align-items:stretch}
+.card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:16px;display:flex;flex-direction:column;height:100%}
+.card small{color:#5a5f72}
+.card h3{margin-top:8px;font-size:16px;min-height:44px}
+.card .desc{font-size:12px;color:#8b90a3;margin-top:6px;flex-grow:1;min-height:36px}
+.price{margin-top:16px;font-size:20px;font-weight:800}
+.btn{margin-top:12px;width:100%;background:#1a1e2a;border:none;color:#fff;padding:12px;border-radius:10px;font-weight:600;cursor:pointer;margin-top:auto}
+.btn-primary{background:#0a84ff}.section{padding:0 20px;display:none}.section.active{display:block}input{width:100%;background:#12151f;border:1px solid #2f8bff;border-radius:12px;padding:14px;color:#fff;margin-top:10px}.qris-box{background:#fff;padding:12px;border-radius:16px;width:260px;margin:20px auto}.qris-box img{width:100%}
 </style>
 </head>
 <body>
@@ -24,7 +31,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:18p
 <script>
 const ADMIN_WA="6285642367261";
 const produk=[
-{id:'spotify',nama:'Spotify Premium',desc:'Akun Spotify Premium 1 bulan',harga:10000},
+{id:'spotify',nama:'Spotify Premium',desc:'Access Account Spotify Premium Unlimited',harga:10000},
 {id:'sosmed',nama:'Download All Sosmed HD No WM',desc:'Tools download TikTok IG YT HD tanpa watermark',harga:15000},
 {id:'bugwa',nama:'Bug WA',desc:'Kumpulan Bug WA',harga:15000},
 {id:'termux',nama:'Tools Termux',desc:'Paket tools premium Termux',harga:50000},
@@ -33,7 +40,7 @@ const produk=[
 ];
 let selected=null;
 const grid=document.getElementById('produk-grid');
-produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small style="color:#5a5f72">0${i+1}</small><h3>${p.nama}</h3><p>${p.desc}</p><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
+produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small>0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
 function pilih(id){selected=produk.find(x=>x.id==id);document.getElementById('pilih-info').innerHTML=`<b>PRODUK DIPILIH</b><br><b style="color:#fff;font-size:16px">${selected.nama}</b><br>Rp${selected.harga.toLocaleString('id-ID')}`;go('data');}
 function go(page){
  document.querySelectorAll('.hero,.section').forEach(e=>{e.style.display='none';e.classList.remove('active')});
