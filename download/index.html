@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lèxaa Download - HD No WM</title>
+<title>Lèxaa Download</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -11,11 +11,10 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 .h{padding:16px 20px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);backdrop-filter:blur(10px)}
 .logo{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px}.logo span{color:#8ecfff}
 .t{margin-top:30px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600}.t span{color:#8ecfff}
-.sub{text-align:center;opacity:.35;letter-spacing:5px;font-size:10px;margin-top:6px}
 .box{margin:26px auto;max-width:560px;width:90%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:28px;display:flex;align-items:center;padding:0 6px 0 18px;backdrop-filter:blur(14px)}
 .box input{flex:1;background:transparent;border:none;outline:none;color:#fff;padding:16px 10px;font-size:13px}
 .box button{background:#8ecfff;color:#000;border:none;padding:12px 22px;border-radius:22px;font-size:10px;font-weight:700;letter-spacing:1.5px;cursor:pointer}
-#status{text-align:center;margin-top:18px;font-size:11px;letter-spacing:1.8px;opacity:.7;text-transform:uppercase;min-height:16px;line-height:1.6;max-width:580px;margin-left:auto;margin-right:auto;padding:0 16px}
+#status{text-align:center;margin-top:18px;font-size:11px;letter-spacing:1.8px;opacity:.55;text-transform:uppercase;line-height:1.6;max-width:580px;margin-left:auto;margin-right:auto;padding:0 16px}
 .results{max-width:580px;margin:16px auto;padding:0 14px;flex:1;width:100%}
 .card{background:rgba(18,22,36,.85);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:14px;display:flex;gap:14px;margin-bottom:10px;backdrop-filter:blur(10px)}
 .card img{width:62px;height:62px;border-radius:12px;object-fit:cover}
@@ -29,21 +28,20 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 .info{padding:18px;text-align:center}
 .info b.by{display:block;font-size:13px;font-weight:600;letter-spacing:1px;margin-bottom:12px}
 .btn-download{width:100%;background:#8ecfff;color:#000;border:none;padding:14px;border-radius:14px;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;margin-top:6px}
-.footer{margin-top:auto;text-align:center;padding:30px 0 20px;display:flex;flex-direction:column;gap:6px}
-.footer.copy{opacity:.35;font-size:10.5px;letter-spacing:0.3px}
-.footer a.support{color:#8ecfff;text-decoration:none;font-weight:600;font-size:11.5px;letter-spacing:0.5px}
+.footer{margin-top:auto;text-align:center;padding:28px 0 18px;display:flex;flex-direction:column;gap:4px;align-items:center}
+.footer.c{font-size:10px;opacity:.32;letter-spacing:0.2px}
+.footer a.support{font-size:10.5px;color:#8ecfff;text-decoration:none;opacity:.9}
 .footer a.support:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="h"><div><div class="logo"><span>Lèxaa</span> Download</div></div></div>
 <div class="t">Lèxaa <span>Download</span></div>
-<div class="sub"></div>
 <div class="box"><input id="q" placeholder="paste link anda disini"><button onclick="handle()">DOWNLOAD</button></div>
 <div id="status">downloader by LèxaaMj full hd no watermark gratis public access</div>
 <div class="results" id="results"></div>
 <div class="footer">
-  <div class="copy">© 2026 downloader by LèxaaMj full hd no watermark gratis public access</div>
+  <div class="c">© 2026 download by LèxaaMj</div>
   <a class="support" href="https://wa.me/6285642367261?text=Halo%20L%C3%A8xaaMj%20mau%20tanya%20soal%20downloader" target="_blank">contact support</a>
 </div>
 <script>
@@ -53,80 +51,41 @@ function extractUrl(t){const m=t.match(/https?:\/\/[^\s]+/i);return m?m[0].repla
 function getYTId(url){let m=url.match(/(?:v=|\.be\/|shorts\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
 async function handle(){
  const raw=document.getElementById('q').value.trim();if(!raw)return;
- const url=extractUrl(raw);
- const t=detect(url);
- if(t==='none'){
-  resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Link tidak dikenali</b><small>paste link ig / tiktok / youtube ya</small></div></div>`;
-  statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';
-  return;
- }
- if(t==='tiktok')dlTikTok(url);
- else if(t==='ig')dlIG(url);
- else if(t==='yt')dlYT(url);
+ const url=extractUrl(raw);const t=detect(url);
+ if(t==='none'){resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Link tidak dikenali</b><small>paste link ig / tiktok / youtube</small></div></div>`;return;}
+ if(t==='tiktok')dlTikTok(url); else if(t==='ig')dlIG(url); else if(t==='yt')dlYT(url);
 }
 async function dlTikTok(url){
  statusEl.innerText='tiktok • hd • no watermark';
  try{
-  let r=await fetch('https://www.tikwm.com/api/?url='+encodeURIComponent(url)+'&hd=1');
-  let j=await r.json();
-  if(j.data){
-   let d=j.data; let author=d.author?.unique_id?`@${d.author.unique_id}`:'@user';
-   if(d.images&&d.images.length){
-    statusEl.innerText=`tiktok • ${d.images.length} foto • hd no wm`;
-    resultsEl.innerHTML=d.images.map((img,i)=>`<div class="card"><img src="${img}"><div style="flex:1"><b>Foto ${i+1} • JPG HD No WM</b><small>${author} • foto = foto hd</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${img}','foto_${i+1}_hd.jpg')">DOWNLOAD JPG HD</button></div></div></div>`).join('');
-   }else{
-    resultsEl.innerHTML=`<div class="card"><img src="${d.cover}"><div style="flex:1"><b>Video • MP4 HD No WM</b><small>${author} • mp4 = mp4 hd • no wm</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd.mp4')">DOWNLOAD MP4 HD</button></div></div></div>`;
-    statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';
-   }return;
+  let r=await fetch('https://www.tikwm.com/api/?url='+encodeURIComponent(url)+'&hd=1');let j=await r.json();
+  if(j.data){let d=j.data;let author=d.author?.unique_id?`@${d.author.unique_id}`:'@user';
+   if(d.images&&d.images.length){resultsEl.innerHTML=d.images.map((img,i)=>`<div class="card"><img src="${img}"><div style="flex:1"><b>Foto ${i+1} • JPG HD No WM</b><small>${author}</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${img}','foto_${i+1}_hd.jpg')">DOWNLOAD JPG HD</button></div></div></div>`).join('');}
+   else{resultsEl.innerHTML=`<div class="card"><img src="${d.cover}"><div style="flex:1"><b>Video • MP4 HD No WM</b><small>${author}</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd.mp4')">DOWNLOAD MP4 HD</button></div></div></div>`;}
+   statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';return;
   }
  }catch(e){}
 }
 async function dlYT(url){
- let ytId=getYTId(url)||'';
- statusEl.innerText='yt • fetching hd...';
- resultsEl.innerHTML=`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>Video • MP4 HD • Fetching...</b><small>yt • ${ytId}</small></div></div>`;
- let servers=['https://co.wuk.sh/api/json','https://api.cobalt.tools/api/json'];
- for(let srv of servers){
-  try{
-   let res=await fetch(srv,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});
-   let data=await res.json();
-   if(data.url){
-    statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';
-    resultsEl.innerHTML=`<div class="card"><img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg"><div style="flex:1"><b>Video • MP4 HD No WM</b><small>yt • mp4 = mp4 hd • 1080p</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${data.url}','yt_${ytId}_1080p.mp4')">DOWNLOAD MP4 HD</button></div></div></div><div class="card"><img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg"><div style="flex:1"><b>Music • MP3 Original</b><small>mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="dlYTMp3('${url}','${ytId}')">DOWNLOAD MP3</button></div></div></div>`;
-    return;
-   }
-  }catch(e){ continue; }
+ let ytId=getYTId(url)||'';statusEl.innerText='yt • fetching...';
+ resultsEl.innerHTML=`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>Fetching...</b><small>${ytId}</small></div></div>`;
+ for(let srv of ['https://co.wuk.sh/api/json','https://api.cobalt.tools/api/json']){
+  try{let res=await fetch(srv,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});let data=await res.json();
+   if(data.url){resultsEl.innerHTML=`<div class="card"><img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg"><div style="flex:1"><b>Video • MP4 HD No WM</b><small>1080p</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${data.url}','yt_${ytId}.mp4')">DOWNLOAD MP4 HD</button></div></div></div><div class="card"><div style="flex:1"><b>Music • MP3 Original</b><div class="btns"><button class="btn btn2" onclick="dlYTMp3('${url}','${ytId}')">DOWNLOAD MP3</button></div></div></div>`;statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';return;}
+  }catch(e){continue;}
  }
- resultsEl.innerHTML=`<div class="card"><img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg"><div style="flex:1"><b>Video • MP4 HD No WM</b><small>yt • fallback</small><div class="btns"><button class="btn btn2" onclick="window.open('https://www.y2mate.is/youtube/${ytId}','_blank')">DOWNLOAD MP4 HD</button></div></div></div>`;
 }
-async function dlYTMp3(url,ytId){
- try{
-  let res=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,isAudioOnly:true,aFormat:'mp3'})});
-  let data=await res.json();
-  if(data.url){downloadFile(data.url,`yt_${ytId}_mp3.mp3`);return;}
- }catch(e){}
- window.open(`https://www.y2mate.is/youtube/${ytId}?format=mp3`,'_blank');
-}
+async function dlYTMp3(url,ytId){try{let res=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,isAudioOnly:true,aFormat:'mp3'})});let data=await res.json();if(data.url){downloadFile(data.url,`yt_${ytId}.mp3`);return;}}catch(e){}window.open(`https://www.y2mate.is/youtube/${ytId}?format=mp3`,'_blank');}
 async function dlIG(url){
  const igId=url.split('/p/')[1]?.split('/')[0]||url.split('/reel/')[1]?.split('/')[0]||url.split('/reels/')[1]?.split('/')[0]||url.split('/')[4]||'';
- statusEl.innerText='ig • fetching hd...';
- resultsEl.innerHTML=`<div class="preview"><div class="info"><b class="by">download by LèxaaMj</b><small>fetching...</small></div></div>`;
- try{
-  let r=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});
-  let j=await r.json();
-  if(j.url){
-   const isV=j.url.includes('.mp4');
-   resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">Download</button></div></div>`;
-   statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';return;
-  }
-  if(j.picker){
-   resultsEl.innerHTML=j.picker.map((p,i)=>`<div class="preview">${p.type==='video'?`<video class="p" src="${p.url}" controls></video>`:`<img class="p" src="${p.url||p.thumb}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${p.url}','ig_${i+1}_hd.${p.ext||'mp4'}')">Download</button></div></div>`).join('');
-   statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';return;
-  }
+ statusEl.innerText='ig • fetching...';resultsEl.innerHTML=`<div class="preview"><div class="info"><b class="by">download by LèxaaMj</b></div></div>`;
+ try{let r=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});let j=await r.json();
+  if(j.url){const isV=j.url.includes('.mp4');resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">Download</button></div></div>`;statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';return;}
+  if(j.picker){resultsEl.innerHTML=j.picker.map((p,i)=>`<div class="preview">${p.type==='video'?`<video class="p" src="${p.url}" controls></video>`:`<img class="p" src="${p.url||p.thumb}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${p.url}','ig_${i+1}_hd.${p.ext||'mp4'}')">Download</button></div></div>`).join('');statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';return;}
  }catch(e){}
  resultsEl.innerHTML=`<div class="preview"><img class="p" src="https://instagram.com/p/${igId}/media/?size=l"><div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('https://instagram.com/p/${igId}/media/?size=l','ig_${igId}_hd.jpg')">Download</button></div></div>`;
 }
-function downloadFile(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • downloader by LèxaaMj full hd no watermark gratis public access';}
+function downloadFile(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloader by LèxaaMj full hd no watermark gratis public access';}
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')handle();});
 </script>
 </body>
