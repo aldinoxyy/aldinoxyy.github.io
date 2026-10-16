@@ -3,40 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotify LèxaaMj - Full Download</title>
+<title>Spotify LèxaaMj</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;background:#05070d;color:#fff;font-family:system-ui;background-image:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.9)),url('bg.jpg');background-size:cover;background-position:center;background-attachment:fixed}
+body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;color:#fff;font-family:system-ui;background-image:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.9)),url('bg.jpg');background-size:cover;background-position:center;background-attachment:fixed}
 .h{padding:16px 20px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(10px)}
 .logo{font-weight:900;font-size:22px} .logo span{color:#5ec9ff}
 .t{margin-top:28px;text-align:center;font-size:38px;font-weight:900} .t span{color:#a8dcff}
-.sub{ text-align:center; opacity:.5; letter-spacing:4px; font-size:12px; margin-top:4px }
-.box{margin:24px auto;max-width:560px;background:rgba(255,255,255,.08);border:1.6px solid #5ec9ff;border-radius:32px;display:flex;align-items:center;padding:0 18px;backdrop-filter:blur(14px)}
+.sub{text-align:center;opacity:.5;letter-spacing:4px;font-size:12px;margin-top:4px}
+.box{margin:24px auto;max-width:560px;width:90%;background:rgba(255,255,255,.08);border:1.6px solid #5ec9ff;border-radius:32px;display:flex;align-items:center;padding:0 18px;backdrop-filter:blur(14px)}
 .box input{flex:1;background:transparent;border:none;outline:none;color:#fff;padding:18px 10px;font-size:16px}
 #status{text-align:center;margin-top:18px;font-size:14px}
-.results{max-width:640px;margin:10px auto 120px;padding:0 14px}
+.results{max-width:640px;margin:10px auto;padding:0 14px;flex:1}
 .card{background:rgba(18,22,36,.78);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:12px;display:flex;gap:12px;margin-bottom:12px;backdrop-filter:blur(10px)}
 .card img{width:76px;height:76px;border-radius:12px;object-fit:cover}
-.card b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.card b{font-size:14px;display:block}
 .card small{opacity:.6;font-size:12px}
 .btns{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
 .btn{background:#1ed760;color:#000;border:none;padding:7px 14px;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer}
 .btn2{background:rgba(255,255,255,.14);color:#fff}
 .btn3{background:#5ec9ff;color:#000}
 .player{position:fixed;bottom:0;left:0;width:100%;background:rgba(10,14,25,.92);backdrop-filter:blur(12px);padding:10px 16px;display:none;border-top:1px solid rgba(255,255,255,.08)}
-.footer{text-align:center;padding:18px 0 100px;opacity:.4;font-size:11px}
+.footer{margin-top:auto;text-align:center;padding:40px 0 18px;opacity:.55;font-size:12px;line-height:1.6}
 a{color:#5ec9ff;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="h"><div><div class="logo"><span>Spotify</span> LèxaaMj</div><div style="opacity:.6;font-size:10px;letter-spacing:2px">ANGELIC EDITION</div></div><div style="opacity:.5;font-size:10px">FULL • PERMANENT</div></div>
+<div class="h"><div><div class="logo"><span>Spotify</span> LèxaaMj</div><div style="opacity:.6;font-size:10px;letter-spacing:3px">ANGELIC EDITION</div></div><div style="opacity:.45;font-size:11px">PERMANENT</div></div>
 <div class="t">Spotify <span>LèxaaMj</span></div>
-<div class="sub">SEARCH • PLAY • FULL DOWNLOAD</div>
+<div class="sub">SEARCH • PLAY • DOWNLOAD</div>
 <div class="box">🔍<input id="q" placeholder="Gata Only, DJ, viral..." onkeydown="if(event.key==='Enter')search()"></div>
 <div id="status"></div>
 <div class="results" id="results"></div>
 <div class="player" id="player"><div id="pinfo" style="font-size:13px;margin-bottom:6px"></div><audio id="audio" controls style="width:100%"></audio></div>
-<div class="footer">© 2026 Spotify LèxaaMj • Full MP3<br>IG: @alaaxaa_ | WA Error: <a href="https://wa.me/6285642367261">085642367261</a></div>
+
+<div class="footer">© 2026 Spotify LèxaaMj • Angelic Edition<br>Instagram: @alaaxaa_ | Bug / Error: <a href="https://wa.me/6285642367261">085642367261</a><br>Permanent • No Server • Fast</div>
 
 <script>
 const statusEl=document.getElementById('status');
@@ -44,107 +45,38 @@ const resultsEl=document.getElementById('results');
 const audio=document.getElementById('audio');
 const player=document.getElementById('player');
 const pinfo=document.getElementById('pinfo');
-
 async function search(){
-  const q=document.getElementById('q').value.trim();
-  if(!q) return;
-  statusEl.style.color='#7dd3ff';
-  statusEl.innerText='⏳ Nyari "'+q+'" ...';
-  resultsEl.innerHTML='';
-  
+  const q=document.getElementById('q').value.trim(); if(!q) return;
+  statusEl.style.color='#7dd3ff'; statusEl.innerText='⏳ Nyari "'+q+'" ...'; resultsEl.innerHTML='';
   try{
-    // API 1: SpotifyDown Search (bisa download full)
-    let r = await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));
-    let j = await r.json();
+    let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));
+    let j=await r.json();
     if(j.success && j.trackList.length){
-      statusEl.innerText='✅ Ketemu '+j.trackList.length+' lagu - Klik Download untuk FULL MP3';
-      statusEl.style.color='#1ed760';
-      renderSpotify(j.trackList);
-      return;
-    }
-  }catch(e){ console.log('spotifydown search fail',e) }
-
-  // Fallback: iTunes (selalu jalan)
-  try{
-    let r2 = await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&limit=20');
-    let j2 = await r2.json();
-    if(j2.results.length){
-      statusEl.innerText='✅ Ketemu '+j2.results.length+' lagu (Mode iTunes - Download via YouTube)';
-      statusEl.style.color='#1ed760';
-      renderItunes(j2.results);
-      return;
+      statusEl.innerText='✅ Ketemu '+j.trackList.length+' lagu'; statusEl.style.color='#1ed760';
+      resultsEl.innerHTML=j.trackList.map(t=>`
+        <div class="card"><img src="${t.cover}"><div style="flex:1"><b>${t.title}</b><small>${t.artists}</small><div class="btns"><button class="btn" onclick="window.open('https://open.spotify.com/track/${t.id}','_blank')">▶ PLAY</button><button class="btn btn3" onclick="downloadFull('${t.id}','${t.title.replace(/'/g,'')}')">⬇ FULL MP3</button></div></div></div>`).join(''); return;
     }
   }catch(e){}
-
-  statusEl.style.color='#ff8a8a';
-  statusEl.innerText='❌ Gagal search Bos, coba lagi / ganti kata kunci';
-}
-
-function renderSpotify(list){
-  resultsEl.innerHTML=list.map(t=>`
-    <div class="card">
-      <img src="${t.cover}">
-      <div style="flex:1;min-width:0">
-        <b>${t.title}</b>
-        <small>${t.artists} • ${t.album||''}</small>
-        <div class="btns">
-          <button class="btn" onclick="playPreview('${t.title}')">▶ PLAY</button>
-          <button class="btn btn3" onclick="downloadFull('${t.id}','${t.title.replace(/'/g,'')}')">⬇ FULL MP3</button>
-          <button class="btn btn2" onclick="window.open('https://open.spotify.com/track/${t.id}','_blank')">Spotify</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderItunes(list){
-  resultsEl.innerHTML=list.map(t=>`
-    <div class="card">
-      <img src="${t.artworkUrl100.replace('100x100','500x500')}">
-      <div style="flex:1">
-        <b>${t.trackName}</b>
-        <small>${t.artistName}</small>
-        <div class="btns">
-          <button class="btn" onclick="playUrl('${t.previewUrl}','${t.trackName}')">▶ PREVIEW</button>
-          <button class="btn btn3" onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(t.artistName+' '+t.trackName+' lyric')}','_blank')">⬇ FULL (YT)</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-async function downloadFull(id, title){
-  statusEl.style.color='#7dd3ff';
-  statusEl.innerText='⏳ Siapin FULL MP3 "'+title+'" ...';
   try{
-    // Download MP3 via spotifydown
-    let r = await fetch('https://api.spotifydown.com/download/'+id);
-    let j = await r.json();
-    if(j.success && j.link){
-      statusEl.innerText='✅ Siap! Klik untuk download';
-      window.open(j.link,'_blank');
-      // auto download
-      let a=document.createElement('a');
-      a.href=j.link;
-      a.download=title+'.mp3';
-      a.click();
-    }else{
-      throw 'no link';
+    let r2=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&limit=20');
+    let j2=await r2.json();
+    if(j2.results.length){
+      statusEl.innerText='✅ Ketemu '+j2.results.length+' lagu'; statusEl.style.color='#1ed760';
+      resultsEl.innerHTML=j2.results.map(t=>`
+        <div class="card"><img src="${t.artworkUrl100.replace('100x100','500x500')}"><div style="flex:1"><b>${t.trackName}</b><small>${t.artistName}</small><div class="btns"><button class="btn" onclick="playUrl('${t.previewUrl}','${t.trackName}')">▶ PREVIEW</button><button class="btn btn3" onclick="window.open('https://www.youtube.com/results?search_query=${encodeURIComponent(t.artistName+' '+t.trackName)}','_blank')">⬇ FULL (YT)</button></div></div></div>`).join(''); return;
     }
-  }catch(e){
-    statusEl.innerHTML='Gagal ambil MP3, coba via YouTube: <a href="https://www.youtube.com/results?search_query='+encodeURIComponent(title)+'" target="_blank">Klik sini</a>';
-  }
+  }catch(e){}
+  statusEl.style.color='#ff8a8a'; statusEl.innerText='❌ Gagal search Bos, coba lagi';
 }
-
-function playUrl(url,title){
-  pinfo.innerText='Playing: '+title;
-  audio.src=url;
-  player.style.display='block';
-  audio.play();
+async function downloadFull(id,title){
+  statusEl.style.color='#7dd3ff'; statusEl.innerText='⏳ Siapin FULL MP3 "'+title+'" ...';
+  try{
+    let r=await fetch('https://api.spotifydown.com/download/'+id); let j=await r.json();
+    if(j.success && j.link){ window.open(j.link,'_blank'); let a=document.createElement('a'); a.href=j.link; a.download=title+'.mp3'; a.click(); statusEl.innerText='✅ Download dimulai!'; return; }
+  }catch(e){}
+  statusEl.innerHTML='Gagal, coba YT: <a href="https://www.youtube.com/results?search_query='+encodeURIComponent(title)+'" target="_blank">Klik</a>';
 }
-function playPreview(title){
-  window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(title),'_blank');
-}
+function playUrl(url,title){ pinfo.innerText='Playing: '+title; audio.src=url; player.style.display='block'; audio.play(); }
 </script>
 </body>
 </html>
