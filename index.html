@@ -43,7 +43,14 @@ input{width:100%;background:#12151f;border:1px solid #0a84ff;border-radius:12px;
 <header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL FILES</span></div><div style="color:#6b7085;font-size:13px">Order</div></header>
 <div class="steps"><div class="step active"><b>1</b> Produk</div><div class="step"><b>2</b> Data</div><div class="step"><b>3</b> Pembayaran</div><div class="step"><b>4</b> Status</div></div>
 
-<div id="page1" class="page active"><h1>Pilih produk<br>yang kamu butuhkan.</h1><div class="grid" id="grid"></div></div>
+<div id="page1" class="page active"><h1>Pilih produk<br>yang kamu butuhkan.</h1><div class="grid" id="grid"></div>
+<div style="text-align:center;padding:30px 20px 20px;border-top:1px solid #1a1e2a;margin-top:30px;color:#5a5f72;font-size:12px;line-height:1.8">
+  © 2026 LèxaaMj Premium Digital Files<br>
+  Contact: 085642367261 | Instagram: @alaaxaa_<br>
+  <span style="color:#3a3f54">Trusted Seller • Fast Response • Garansi Full</span>
+</div>
+</div>
+
 <div id="page2" class="page"><h1>Data Pengiriman</h1><input id="wa" placeholder="08xxxxxxxxxx"><div style="margin-top:24px"><button class="btn btn-dark" onclick="go1()">Kembali</button><button class="btn btn-blue" onclick="toPesanan()">Lanjut</button></div><div class="detail"><small style="color:#5a5f72">PRODUK</small><h2 id="p2-nama">-</h2></div></div>
 <div id="page2b" class="page"><h1>Pesanan Kamu</h1><div class="detail"><div class="detail-row"><span>Produk</span><b id="p2b-nama" style="color:#fff">-</b></div><div class="detail-row"><span>WA</span><b id="p2b-wa" style="color:#fff">-</b></div><div class="detail-row" style="margin-top:20px;border-top:1px solid #1a1e2a;padding-top:16px"><span>Total</span><b id="p2b-total" style="color:#fff;font-size:22px">-</b></div></div><div style="margin-top:24px"><button class="btn btn-dark" onclick="go2()">Kembali</button><button class="btn btn-blue" onclick="go3()">Lanjut Pembayaran</button></div></div>
 <div id="page3" class="page" style="text-align:center"><span class="badge">QRIS</span><h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1><h2 id="p3-total" style="font-size:28px;margin-top:8px">Rp 0</h2><div class="qris-box"><img id="qris" src="qris.jpg"></div><div style="display:flex;gap:12px;margin-top:20px"><button class="btn btn-dark" onclick="go2()" style="flex:1">Kembali</button><button class="btn btn-blue" onclick="go4()" style="flex:2">Saya Sudah Bayar</button></div></div>
@@ -77,7 +84,6 @@ function go4(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page4').classList.add('active');
   setS(4);cek();
-  // FORMAT BARU SESUAI MAU LU BOS
   let pesan = `Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${sel.nama}%0AHarga: Rp${sel.harga}%0AWA Pembeli: ${waNum}%0AMohon dicek`;
   window.open(`https://wa.me/${ADMIN_WA}?text=${pesan}`,'_blank');
 }
