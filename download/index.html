@@ -26,7 +26,6 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 .btn:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 .btn2{border-color:rgba(142,207,255,.4);color:#8ecfff}
 .btn2:hover{background:rgba(142,207,255,.1);border-color:#8ecfff}
-.player{position:fixed;bottom:0;left:0;width:100%;background:rgba(10,14,25,.94);backdrop-filter:blur(16px);padding:12px 16px;display:none;border-top:1px solid rgba(255,255,255,.06)}
 .footer{margin-top:auto;text-align:center;padding:38px 0 20px;opacity:.35;font-size:10px;letter-spacing:1.5px;font-weight:300;line-height:1.8;font-family:'Inter'}
 </style>
 </head>
@@ -37,7 +36,6 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 <div class="box"><input id="q" placeholder="paste link tiktok / ig / yt / spotify atau search judul..."><button onclick="handle()">DOWNLOAD</button></div>
 <div id="status">mp4 = mp4 • mp3 = mp3 • foto = foto hd • auto no watermark</div>
 <div class="results" id="results"></div>
-<div class="player" id="player"><div id="pinfo" style="font-size:11px;letter-spacing:.5px;opacity:.7;margin-bottom:8px;font-weight:300"></div><audio id="audio" controls style="width:100%;height:36px"></audio></div>
 <div class="footer">© 2026 Lèxaa Download • Angelic Edition • background same as spotify<br>mp4 mp3 jpg auto • hd no watermark • permanent</div>
 <script>
 const statusEl=document.getElementById('status');
@@ -70,7 +68,7 @@ async function searchSpotify(q){
    statusEl.innerText=j2.results.length+' results';
    resultsEl.innerHTML=j2.results.map(t=>`
     <div class="card"><img src="${t.artworkUrl100.replace('100x100','500x500')}"><div style="flex:1"><b>${t.trackName}</b><small>${t.artistName} • mp3 hd</small>
-    <div class="btns"><button class="btn" onclick="playUrl('${t.previewUrl}','${t.trackName}')">preview</button><button class="btn btn2" onclick="dlUniversal('https://www.youtube.com/results?search_query=${encodeURIComponent(t.artistName+' '+t.trackName)}','yt')">full yt hd</button></div></div></div>`).join('');return;
+    <div class="btns"><button class="btn" onclick="window.open('${t.previewUrl}','_blank')">preview</button><button class="btn btn2" onclick="dlUniversal('https://www.youtube.com/results?search_query=${encodeURIComponent(t.artistName+' '+t.trackName)}','yt')">full yt hd</button></div></div></div>`).join('');return;
   }
  }catch(e){}statusEl.innerText='no results';
 }
@@ -136,8 +134,7 @@ async function dlUniversal(url,label){
   </div></div></div>`;
 }
 async function dlAudio(url){try{let r=await fetch('https://api.cobalt.tools/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,isAudioOnly:true,aFormat:'mp3'})});let d=await r.json();if(d.url)downloadFile(d.url,'audio_hd.mp3');}catch(e){}}
-function downloadFile(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • '+name+' • hd no wm • '+name.split('.').pop()+' = '+name.split('.').pop();}
-function playUrl(url,title){const audio=document.getElementById('audio');const player=document.getElementById('player');document.getElementById('pinfo').innerText=title.toLowerCase();audio.src=url;player.style.display='block';audio.play();}
+function downloadFile(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • '+name+' • hd no wm';}
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')handle();});
 </script>
 </body>
