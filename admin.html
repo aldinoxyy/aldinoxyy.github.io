@@ -1,103 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin LèxaaMj</title>
-<style>
-body{background:#080a0f;color:#fff;font-family:system-ui;padding:20px}
-h1{font-size:22px}
-p{color:#8b90a3;font-size:13px;margin-top:6px}
-.btn{background:#0a84ff;border:none;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:12px}
-.btn2{background:#1a1e2a}
-.btn-selesai{background:#00c853}
-.btn-gagal{background:#ff1744}
-table{width:100%;border-collapse:collapse;margin-top:20px;background:#12151f;border-radius:12px;overflow:hidden}
-th,td{padding:10px;text-align:left;border-bottom:1px solid #1e2333;font-size:12px}
-th{color:#8b90a3;font-size:11px;letter-spacing:1px}
-.box{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
-.status{padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
-.status-menunggu{background:#332a00;color:#ffcc00}
-.status-selesai{background:#003d1f;color:#00e676}
-.status-gagal{background:#3d000f;color:#ff5252}
-tr.selesai{opacity:0.6}
-tr.gagal{opacity:0.4;text-decoration:line-through}
-</style>
-</head>
-<body>
-<h1>Dashboard LèxaaMj</h1>
-<p>Admin WA: 085642367261 - Klik status buat ubah jadi Selesai / Gagal</p>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin LèxaaMj</title>
+<style>body{background:#0a0c13;color:#fff;font-family:Inter,sans-serif;padding:20px}.box{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:20px;margin-top:20px}.btn{width:100%;padding:14px;border-radius:12px;border:none;font-weight:700;color:#fff;margin-top:10px;cursor:pointer}.blue{background:#0a84ff}.red{background:#ff2a4d}.dark{background:#1a1e2a} input,textarea{width:100%;padding:12px;border-radius:10px;background:#0a0c13;border:1px solid #2a2e3e;color:#fff;margin-top:8px}</style>
+</head><body>
+<h2>Admin Panel LèxaaMj</h2>
+<p style="color:#8b90a3;font-size:13px">Atur status pembeli: BERHASIL atau GAGAL</p>
 <div class="box">
-<button class="btn" onclick="load()">Refresh Data</button>
-<button class="btn btn2" onclick="clearData()">Hapus Semua</button>
-<button class="btn btn2" onclick="exportCSV()">Export CSV</button>
+  <p>WA Pembeli:</p><input id="wa" placeholder="08xxxxxxxxxx">
+  <p style="margin-top:12px">Produk:</p><input id="prod" placeholder="Bot GB LèxaaMj">
+  <p style="margin-top:12px">Alasan Gagal (jika tolak):</p><textarea id="alasan" placeholder="Contoh: Bukti transfer tidak valid / belum bayar"></textarea>
+  <button class="btn blue" onclick="setStatus('success')">✅ Konfirmasi BERHASIL</button>
+  <button class="btn red" onclick="setStatus('failed')">❌ Tolak / GAGAL</button>
+  <p id="info" style="margin-top:12px;font-size:13px"></p>
 </div>
-<table id="tbl">
-<thead>
-<tr>
-<th>WAKTU</th>
-<th>PRODUK</th>
-<th>HARGA</th>
-<th>WA PEMBELI</th>
-<th>STATUS</th>
-<th>AKSI</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-
 <script>
-function load(){
- const list=JSON.parse(localStorage.getItem('lexa_orders')||'[]');
- const tbody=document.querySelector('#tbl tbody');
- tbody.innerHTML='';
- list.forEach((r,i)=>{
-  let cls='status-menunggu';
-  let trCls='';
-  if(r.status.includes('Selesai')){cls='status-selesai';trCls='selesai';}
-  if(r.status.includes('Gagal')){cls='status-gagal';trCls='gagal';}
-  tbody.innerHTML+=`<tr class="${trCls}">
-  <td>${r.waktu}</td>
-  <td>${r.produk}</td>
-  <td>Rp${r.harga}</td>
-  <td>${r.wa_pembeli}</td>
-  <td><span class="status ${cls}">${r.status}</span></td>
-  <td>
-    <button class="btn btn-selesai" onclick="ubahStatus(${i},'Pembelian Selesai')">Selesai</button>
-    <button class="btn btn-gagal" onclick="ubahStatus(${i},'Pembelian Gagal')">Gagal</button>
-  </td>
-  </tr>`;
- });
- if(!list.length){
-  tbody.innerHTML='<tr><td colspan=6 style="color:#8b90a3;text-align:center;padding:20px">Belum ada pembeli yang klik Saya Sudah Bayar</td></tr>';
- }
+function setStatus(type){
+  const wa=document.getElementById('wa').value.trim();
+  const prod=document.getElementById('prod').value.trim();
+  const alasan=document.getElementById('alasan').value.trim()||'Pembayaran belum diterima';
+  if(!wa) return alert('Isi WA dulu Bos');
+  if(type=='success'){
+    localStorage.setItem('lexa_status_'+wa,'success');
+    localStorage.setItem('lexa_prod_'+wa,prod);
+    document.getElementById('info').innerHTML='<span style="color:#4ade80">Berhasil! Status '+wa+' jadi BERHASIL</span>';
+    const link=`https://aldinoxyy.github.io/?wa=${wa}&status=success`;
+    setTimeout(()=>{prompt('Copy link BERHASIL kirim ke pembeli:',link)},500);
+  } else {
+    localStorage.setItem('lexa_status_'+wa,'failed');
+    localStorage.setItem('lexa_reason_'+wa,alasan);
+    document.getElementById('info').innerHTML='<span style="color:#ff4d6d">Status '+wa+' ditandai GAGAL: '+alasan+'</span>';
+    const link=`https://aldinoxyy.github.io/?wa=${wa}&status=failed&reason=${encodeURIComponent(alasan)}`;
+    setTimeout(()=>{prompt('Copy link GAGAL kirim ke pembeli:',link)},500);
+  }
 }
-function ubahStatus(index,statusBaru){
- let list=JSON.parse(localStorage.getItem('lexa_orders')||'[]');
- list[index].status=statusBaru;
- localStorage.setItem('lexa_orders',JSON.stringify(list));
- load();
-}
-function clearData(){
- if(confirm('Yakin hapus semua data pembeli?')){
-  localStorage.removeItem('lexa_orders');
-  load();
- }
-}
-function exportCSV(){
- const list=JSON.parse(localStorage.getItem('lexa_orders')||'[]');
- if(!list.length){alert('Belum ada data');return;}
- let csv='Waktu,Produk,Harga,WA_Pembeli,Status\n';
- list.forEach(r=>{
-  csv+=`"${r.waktu}","${r.produk}",${r.harga},"${r.wa_pembeli}","${r.status}"\n`;
- });
- const blob=new Blob([csv],{type:'text/csv'});
- const a=document.createElement('a');
- a.href=URL.createObjectURL(blob);
- a.download='orders_lexaamj_'+Date.now()+'.csv';
- a.click();
-}
-load();
 </script>
-</body>
-</html>
+</body></html>

@@ -1,52 +1,79 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LèxaaMj - Premium Digital Files</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
-body{background:#080a0f;color:#fff;min-height:100vh;overflow-x:hidden}
-#splash{position:fixed;inset:0;background:#080a0f;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 0.8s ease,visibility 0.8s}
+body{background:#0a0c13;color:#fff;min-height:100vh}
+#splash{position:fixed;inset:0;background:#0a0c13;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:0.8s}
 #splash.hide{opacity:0;visibility:hidden}
-.splash-line{width:80px;height:2px;background:#2a2e3e;margin-bottom:18px;overflow:hidden;position:relative}
-.splash-line::after{content:'';position:absolute;left:0;top:0;height:100%;width:100%;background:#fff;animation:lineLoad 1.2s ease}
-@keyframes lineLoad{0%{transform:translateX(-100%)}100%{transform:translateX(0%)}}
-.splash-title{font-size:26px;font-weight:800;letter-spacing:-0.5px;opacity:0;transform:translateY(15px);animation:up 0.6s 0.3s ease forwards}
-.splash-sub{margin-top:10px;font-size:12px;letter-spacing:4px;color:#6b7085;opacity:0;animation:up 0.6s 0.5s ease forwards}
+.splash-line{width:80px;height:2px;background:#1e2333;overflow:hidden;position:relative;margin-bottom:18px}
+.splash-line::after{content:'';position:absolute;inset:0;background:#fff;animation:load 1.2s ease}
+@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
+.splash-title{font-size:26px;font-weight:800;transform:translateY(15px);opacity:0;animation:up.6s.3s forwards}
+.splash-sub{margin-top:8px;font-size:12px;letter-spacing:4px;color:#6b7085;opacity:0;animation:up.6s.5s forwards}
 @keyframes up{to{opacity:1;transform:translateY(0)}}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid #1a1e2a}
-.logo{font-weight:800;font-size:18px}.logo span{color:#aaa;font-weight:400;font-size:10px;display:block;letter-spacing:2px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px;align-items:stretch}
-.card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:16px;display:flex;flex-direction:column;height:100%}
-.card small{color:#5a5f72}
-.card h3{margin-top:8px;font-size:15px;min-height:44px;line-height:1.2}
-.card .desc{font-size:12px;color:#8b90a3;margin-top:6px;flex-grow:1;min-height:48px;line-height:1.4}
-.price{margin-top:12px;font-size:18px;font-weight:800}
-.btn{width:100%;background:#1a1e2a;border:none;color:#fff;padding:12px;border-radius:10px;font-weight:600;cursor:pointer;margin-top:10px}
-.btn-primary{background:#0a84ff}
-.section{padding:20px;display:none}
-input{width:100%;background:#12151f;border:1px solid #2a2e3e;border-radius:12px;padding:14px;color:#fff;margin-top:10px;outline:none}
-input:focus{border-color:#0a84ff}
-.qris-box{background:#fff;padding:10px;border-radius:16px;width:270px;margin:20px auto}.qris-box img{width:100%;display:block}
-footer{margin-top:10px;padding:30px 20px;border-top:1px solid #1a1e2a;color:#5a5f72;text-align:center}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #1a1e2a}
+.logo{font-weight:800}.logo span{display:block;font-size:10px;letter-spacing:2px;color:#6b7085;font-weight:400}
+.steps{display:flex;gap:14px;padding:16px 20px;overflow:auto;border-bottom:1px solid #141826}
+.step{display:flex;align-items:center;gap:6px;color:#4a4f63;font-size:12px;white-space:nowrap}
+.step.active{color:#fff}.step b{width:22px;height:22px;border-radius:50%;background:#1a1e2a;display:grid;place-items:center;font-size:11px;border:1px solid #252a3a}.step.active b{background:#0a84ff;border-color:#0a84ff;color:#fff}
+.page{display:none;padding:20px}.page.active{display:block}
+h1{font-size:28px;line-height:1.1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.card{background:#12151f;border:1px solid #1e2333;border-radius:16px;padding:14px;display:flex;flex-direction:column}
+.card h3{font-size:14px;margin-top:8px;min-height:36px}
+.card.desc{font-size:11px;color:#8b90a3;margin-top:6px;flex-grow:1;min-height:38px;line-height:1.3}
+.price{margin-top:10px;font-weight:800}
+.btn{width:100%;padding:12px;border-radius:10px;border:none;font-weight:600;cursor:pointer;margin-top:10px}
+.btn-dark{background:#1a1e2a;color:#fff}.btn-blue{background:#0a84ff;color:#fff}
+input{width:100%;background:#12151f;border:1px solid #0a84ff;border-radius:12px;padding:14px;color:#fff;margin-top:12px}
+.detail{margin-top:20px;border-top:1px solid #1a1e2a;padding-top:14px}
+.detail-row{display:flex;justify-content:space-between;margin-top:12px;font-size:14px;color:#9aa0b3}
+.qris-box{background:#fff;padding:10px;border-radius:16px;width:280px;margin:20px auto}.qris-box img{width:100%;display:block}
+.badge{background:#0a1a2a;color:#0a84ff;padding:6px 10px;border-radius:8px;font-size:11px;display:inline-block;border:1px solid #123}
+.warn{color:#ff4d6d;font-size:12px;margin-top:14px;line-height:1.4;background:#1a1216;padding:10px;border-radius:8px;border:1px solid #2a1520}
+footer{padding:30px 20px;border-top:1px solid #1a1e2a;color:#5a5f72;text-align:center;margin-top:20px}
+.success-icon{width:60px;height:60px;background:#0a2a1a;border-radius:50%;display:grid;place-items:center;color:#4ade80;font-size:30px;margin:0 auto}
 </style>
 </head>
 <body>
 <div id="splash"><div class="splash-line"></div><div class="splash-title">Welcome to LèxaaMj's</div><div class="splash-sub">PREMIUM DIGITAL FILES</div></div>
-<header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL FILES</span></div><div style="font-size:13px;color:#8b90a3">Order</div></header>
+<header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL FILES</span></div><div style="color:#6b7085;font-size:13px">Order</div></header>
+<div class="steps"><div class="step active" id="s1"><b>1</b> Produk</div><div class="step" id="s2"><b>2</b> Data</div><div class="step" id="s3"><b>3</b> Pembayaran</div><div class="step" id="s4"><b>4</b> Status</div></div>
 
-<div id="page-produk"><div style="padding:10px 20px 0"><h1 style="font-size:34px;line-height:0.95">Pilih produk<br>yang kamu butuhkan.</h1><p style="color:#8b90a3;margin-top:10px;font-size:13px">Pilih produk, masukkan WA, bayar via QRIS.</p></div><div class="grid" id="produk-grid"></div><footer><div style="font-weight:800;color:#8b90a3;font-size:14px">LèxaaMj</div><div style="font-size:12px;margin-top:6px">© 2026 LèxaaMj. All rights reserved.</div></footer></div>
+<div id="page1" class="page active"><h1>Pilih produk<br>yang kamu butuhkan.</h1><p style="color:#8b90a3;margin-top:8px;font-size:13px">Pilih produk, masukkan WA, bayar via QRIS.</p><div class="grid" id="grid"></div><footer><b style="color:#8b90a3">LèxaaMj</b><br>© 2026 LèxaaMj. All rights reserved.</footer></div>
 
-<!-- PAGE INPUT WA (INI YANG HILANG TADI) -->
-<div id="page-wa" class="section">
-  <h1 id="wa-judul" style="font-size:26px">Masukkan No WhatsApp</h1>
-  <p id="wa-desc" style="color:#8b90a3;margin-top:8px;font-size:13px">Untuk pengiriman file setelah bayar</p>
-  <input id="input-wa" type="tel" placeholder="Contoh: 0856xxxx">
-  <div style="display:flex;gap:12px;margin-top:16px"><button class="btn" onclick="goProduk()" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="keQris()" style="flex:2">Lanjut Bayar</button></div>
+<div id="page2" class="page"><h1>Data Pengiriman</h1><p style="color:#8b90a3;margin-top:8px;font-size:13px">Masukkan nomor WhatsApp untuk menerima aplikasi.</p><div style="margin-top:20px"><label style="font-size:14px;font-weight:600">Nomor WhatsApp</label><input id="wa" placeholder="08xxxxxxxxxx"><p style="color:#8b90a3;font-size:12px;margin-top:10px">Aplikasi akan dikirim ke nomor WhatsApp ini setelah pembayaran dikonfirmasi.</p></div><div style="margin-top:24px"><button class="btn btn-dark" onclick="go(1)">Kembali</button><button class="btn btn-blue" onclick="toPesanan()">Lanjut</button></div><div class="detail"><small style="color:#5a5f72">PRODUK DIPILIH</small><h2 id="p2-nama" style="margin-top:6px">-</h2><div class="detail-row"><span>Harga</span><b id="p2-harga" style="color:#fff">-</b></div></div></div>
+
+<div id="page2b" class="page"><h1>Pesanan Kamu</h1><p style="color:#8b90a3;margin-top:8px;font-size:13px">Pastikan detail pesanan sudah benar.</p><div class="detail"><div class="detail-row"><span>Produk</span><b id="p2b-nama" style="color:#fff">-</b></div><div class="detail-row"><span>Nomor WhatsApp</span><b id="p2b-wa" style="color:#fff">-</b></div><div class="detail-row" style="margin-top:20px;border-top:1px solid #1a1e2a;padding-top:16px"><span>Total</span><b id="p2b-total" style="color:#fff;font-size:22px">Rp 0</b></div></div><div style="margin-top:24px"><button class="btn btn-dark" onclick="go(2)">Kembali</button><button class="btn btn-blue" onclick="go(3)">Lanjut Pembayaran</button></div></div>
+
+<div id="page3" class="page" style="text-align:center"><span class="badge">QRIS</span><h1 style="margin-top:12px">Scan QRIS untuk Membayar</h1><p style="color:#8b90a3;margin-top:6px;font-size:13px">Total pembayaran</p><h2 id="p3-total" style="font-size:28px;margin-top:4px">Rp 0</h2><div class="qris-box"><img id="qris" src="qris.jpg"></div><p style="color:#6b7085;font-size:11px;margin-top:12px">Scan QRIS menggunakan aplikasi pembayaran pilihanmu. Setelah selesai, tekan tombol di bawah.</p><div style="display:flex;gap:12px;margin-top:20px"><button class="btn btn-dark" onclick="go(2)" style="flex:1">Kembali</button><button class="btn btn-blue" onclick="go(4)" style="flex:2">Saya Sudah Bayar</button></div></div>
+
+<div id="page4" class="page">
+  <!-- STATUS PENDING / GAGAL -->
+  <div id="status-fail">
+    <div style="width:40px;height:40px;background:#2a1520;border-radius:50%;display:grid;place-items:center;color:#ff4d6d;font-weight:800">!</div>
+    <h1 style="margin-top:16px">Anda Belum Melakukan Pembayaran</h1>
+    <p style="color:#8b90a3;margin-top:8px;font-size:13px">Sistem belum menerima konfirmasi pembayaran. Silakan lakukan pembayaran melalui QRIS terlebih dahulu.</p>
+    <div class="detail"><div class="detail-row"><span>Produk</span><b id="p4-nama" style="color:#fff">-</b></div><div class="detail-row"><span>WhatsApp</span><b id="p4-wa" style="color:#fff">-</b></div><div class="detail-row"><span>Total</span><b id="p4-total" style="color:#fff">-</b></div></div>
+    <p class="warn" id="p4-reason">Pembayaran belum terverifikasi. Admin akan cek manual via WhatsApp.</p>
+    <button class="btn btn-blue" onclick="ulang()">Ulangi Pembayaran</button>
+    <button class="btn btn-dark" onclick="checkSuccess()">🔄 Cek Status Pembayaran</button>
+    <button class="btn btn-dark" onclick="go(1)">Pesan Produk Lain</button>
+  </div>
+  <!-- STATUS BERHASIL -->
+  <div id="status-success" style="display:none;text-align:center">
+    <div class="success-icon">✓</div>
+    <h1 style="margin-top:16px">Pembayaran Berhasil!</h1>
+    <p style="color:#8b90a3;margin-top:8px;font-size:14px">Terima kasih banyak, Bosku! 🙏</p>
+    <p style="color:#8b90a3;margin-top:12px;font-size:13px;line-height:1.6">Pesanan kamu untuk <b id="s-nama" style="color:#fff"></b> sudah kami konfirmasi.<br>File akan segera kami kirim ke WhatsApp <b id="s-wa" style="color:#4ade80"></b>.<br><br>Thanks sudah order di <b>LèxaaMj Premium Digital Files</b>! Semoga bermanfaat dan ditunggu order selanjutnya! ✨</p>
+    <div class="detail" style="text-align:left"><div class="detail-row"><span>Status</span><b style="color:#4ade80">LUNAS & SELESAI</b></div><div class="detail-row"><span>Total Dibayar</span><b id="s-total" style="color:#fff">-</b></div></div>
+    <button class="btn btn-blue" onclick="waAdmin()">Chat Admin untuk File</button>
+    <button class="btn btn-dark" onclick="go(1)">Pesan Produk Lain</button>
+  </div>
 </div>
-
-<div id="page-bayar" class="section" style="text-align:center"><h1 style="margin-top:10px">Scan QRIS untuk Membayar</h1><h2 id="b-total" style="font-size:28px;margin-top:8px">Rp 0</h2><div class="qris-box"><img id="qris-img" src="qris.jpg" alt="QRIS"></div><p id="b-wa-info" style="color:#8b90a3;font-size:12px"></p><div style="margin-top:20px;display:flex;gap:12px;max-width:400px;margin-inline:auto"><button class="btn" onclick="goWa()" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="bayar()" style="flex:2">Saya Sudah Bayar</button></div></div>
 
 <script>
 const ADMIN_WA="6285642367261";
@@ -58,36 +85,75 @@ const produk=[
 {id:'botgb',nama:'Bot GB LèxaaMj',desc:'Full Fitur Auto Detect, Kick Otomatis, Anti Kudeta',harga:10000},
 {id:'push',nama:'Bot Push Kontak WA LèxaaMj',desc:'Bot Push Kontak Anti Delay, GB Terbuka / Tertutup ON & Anti Banned',harga:10000},
 ];
-let selected=null;
-let userWa="";
-const grid=document.getElementById('produk-grid');
-produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small>0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
-function pilih(id){
-  selected=produk.find(x=>x.id==id);
-  document.getElementById('page-produk').style.display='none';
-  document.getElementById('page-wa').style.display='block';
-  document.getElementById('page-bayar').style.display='none';
-  document.getElementById('wa-judul').innerText=selected.nama;
-  document.getElementById('wa-desc').innerText='Harga Rp'+selected.harga.toLocaleString('id-ID')+' - Masukkan WA untuk pengiriman';
-  window.scrollTo(0,0);
+let sel=null, waNum="";
+const grid=document.getElementById('grid');
+produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small style="color:#5a5f72">0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn btn-dark" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
+function setStep(n){document.querySelectorAll('.step').forEach((e,i)=>{e.classList.toggle('active',i+1<=n)});}
+function go(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  if(n==1){document.getElementById('page1').classList.add('active');setStep(1)}
+  if(n==2){document.getElementById('page2').classList.add('active');setStep(2)}
+  if(n==3){document.getElementById('page3').classList.add('active');setStep(3);document.getElementById('qris').src='qris.jpg?v='+Date.now()}
+  if(n==4){document.getElementById('page4').classList.add('active');setStep(4);checkSuccess();bayarWA()}
 }
-function keQris(){
-  const wa=document.getElementById('input-wa').value.trim();
-  if(wa.length<8){alert('Masukkan No WA yang valid Bos');return;}
-  userWa=wa;
-  document.getElementById('page-wa').style.display='none';
-  document.getElementById('page-bayar').style.display='block';
-  document.getElementById('b-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');
-  document.getElementById('b-wa-info').innerText='File akan dikirim ke WA: '+userWa;
-  document.getElementById('qris-img').src='qris.jpg?v='+Date.now();
+function pilih(id){sel=produk.find(x=>x.id==id);document.getElementById('p2-nama').innerText=sel.nama;document.getElementById('p2-harga').innerText='Rp '+sel.harga.toLocaleString('id-ID');go(2);window.scrollTo(0,0);}
+function toPesanan(){
+  const v=document.getElementById('wa').value.trim(); if(v.length<8){alert('Masukkan No WA dulu Bos');return;}
+  waNum=v;
+  document.getElementById('p2b-nama').innerText=sel.nama; document.getElementById('p2b-wa').innerText=waNum; document.getElementById('p2b-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.getElementById('p3-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.getElementById('p4-nama').innerText=sel.nama; document.getElementById('p4-wa').innerText=waNum; document.getElementById('p4-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.getElementById('s-nama').innerText=sel.nama; document.getElementById('s-wa').innerText=waNum; document.getElementById('s-total').innerText='Rp '+sel.harga.toLocaleString('id-ID');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById('page2b').classList.add('active'); setStep(2);
 }
-function goProduk(){document.getElementById('page-produk').style.display='block';document.getElementById('page-wa').style.display='none';document.getElementById('page-bayar').style.display='none';}
-function goWa(){document.getElementById('page-wa').style.display='block';document.getElementById('page-bayar').style.display='none';}
-function bayar(){
-  const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${selected.nama}%0AHarga: Rp${selected.harga}%0ANo WA Pembeli: ${userWa}%0AMohon dicek QRIS`;
+function bayarWA(){
+  const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${sel.nama}%0AHarga: Rp${sel.harga}%0AWA Pembeli: ${waNum}%0AMohon dicek`;
   window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
 }
-setTimeout(()=>{document.getElementById('splash').classList.add('hide');},2200);
+function checkSuccess(){
+  let stat=localStorage.getItem('lexa_status_'+waNum);
+  const params=new URLSearchParams(window.location.search);
+  const urlWA=params.get('wa');
+  const urlStatus=params.get('status');
+  const urlReason=params.get('reason');
+  if(urlWA){
+    waNum=urlWA;
+    if(urlStatus) localStorage.setItem('lexa_status_'+waNum,urlStatus);
+    if(urlReason) localStorage.setItem('lexa_reason_'+waNum,urlReason);
+    stat=urlStatus||localStorage.getItem('lexa_status_'+waNum);
+    // isi data minimal biar ga kosong
+    if(!sel){ sel=produk[0]; document.getElementById('s-nama').innerText=localStorage.getItem('lexa_prod_'+waNum)||'Produk'; document.getElementById('s-wa').innerText=waNum; document.getElementById('p4-nama').innerText=localStorage.getItem('lexa_prod_'+waNum)||'-'; document.getElementById('p4-wa').innerText=waNum; }
+  }
+  const reason=localStorage.getItem('lexa_reason_'+waNum);
+  if(stat=='success'){
+    document.getElementById('status-fail').style.display='none';
+    document.getElementById('status-success').style.display='block';
+  } else if(stat=='failed'){
+    document.getElementById('status-fail').style.display='block';
+    document.getElementById('status-success').style.display='none';
+    document.getElementById('p4-reason').innerText='❌ Ditolak Admin: '+(reason||'Pembayaran tidak valid');
+  } else {
+    document.getElementById('status-fail').style.display='block';
+    document.getElementById('status-success').style.display='none';
+    document.getElementById('p4-reason').innerText='Pembayaran belum terverifikasi. Admin akan cek manual via WhatsApp.';
+  }
+}
+function waAdmin(){
+  const text=`Halo LèxaaMj%0APembayaran saya SUDAH SELESAI%0AProduk: ${sel?sel.nama:'-'}%0AWA: ${waNum}%0AMinta file nya ya, thanks!`;
+  window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
+}
+function ulang(){go(3)}
+window.addEventListener('load',()=>{
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('wa') && params.get('status')){
+    waNum=params.get('wa');
+    checkSuccess();
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page4').classList.add('active');
+    setStep(4);
+  }
+});
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),2200);
 </script>
 </body>
 </html>
