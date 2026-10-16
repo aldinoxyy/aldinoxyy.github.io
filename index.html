@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+k<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -25,68 +25,33 @@ header{display:flex;justify-content:space-between;align-items:center;padding:18p
 .price{margin-top:12px;font-size:18px;font-weight:800}
 .btn{width:100%;background:#1a1e2a;border:none;color:#fff;padding:12px;border-radius:10px;font-weight:600;cursor:pointer;margin-top:auto}
 .btn-primary{background:#0a84ff}
-.section{padding:20px;display:none}.section.active{display:block}
+.section{padding:20px;display:none}
 .qris-box{background:#fff;padding:10px;border-radius:16px;width:270px;margin:20px auto}.qris-box img{width:100%;display:block}
 footer{margin-top:10px;padding:30px 20px;border-top:1px solid #1a1e2a;color:#5a5f72;text-align:center}
 </style>
 </head>
 <body>
-
-<div id="splash">
-  <div class="splash-line"></div>
-  <div class="splash-title">Welcome to LèxaaMj's</div>
-  <div class="splash-sub">PREMIUM DIGITAL FILES</div>
-</div>
-
+<div id="splash"><div class="splash-line"></div><div class="splash-title">Welcome to LèxaaMj's</div><div class="splash-sub">PREMIUM DIGITAL FILES</div></div>
 <header><div class="logo">LèxaaMj <span>PREMIUM DIGITAL FILES</span></div><div style="font-size:13px;color:#8b90a3">Order</div></header>
-
-<div id="page-produk">
-  <div style="padding:10px 20px 0"><h1 style="font-size:34px;line-height:0.95">Pilih produk<br>yang kamu butuhkan.</h1><p style="color:#8b90a3;margin-top:10px;font-size:13px">Pilih produk, masukkan WA, bayar via QRIS.</p></div>
-  <div class="grid" id="produk-grid"></div>
-  <footer><div style="font-weight:800;color:#8b90a3;font-size:14px">LèxaaMj</div><div style="font-size:12px;margin-top:6px">© 2026 LèxaaMj. All rights reserved.</div></footer>
-</div>
-
-<div id="page-bayar" class="section" style="text-align:center">
-  <h1 style="margin-top:10px">Scan QRIS untuk Membayar</h1><h2 id="b-total" style="font-size:28px;margin-top:8px">Rp 0</h2>
-  <div class="qris-box"><img id="qris-img" src="qris.jpg" alt="QRIS"></div>
-  <div style="margin-top:20px;display:flex;gap:12px;max-width:400px;margin-inline:auto"><button class="btn" onclick="goProduk()" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="bayar()" style="flex:2">Saya Sudah Bayar</button></div>
-</div>
-
+<div id="page-produk"><div style="padding:10px 20px 0"><h1 style="font-size:34px;line-height:0.95">Pilih produk<br>yang kamu butuhkan.</h1><p style="color:#8b90a3;margin-top:10px;font-size:13px">Pilih produk, masukkan WA, bayar via QRIS.</p></div><div class="grid" id="produk-grid"></div><footer><div style="font-weight:800;color:#8b90a3;font-size:14px">LèxaaMj</div><div style="font-size:12px;margin-top:6px">© 2026 LèxaaMj. All rights reserved.</div></footer></div>
+<div id="page-bayar" class="section" style="text-align:center"><h1 style="margin-top:10px">Scan QRIS untuk Membayar</h1><h2 id="b-total" style="font-size:28px;margin-top:8px">Rp 0</h2><div class="qris-box"><img id="qris-img" src="qris.jpg" alt="QRIS"></div><div style="margin-top:20px;display:flex;gap:12px;max-width:400px;margin-inline:auto"><button class="btn" onclick="goProduk()" style="flex:1">Kembali</button><button class="btn btn-primary" onclick="bayar()" style="flex:2">Saya Sudah Bayar</button></div></div>
 <script>
 const ADMIN_WA="6285642367261";
 const produk=[
 {id:'spotify',nama:'Spotify Premium',desc:'Access Account Spotify Premium Unlimited',harga:10000},
-{id:'sosmed',nama:'Download All Sosmed HD No WM',desc:'Tools download TikTok IG YT HD tanpa watermark',harga:15000},
-{id:'bugwa',nama:'Bug WA',desc:'bot bug wa button forclose no click dll',harga:15000},
-{id:'termux',nama:'Tools Termux',desc:'tools termux lengkap full ajaran LèxaaMj',harga:50000},
-{id:'botgb',nama:'Bot GB',desc:'full fitur auto detect, kick otomatis, anti kudeta',harga:10000},
-{id:'push',nama:'Bot Push Kontak WA',desc:'bot push kontak anti delay gb terbuka tertutup on dan anti banned',harga:10000},
+{id:'sosmed',nama:'Download All Sosmed HD No WM',desc:'Tools Download TikTok, IG, YT HD Tanpa Watermark',harga:15000},
+{id:'bugwa',nama:'Bug WA',desc:'Bot Bug WA Button ForClose, No Click, dll',harga:15000},
+{id:'termux',nama:'Tools Termux',desc:'Tools Termux Lengkap, Full Ajaran LèxaaMj',harga:50000},
+{id:'botgb',nama:'Bot GB',desc:'Full Fitur Auto Detect, Kick Otomatis, Anti Kudeta',harga:10000},
+{id:'push',nama:'Bot Push Kontak WA',desc:'Bot Push Kontak Anti Delay, GB Terbuka / Tertutup ON & Anti Banned',harga:10000},
 ];
 let selected=null;
 const grid=document.getElementById('produk-grid');
-produk.forEach((p,i)=>{
-  grid.innerHTML+=`<div class="card"><small>0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;
-});
-function pilih(id){
-  selected=produk.find(x=>x.id==id);
-  document.getElementById('page-produk').style.display='none';
-  document.getElementById('page-bayar').style.display='block';
-  document.getElementById('b-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');
-  document.getElementById('qris-img').src='qris.jpg?v='+Date.now();
-  window.scrollTo(0,0);
-}
-function goProduk(){
-  document.getElementById('page-bayar').style.display='none';
-  document.getElementById('page-produk').style.display='block';
-}
-function bayar(){
-  const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${selected.nama}%0AHarga: Rp${selected.harga}%0AMohon dicek QRIS`;
-  window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');
-}
-setTimeout(()=>{
-  document.getElementById('splash').classList.add('hide');
-  document.getElementById('qris-img').src='qris.jpg?v='+Date.now();
-},2200);
+produk.forEach((p,i)=>{grid.innerHTML+=`<div class="card"><small>0${i+1}</small><h3>${p.nama}</h3><div class="desc">${p.desc}</div><div class="price">Rp${p.harga.toLocaleString('id-ID')}</div><button class="btn" onclick="pilih('${p.id}')">Beli Sekarang</button></div>`;});
+function pilih(id){selected=produk.find(x=>x.id==id);document.getElementById('page-produk').style.display='none';document.getElementById('page-bayar').style.display='block';document.getElementById('b-total').innerText='Rp '+selected.harga.toLocaleString('id-ID');document.getElementById('qris-img').src='qris.jpg?v='+Date.now();window.scrollTo(0,0);}
+function goProduk(){document.getElementById('page-bayar').style.display='none';document.getElementById('page-produk').style.display='block';}
+function bayar(){const text=`Halo LèxaaMj%0ASaya sudah bayar:%0AProduk: ${selected.nama}%0AHarga: Rp${selected.harga}%0AMohon dicek QRIS`;window.open(`https://wa.me/${ADMIN_WA}?text=${text}`,'_blank');}
+setTimeout(()=>{document.getElementById('splash').classList.add('hide');document.getElementById('qris-img').src='qris.jpg?v='+Date.now();},2200);
 </script>
 </body>
 </html>
