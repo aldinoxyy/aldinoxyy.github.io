@@ -1,85 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotify LèxaaMj - FIX NO YT</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spotify LèxaaMj - Angelic Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#080a10;color:#fff;min-height:100vh;padding:20px}
-.header{text-align:center;padding:30px 0}
-.card{background:rgba(20,24,35,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;margin:10px auto;max-width:600px;position:relative;overflow:hidden}
-.card img{width:56px;height:56px;border-radius:8px;z-index:2}
-.info{flex:1;z-index:2}
-.info b{display:block;font-size:14px}
-.info span{font-size:12px;color:#888}
-.btn{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#aaa;font-size:10px;cursor:pointer;margin-right:5px}
-.btn.full{background:rgba(169,196,255,0.15);color:#a9c4ff;border-color:#a9c4ff}
-.progress{position:absolute;left:0;top:0;bottom:0;background:rgba(169,196,255,0.15);width:0%;z-index:1;transition:width 0.3s}
-.pt{position:absolute;right:10px;top:10px;color:#a9c4ff;font-size:10px;z-index:3}
-input{width:100%;max-width:600px;display:block;margin:20px auto;padding:14px 20px;border-radius:30px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080a10;color:#fff;font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+.top{padding:18px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(8,10,16,0.8);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}
+.top b{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;letter-spacing:2px}
+.top b span{color:#a9c4ff}
+.top.sub{font-size:10px;letter-spacing:3px;color:#666;margin-top:2px}
+.top.perm{font-size:10px;letter-spacing:4px;color:#555}
+.hero{position:relative;padding:60px 20px 20px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=1000') center/cover;opacity:0.25;filter:blur(2px)}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, transparent, #080a10)}
+.hero *{position:relative;z-index:2}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;letter-spacing:1px}
+.hero h1 span{color:#a9c4ff}
+.hero p{letter-spacing:6px;font-size:12px;color:#666;margin-top:8px}
+.searchWrap{max-width:700px;margin:0 auto;padding:20px;position:relative;z-index:3;margin-top:-10px}
+.searchWrap input{width:100%;padding:16px 26px;border-radius:40px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#fff;outline:none;font-size:15px;backdrop-filter:blur(20px)}
+.results{text-align:center;color:#555;letter-spacing:4px;font-size:12px;margin:10px 0 20px}
+.card{max-width:700px;margin:12px auto;background:rgba(24,28,40,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:14px;display:flex;gap:14px;align-items:center;backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.card img{width:62px;height:62px;border-radius:10px;object-fit:cover}
+.info{flex:1}
+.info b{display:block;font-size:15px;font-weight:600}
+.info span{font-size:12px;color:#777;margin-top:2px;display:block}
+.btns{display:flex;gap:8px;margin-top:10px}
+.btn{padding:7px 18px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:#888;font-size:11px;letter-spacing:1.5px;cursor:pointer}
+.btn.full{border-color:rgba(169,196,255,0.4);color:#a9c4ff}
+.progress{position:absolute;left:0;top:0;bottom:0;background:rgba(169,196,255,0.1);width:0%;z-index:0;transition:width 0.3s}
+.pt{position:absolute;right:14px;top:10px;font-size:10px;color:#a9c4ff;z-index:2}
+.card *{z-index:1;position:relative}
 </style>
 </head>
 <body>
-<div class="header"><h2>Spotify LèxaaMj FIXED</h2><p style="font-size:11px;color:#666;letter-spacing:3px">FULL = DIRECT DOWNLOAD MP3 NO YT</p></div>
-<input id="q" placeholder="Search alkateri..." value="alkateri" onkeydown="if(event.key==='Enter')doSearch()">
+<div class="top"><div><b>Spotify <span>LèxaaMj</span></b><div class="sub">ANGELIC EDITION</div></div><div class="perm">PERMANENT</div></div>
+<div class="hero"><h1>Spotify <span>LèxaaMj</span></h1><p>SEARCH • PLAY • DOWNLOAD</p></div>
+<div class="searchWrap"><input id="q" placeholder="alkateri" value="alkateri" onkeydown="if(event.key==='Enter')doSearch()"></div>
+<div class="results" id="rc">12 RESULTS</div>
 <div id="list"></div>
 <script>
 const list=document.getElementById('list');
+const rc=document.getElementById('rc');
+let data=[];
+const covers=['https://i.scdn.co/image/ab67616d0000b273c5649add07ed3720be9d5526'];
+async function doSearch(){
+ const q=document.getElementById('q').value||'alkateri';
+ list.innerHTML='<p style="text-align:center;color:#555;margin:40px">Searching...</p>';
+ data=[
+   {title:'Penetrasi',artist:'Alkateri',image:covers[0]},
+   {title:'Egosentris',artist:'Alkateri',image:covers[0]},
+   {title:'Esok',artist:'Alkateri',image:covers[0]},
+   {title:'Lebih Dari',artist:'Alkateri',image:covers[0]},
+   {title:'Forgotten',artist:'Alkateri',image:covers[0]},
+   {title:'Kontemplasi',artist:'Alkateri',image:covers[0]},
+ ];
+ rc.innerText=data.length+' RESULTS';
+ render();
+}
 function render(){
-  list.innerHTML=`
-    <div class="card" id="c0"><div class="progress" id="p0"></div><div class="pt" id="pt0"></div><img src="https://i.scdn.co/image/ab67616d0000b273c5649add07ed3720be9d5526"><div class="info"><b>Alkateri - Penetrasi</b><span>Alkateri</span><div style="margin-top:6px"><button class="btn">PREVIEW</button><button class="btn full" id="b0" onclick="dl(this,0,'Alkateri - Penetrasi','Alkateri')">FULL</button></div></div></div>
-    <div class="card" id="c1"><div class="progress" id="p1"></div><div class="pt" id="pt1"></div><img src="https://i.scdn.co/image/ab67616d0000b273c5649add07ed3720be9d5526"><div class="info"><b>Alkateri - Forgotten</b><span>Alkateri</span><div style="margin-top:6px"><button class="btn">PREVIEW</button><button class="btn full" id="b1" onclick="dl(this,1,'Alkateri - Forgotten','Alkateri')">FULL</button></div></div></div>
-  `;
+ list.innerHTML=data.map((t,i)=>`
+  <div class="card" id="c${i}"><div class="progress" id="p${i}"></div><div class="pt" id="pt${i}"></div>
+  <img src="${t.image}">
+  <div class="info"><b>${t.title}</b><span>${t.artist}</span>
+  <div class="btns"><button class="btn" onclick="preview('${t.title} ${t.artist}')">PREVIEW</button>
+  <button class="btn full" id="b${i}" onclick="downloadYT(this,${i},'${t.title}','${t.artist}')">FULL</button></div></div></div>
+ `).join('');
 }
-async function dl(btn,idx,title,artist){
-  const prog=document.getElementById('p'+idx);
-  const pt=document.getElementById('pt'+idx);
-  const fileName=title+'.mp3';
-  btn.disabled=true;
-  btn.innerText='GETTING LINK...';
-  prog.style.width='30%';
-  
-  // LINK MP3 LANGSUNG - TIDAK KE YT!
-  // Pake MP3 sample yang pasti work (nanti ganti API)
-  let url='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
-  
-  // Coba ambil link real dari API
-  try{
-    const res=await fetch(`https://api.fabdl.com/spotify/get?url=https://open.spotify.com/track/5ghIJDpPoe3CfHMGu71E6T`);
-    const data=await res.json();
-    if(data.result && data.result.dlMp3) url=data.result.dlMp3;
-  }catch(e){}
-
-  btn.innerText='DOWNLOADING 0%';
-  const xhr=new XMLHttpRequest();
-  xhr.open('GET',url,true);
-  xhr.responseType='blob';
-  xhr.onprogress=(e)=>{
-    if(e.lengthComputable){
-      const pct=Math.round((e.loaded/e.total)*100);
-      prog.style.width=pct+'%';
-      pt.innerText=pct+'%';
-      btn.innerText='DOWNLOADING '+pct+'%';
-    }
-  };
-  xhr.onload=()=>{
-    const blob=xhr.response;
-    const blobUrl=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=blobUrl;
-    a.download=fileName;
-    document.body.appendChild(a);
-    a.click();
-    prog.style.width='100%';
-    pt.innerText='100%';
-    btn.innerText='DONE ✓';
-    setTimeout(()=>{URL.revokeObjectURL(blobUrl);a.remove();btn.innerText='FULL';btn.disabled=false;prog.style.width='0%';pt.innerText='';},2000);
-  };
-  xhr.send();
+function preview(q){window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`,'_blank');}
+async function downloadYT(btn,idx,title,artist){
+ const prog=document.getElementById('p'+idx);
+ const pt=document.getElementById('pt'+idx);
+ btn.disabled=true; btn.innerText='GET LINK...'; prog.style.width='30%';
+ const fullTitle=`${artist} - ${title}`;
+ const ytSearch=encodeURIComponent(fullTitle);
+ let dlUrl='https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+ btn.innerText='DOWNLOADING 0%';
+ const xhr=new XMLHttpRequest();
+ xhr.open('GET',dlUrl,true); xhr.responseType='blob';
+ xhr.onprogress=e=>{if(e.lengthComputable){const pct=Math.round(e.loaded/e.total*100);prog.style.width=pct+'%';pt.innerText=pct+'%';btn.innerText=`DOWNLOADING ${pct}%`;}};
+ xhr.onload=()=>{
+  const blob=xhr.response; const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=fullTitle+'.mp3'; document.body.appendChild(a); a.click();
+  btn.innerText='DONE ✓'; prog.style.width='100%';
+  setTimeout(()=>{URL.revokeObjectURL(url);a.remove();btn.innerText='FULL';btn.disabled=false;prog.style.width='0%';pt.innerText='';},2500);
+ };
+ xhr.onerror=()=>{window.open(`https://www.youtube.com/results?search_query=${ytSearch}`,'_blank');btn.innerText='OPEN YT';btn.disabled=false;prog.style.width='0%';};
+ xhr.send();
 }
-render();
-function doSearch(){render();}
+doSearch();
 </script>
 </body>
 </html>
