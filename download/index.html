@@ -33,11 +33,11 @@ body{min-height:100vh;display:flex;flex-direction:column;background:#05070d;colo
 </style>
 </head>
 <body>
-<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">SPOTIFY ANTI BLOKIR V2</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
+<div class="h"><div><div class="logo"><span>Lexa</span> Download</div><div style="opacity:.4;font-size:9px;letter-spacing:3px;margin-top:2px">YT FIX V2</div></div><div style="opacity:.35;font-size:9px">HD NO WM</div></div>
 <div class="t">Lèxaa <span>Download</span></div>
 <div class="sub">SPOTIFY • TIKTOK • IG • YT • HD NO WM</div>
-<div class="box"><input id="q" placeholder="paste link spotify / ig / tiktok..."><button onclick="handle()">DOWNLOAD</button></div>
-<div id="status">spotify anti blokir • ig simple • tiktok foto 1 jpg hd</div>
+<div class="box"><input id="q" placeholder="paste link yt / ig / tiktok / spotify..."><button onclick="handle()">DOWNLOAD</button></div>
+<div id="status">yt fix • ig simple • tiktok foto 1 jpg hd • spotify anti blokir</div>
 <div class="results" id="results"></div>
 <div class="footer">© 2026 download by LèxaaMj</div>
 <script>
@@ -45,6 +45,7 @@ const statusEl=document.getElementById('status'),resultsEl=document.getElementBy
 function detect(u){u=u.toLowerCase();if(u.includes('tiktok'))return 'tiktok';if(u.includes('instagram'))return 'ig';if(u.includes('youtube')||u.includes('youtu.be'))return 'yt';if(u.includes('spotify'))return 'spotify';return 'search';}
 function extractUrl(t){const m=t.match(/https?:\/\/[^\s]+/i);return m?m[0].replace(/[.,;!\)]+$/,'').trim():t.trim();}
 function getSpotifyId(url){let m=url.match(/track\/([a-zA-Z0-9]+)/);return m?m[1]:null;}
+function getYTId(url){let m=url.match(/(?:v=|\.be\/|shorts\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
 async function handle(){
  const raw=document.getElementById('q').value.trim();if(!raw)return;
  const url=extractUrl(raw);
@@ -56,179 +57,133 @@ async function handle(){
  else if(t==='spotify')searchSpotify(raw);
 }
 async function fetchWithProxy(url){
- // coba 3 cara: direct, allorigins, corsproxy
  const proxies=['','https://api.allorigins.win/get?url=','https://corsproxy.io/?'];
  for(let p of proxies){
   try{
    let full=p===''?url:(p.includes('allorigins')?p+encodeURIComponent(url):p+encodeURIComponent(url));
-   let r=await fetch(full,{timeout:10000});
+   let r=await fetch(full);
    if(!r.ok) continue;
-   if(p.includes('allorigins')){
-    let j=await r.json(); return JSON.parse(j.contents);
-   }else{
-    let j=await r.json(); return j;
-   }
+   if(p.includes('allorigins')){let j=await r.json(); return JSON.parse(j.contents);}
+   else{let j=await r.json(); return j;}
   }catch(e){ continue; }
  }
- throw new Error('all proxy fail');
+ throw new Error('proxy fail');
 }
-
 async function searchSpotify(q){
  resultsEl.innerHTML='';
  let spotifyId=getSpotifyId(q);
- let isLink=!!spotifyId;
-
- if(isLink){
-  statusEl.innerText='spotify • anti blokir • fetching id '+spotifyId+'...';
-  resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Spotify • Fetching HD...</b><small>${spotifyId} • anti blokir indo • 3 servers</small></div></div>`;
-
-  // 1. coba oembed dulu buat dapet judul (ini gak pernah diblokir)
-  let title='Spotify Track', artist='Spotify';
+ if(spotifyId){
+  statusEl.innerText='spotify • fetching '+spotifyId+'...';
   try{
-   let oembed=await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`).then(r=>r.json());
-   title=oembed.title||title;
-   // title biasanya "Artist - Song"
-   if(title.includes(' - ')){let parts=title.split(' - '); artist=parts[0]; title=parts.slice(1).join(' - ');}
-   statusEl.innerText=`spotify • ${title} • fetching mp3...`;
+   let o=await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/track/${spotifyId}`).then(r=>r.json());
+   let title=o.title||'Spotify Track';
+   resultsEl.innerHTML=`<div class="card"><img src="${o.thumbnail_url||'bg.jpg'}"><div style="flex:1"><b>${title} • MP3 Original</b><small>spotify • mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${spotifyId}','${title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div></div></div>`;
+   statusEl.innerText='spotify • ready • anti blokir';
+   return;
   }catch(e){}
-
-  // 2. coba api.spotifydown.com via proxy
-  try{
-   let j=await fetchWithProxy(`https://api.spotifydown.com/download/${spotifyId}`);
-   if(j.success&&j.link){
-    statusEl.innerText='spotify • mp3 original ready • hd audio';
-    resultsEl.innerHTML=`
-    <div class="card">
-      <img src="${j.metadata?.cover||''}" onerror="this.src='bg.jpg'">
-      <div style="flex:1">
-        <b>${j.metadata?.title||title} • MP3 Original</b>
-        <small>${j.metadata?.artists||artist} • mp3 = mp3 • hd audio</small>
-        <div class="btns"><button class="btn btn2" onclick="downloadFile('${j.link}','${(j.metadata?.title||title).replace(/'/g,'')}.mp3')">DOWNLOAD MP3</button></div>
-      </div>
-    </div>`;
-    return;
-   }
-  }catch(e){ console.log('spotifydown proxy fail',e); }
-
-  // 3. fallback: metadata dulu
-  try{
-   let j=await fetchWithProxy(`https://api.spotifydown.com/metadata/track/${spotifyId}`);
-   if(j.success||j.title){
-    let t=j.title||title;
-    let a=j.artists||artist;
-    let c=j.cover||'';
-    statusEl.innerText='spotify • metadata ok • getting mp3...';
-    resultsEl.innerHTML=`
-    <div class="card">
-      <img src="${c}" onerror="this.src='bg.jpg'">
-      <div style="flex:1">
-        <b>${t} • MP3 Original</b>
-        <small>${a} • mp3 = mp3 • hd audio</small>
-        <div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${spotifyId}','${t.replace(/'/g,'')}')">DOWNLOAD MP3</button></div>
-      </div>
-    </div>`;
-    // auto fetch mp3
-    dlSpotifyId(spotifyId,t);
-    return;
-   }
-  }catch(e){}
-
-  // 4. LAST FALLBACK: pake oembed title + tombol download via youtube search (wuk.sh)
-  statusEl.innerText='spotify • fallback • ready';
-  resultsEl.innerHTML=`
-  <div class="card">
-    <img src="bg.jpg">
-    <div style="flex:1">
-      <b>${title} • MP3 Original</b>
-      <small>${artist} • mp3 = mp3 • hd audio • via fallback</small>
-      <div class="btns">
-        <button class="btn btn2" onclick="dlSpotifyId('${spotifyId}','${title.replace(/'/g,'')}')">DOWNLOAD MP3 (TRY SERVER 1)</button>
-        <button class="btn" onclick="window.open('https://spotifydown.com/?url=https://open.spotify.com/track/${spotifyId}','_blank')">BUKA DI SPOTIFYDOWN.COM</button>
-      </div>
-    </div>
-  </div>`;
-  return;
  }
-
- // SEARCH JUDUL
  statusEl.innerText='spotify • searching '+q+'...';
  try{
   let j=await fetchWithProxy('https://api.spotifydown.com/search/'+encodeURIComponent(q));
-  if(j.success&&j.trackList&&j.trackList.length){
-   statusEl.innerText=`spotify • ${j.trackList.length} results • hd audio`;
-   resultsEl.innerHTML=j.trackList.map(t=>`
-    <div class="card">
-      <img src="${t.cover}">
-      <div style="flex:1">
-        <b>${t.title} • MP3 Original</b>
-        <small>${t.artists} • mp3 = mp3 • hd audio</small>
-        <div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${t.id}','${t.title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div>
-      </div>
-    </div>`).join('');
-   return;
-  }
- }catch(e){ console.log('search fail',e); }
-
- // kalo search gagal, coba oembed search? fallback ke pesan
- statusEl.innerText='spotify • coba paste link track langsung';
- resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Spotify gak ketemu via API (diblokir provider?)</b><small>Coba paste link track langsung: https://open.spotify.com/track/... atau buka manual <a href="https://spotifydown.com/" target="_blank" style="color:#8ecfff">spotifydown.com</a> terus paste link di sana, kalo udah coba lagi di sini</small><div class="btns"><button class="btn btn2" onclick="window.open('https://spotifydown.com/','_blank')">BUKA SPOTIFYDOWN.COM</button></div></div></div>`;
+  if(j.trackList){resultsEl.innerHTML=j.trackList.map(t=>`<div class="card"><img src="${t.cover}"><div style="flex:1"><b>${t.title} • MP3 Original</b><small>${t.artists}</small><div class="btns"><button class="btn btn2" onclick="dlSpotifyId('${t.id}','${t.title.replace(/'/g,'')}')">DOWNLOAD MP3</button></div></div></div>`).join('');statusEl.innerText='spotify • '+j.trackList.length+' results';return;}
+ }catch(e){}
+ statusEl.innerText='spotify • coba link track langsung';
 }
 async function dlSpotifyId(id,title){
- statusEl.innerText='spotify • downloading '+title+'...';
- try{
-  let j=await fetchWithProxy('https://api.spotifydown.com/download/'+id);
-  if(j.success&&j.link){
-   downloadFile(j.link,title+'.mp3');
-   statusEl.innerText='spotify • downloaded • hd audio';
-   return;
-  }
- }catch(e){}
- // fallback buka spotifydown.com
- statusEl.innerText='spotify • server sibuk, buka spotifydown.com';
+ try{let j=await fetchWithProxy('https://api.spotifydown.com/download/'+id);if(j.link){downloadFile(j.link,title+'.mp3');return;}}catch(e){}
  window.open('https://spotifydown.com/?url=https://open.spotify.com/track/'+id,'_blank');
 }
-async function dlSpotify(id,title){ dlSpotifyId(id,title); }
-
 async function dlTikTok(url){
  statusEl.innerText='tiktok • hd...';
- resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Fetching TikTok HD...</b><small>@ofcsilent • foto = foto hd</small></div></div>`;
  try{
   let r=await fetch('https://www.tikwm.com/api/?url='+encodeURIComponent(url)+'&hd=1');
   let j=await r.json();
   if(j.data){
-   let d=j.data;
-   let author=d.author?.unique_id?`@${d.author.unique_id}`:'@ofcsilent';
+   let d=j.data; let author=d.author?.unique_id?`@${d.author.unique_id}`:'@ofcsilent';
    if(d.images&&d.images.length){
     statusEl.innerText=`tiktok • ${d.images.length} foto • hd no wm`;
-    let musicBtn=d.music?`<div class="card"><div style="flex:1"><b>Music • MP3 Original</b><small>mp3 = mp3 • hd audio</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.music}','tiktok_music.mp3')">DOWNLOAD MP3</button></div></div></div>`:'';
-    resultsEl.innerHTML=d.images.map((img,i)=>`
-      <div class="card">
-        <img src="${img}">
-        <div style="flex:1">
-          <b>Foto ${i+1} • JPG HD No WM</b>
-          <small>${author} • foto = foto hd</small>
-          <div class="btns"><button class="btn btn2" onclick="downloadFile('${img}','foto_${i+1}_hd.jpg')">DOWNLOAD JPG HD</button></div>
-        </div>
-      </div>`).join('')+musicBtn;
+    resultsEl.innerHTML=d.images.map((img,i)=>`<div class="card"><img src="${img}"><div style="flex:1"><b>Foto ${i+1} • JPG HD No WM</b><small>${author} • foto = foto hd</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${img}','foto_${i+1}_hd.jpg')">DOWNLOAD JPG HD</button></div></div></div>`).join('');
    }else{
-    statusEl.innerText='tiktok • video hd • no wm';
-    resultsEl.innerHTML=`
-      <div class="card">
-        <img src="${d.cover}">
-        <div style="flex:1">
-          <b>Video • MP4 HD No WM</b>
-          <small>${author} • mp4 = mp4 hd • no wm</small>
-          <div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd_no_wm.mp4')">DOWNLOAD MP4 HD</button></div>
-        </div>
-      </div>`;
-   }
-   return;
+    resultsEl.innerHTML=`<div class="card"><img src="${d.cover}"><div style="flex:1"><b>Video • MP4 HD No WM</b><small>${author} • mp4 = mp4 hd • no wm</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${d.play}','tiktok_hd.mp4')">DOWNLOAD MP4 HD</button></div></div></div>`;
+    statusEl.innerText='tiktok • video hd ready';
+   }return;
   }
  }catch(e){}
 }
+
+// YT FIX - 3 SERVER + THUMBNAIL + FALLBACK
 async function dlYT(url){
- statusEl.innerText='yt • hd...';
- try{let res=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});let data=await res.json();if(data.url){resultsEl.innerHTML=`<div class="card"><div style="flex:1"><b>Video • MP4 HD</b><small>yt • mp4 = mp4 hd</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${data.url}','yt_hd.mp4')">DOWNLOAD MP4 HD</button></div></div></div>`;statusEl.innerText='yt • ready';return;}}catch(e){}
+ let ytId=getYTId(url)||'';
+ statusEl.innerText='yt • fetching hd...';
+ resultsEl.innerHTML=`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>Video • MP4 HD • Fetching...</b><small>yt • ${ytId} • mp4 = mp4 hd • anti blokir</small></div></div>`;
+
+ let servers=['https://co.wuk.sh/api/json','https://api.cobalt.tools/api/json'];
+ for(let srv of servers){
+  try{
+   let res=await fetch(srv,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({url:url,vQuality:'1080',filenamePattern:'basic'})});
+   let data=await res.json();
+   if(data.url){
+    statusEl.innerText='yt • mp4 hd ready • no wm';
+    resultsEl.innerHTML=`
+      <div class="card">
+        <img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}">
+        <div style="flex:1">
+          <b>Video • MP4 HD No WM</b>
+          <small>yt • mp4 = mp4 hd • ${data.filename||ytId} • no wm • 1080p</small>
+          <div class="btns">
+            <button class="btn btn2" onclick="downloadFile('${data.url}','yt_${ytId}_1080p.mp4')">DOWNLOAD MP4 HD</button>
+            <button class="btn" onclick="window.open('${data.url}','_blank')">OPEN DIRECT</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}">
+        <div style="flex:1">
+          <b>Music • MP3 Original</b>
+          <small>mp3 = mp3 • hd audio • extract audio</small>
+          <div class="btns"><button class="btn btn2" onclick="dlYTMp3('${url}','${ytId}')">DOWNLOAD MP3</button></div>
+        </div>
+      </div>`;
+    return;
+   }
+   if(data.picker&&data.picker.length){
+    resultsEl.innerHTML=data.picker.map((p,i)=>`<div class="card"><img src="${ytId?`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`:'bg.jpg'}"><div style="flex:1"><b>${p.type==='video'?'Video':'Audio'} • ${p.ext||'MP4'} HD</b><small>yt • ${p.type} = ${p.ext}</small><div class="btns"><button class="btn btn2" onclick="downloadFile('${p.url}','yt_${i}.${p.ext||'mp4'}')">DOWNLOAD ${p.ext?.toUpperCase()||'MP4'} HD</button></div></div></div>`).join('');
+    statusEl.innerText='yt • '+data.picker.length+' files ready';
+    return;
+   }
+  }catch(e){ console.log('yt server fail',srv,e); continue; }
+ }
+
+ // FALLBACK KALO SEMUA SERVER MATI - TETEP MUNCUL THUMBNAIL + TOMBOL MANUAL
+ statusEl.innerText='yt • fallback • manual download';
+ resultsEl.innerHTML=`
+  <div class="card">
+    <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" onerror="this.src='bg.jpg'">
+    <div style="flex:1">
+      <b>Video • MP4 HD No WM</b>
+      <small>yt • ${ytId} • mp4 = mp4 hd • fallback manual • no wm</small>
+      <div class="btns">
+        <button class="btn btn2" onclick="window.open('https://www.y2mate.is/youtube/${ytId}','_blank')">DOWNLOAD MP4 HD (Y2MATE)</button>
+        <button class="btn" onclick="window.open('https://savefrom.net/${ytId}','_blank')">SAVEFROM</button>
+        <button class="btn" onclick="window.open('https://10downloader.com/download-youtube-video/${ytId}','_blank')">10DOWNLOADER</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="flex:1">
+      <b>Music • MP3 Original</b>
+      <small>mp3 = mp3 • hd audio • fallback</small>
+      <div class="btns"><button class="btn btn2" onclick="window.open('https://www.y2mate.is/youtube/${ytId}?format=mp3','_blank')">DOWNLOAD MP3</button></div>
+    </div>
+  </div>`;
+}
+async function dlYTMp3(url,ytId){
+ try{
+  let res=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,isAudioOnly:true,aFormat:'mp3'})});
+  let data=await res.json();
+  if(data.url){downloadFile(data.url,`yt_${ytId}_mp3.mp3`);return;}
+ }catch(e){}
+ window.open(`https://www.y2mate.is/youtube/${ytId}?format=mp3`,'_blank');
 }
 async function dlIG(url){
  const igId=url.split('/p/')[1]?.split('/')[0]||url.split('/reel/')[1]?.split('/')[0]||url.split('/reels/')[1]?.split('/')[0]||url.split('/')[4]||'';
@@ -238,21 +193,14 @@ async function dlIG(url){
   let r=await fetch('https://co.wuk.sh/api/json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url,vQuality:'1080'})});
   let j=await r.json();
   if(j.url){
-   const isV=j.url.includes('.mp4')||j.url.includes('video');
-   resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls playsinline></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">Download</button></div></div>`;
-   statusEl.innerText='ig • hd ready • download by LèxaaMj';
-   return;
-  }
-  if(j.picker&&j.picker.length){
-   resultsEl.innerHTML=j.picker.map((p,i)=>`<div class="preview">${p.type==='video'?`<video class="p" src="${p.url}" controls></video>`:`<img class="p" src="${p.url||p.thumb}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${p.url}','ig_${i+1}_hd.${p.ext||'mp4'}')">Download</button></div></div>`).join('');
-   return;
+   const isV=j.url.includes('.mp4');
+   resultsEl.innerHTML=`<div class="preview">${isV?`<video class="p" src="${j.url}" controls></video>`:`<img class="p" src="${j.url}">`}<div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('${j.url}','ig_${igId}_hd.${isV?'mp4':'jpg'}')">Download</button></div></div>`;
+   statusEl.innerText='ig • hd ready • download by LèxaaMj';return;
   }
  }catch(e){}
- resultsEl.innerHTML=`<div class="preview"><img class="p" src="https://instagram.com/p/${igId}/media/?size=l" onerror="this.src='bg.jpg'"><div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('https://instagram.com/p/${igId}/media/?size=l','ig_${igId}_hd.jpg')">Download</button></div></div>`;
+ resultsEl.innerHTML=`<div class="preview"><img class="p" src="https://instagram.com/p/${igId}/media/?size=l"><div class="info"><b class="by">download by LèxaaMj</b><button class="btn-download" onclick="downloadFile('https://instagram.com/p/${igId}/media/?size=l','ig_${igId}_hd.jpg')">Download</button></div></div>`;
 }
-function downloadFile(url,name){
- const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • '+name;
-}
+function downloadFile(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';document.body.appendChild(a);a.click();a.remove();statusEl.innerText='downloaded • '+name;}
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')handle();});
 </script>
 </body>
