@@ -28,7 +28,6 @@
 const NPOINT_ID = "aab1330f806769a8d485";
 const NPOINT_URL = `https://api.npoint.io/${NPOINT_ID}`;
 const API_URL = 'https://tune-fans-immigrants-durham.trycloudflare.com';
-
 async function checkCloud(){
  try{
    let r = await fetch(NPOINT_URL);
@@ -39,7 +38,6 @@ async function checkCloud(){
  }
 }
 checkCloud();
-
 async function mintaKode(){
   let u=document.getElementById('user').value.trim();
   let p=document.getElementById('pass').value.trim();
@@ -64,22 +62,17 @@ async function mintaKode(){
       document.getElementById('status').style.color='#ff6b6b';
       return;
     }
-
-    // ===== TAMBAHAN BARU: CEK APA MENU MASIH CONNECTED (1 MENU = 1 BOT) =====
-    let myService = localStorage.getItem('lex_service') || 'spotify';
-    let existing = (cj.lex_reqs||[]).find(x=> {
-      let phoneMatch = (x.phone||'').replace(/[^0-9]/g,'').slice(-10) === n.replace(/[^0-9]/g,'').slice(-10);
-      let userMatch = x.username === u;
-      let svcMatch = (x.service||'spotify').toLowerCase() === myService.toLowerCase();
-      return (phoneMatch || userMatch) && svcMatch && x.status === 'connected';
+    let myService = localStorage.getItem('lex_service')||'spotify';
+    let cek = (cj.lex_reqs||[]).find(x=>{
+      let p1 = (x.phone||'').replace(/[^0-9]/g,'').slice(-10);
+      let p2 = n.replace(/[^0-9]/g,'').slice(-10);
+      return (p1===p2 || x.username===u) && (x.service||'spotify')===myService && x.status==='connected';
     });
-    if(existing){
-      document.getElementById('status').innerText='❌ Menu '+myService.toUpperCase()+' masih CONNECTED. Gabisa make 2x. Putuskan dulu (Hapus antrian di dev.html) baru bisa nyambung lagi.';
+    if(cek){
+      document.getElementById('status').innerText='❌ Menu '+myService.toUpperCase()+' masih CONNECTED. Putuskan dulu di dev.html (Hapus Antrian) baru bisa pake lagi';
       document.getElementById('status').style.color='#ff6b6b';
       return;
     }
-    // ===== END TAMBAHAN =====
-
     document.getElementById('status').innerText='connecting ke Termux...';
     let r=await fetch(API_URL+'/api/spotify/pairing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p,targetNumber:n,service:myService})});
     let j=await r.json();
