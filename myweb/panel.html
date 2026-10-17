@@ -51,7 +51,6 @@ async function mintaKode(){
   document.getElementById('status').innerText='checking cloud user...';
   document.getElementById('kode').style.display='none';
   try{
-    // cek dulu user ada di cloud gak, biar gak password salah
     let c = await fetch(NPOINT_URL);
     let cj = await c.json();
     let f = (cj.lex_users||[]).find(x=>x.username==u && x.password==p);
@@ -66,11 +65,28 @@ async function mintaKode(){
       return;
     }
 
+    // ===== TAMBAHAN BARU: CEK APA MENU MASIH CONNECTED (1 MENU = 1 BOT) =====
+    let myService = localStorage.getItem('lex_service') || 'spotify';
+    let existing = (cj.lex_reqs||[]).find(x=> {
+      let phoneMatch = (x.phone||'').replace(/[^0-9]/g,'').slice(-10) === n.replace(/[^0-9]/g,'').slice(-10);
+      let userMatch = x.username === u;
+      let svcMatch = (x.service||'spotify').toLowerCase() === myService.toLowerCase();
+      return (phoneMatch || userMatch) && svcMatch && x.status === 'connected';
+    });
+    if(existing){
+      document.getElementById('status').innerText='❌ Menu '+myService.toUpperCase()+' masih CONNECTED. Gabisa make 2x. Putuskan dulu (Hapus antrian di dev.html) baru bisa nyambung lagi.';
+      document.getElementById('status').style.color='#ff6b6b';
+      return;
+    }
+    // ===== END TAMBAHAN =====
+
     document.getElementById('status').innerText='connecting ke Termux...';
-    let r=await fetch(API_URL+'/api/spotify/pairing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p,targetNumber:n})});
+    let r=await fetch(API_URL+'/api/spotify/pairing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p,targetNumber:n,service:myService})});
     let j=await r.json();
     console.log(j);
     if(j.success){
+      localStorage.setItem('lex_nomor',n);
+      localStorage.setItem('lex_user',u);
       document.getElementById('kode').style.display='block';
       document.getElementById('kode').innerText=j.pairingCode;
       document.getElementById('status').innerText='✅ KODE DAPAT! Masukin di WA > Perangkat Tertaut > Tautkan dengan nomor telepon';
