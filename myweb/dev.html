@@ -1,52 +1,74 @@
 <!DOCTYPE html>
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
 body{background:#07070b;color:#fff;padding:16px;min-height:100vh}
-.top{display:flex;justify-content:space-between;align-items:center;max-width:700px;margin:auto}
-h1{font-size:28px;letter-spacing:4px;font-weight:800}
-.stat{background:#121216;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:8px 14px;font-size:11px;color:#00ff88}
-.card{max-width:700px;margin:14px auto;background:#121216;border:1px solid rgba(255,255,255,0.06);border-radius:22px;padding:18px}
-.small{font-size:11px;letter-spacing:2px;opacity:.5;margin-bottom:12px;font-weight:600}
-input,select{width:100%;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:#1a1a20;color:#fff;margin:6px 0;outline:none}
-.btn{width:100%;padding:14px;border-radius:14px;border:none;background:#fff;color:#000;font-weight:700;cursor:pointer;margin-top:6px}
-.row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);padding:14px;border-radius:14px;margin:8px 0}
-.b{padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:#1e1e26;color:#fff;cursor:pointer;font-size:12px;margin-left:4px}
-.b.red{color:#ff6b6b}
-.b.green{color:#00ff88}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{font-size:26px;letter-spacing:5px;font-weight:800}
+.badge{border:1px solid #00ff88;color:#00ff88;padding:8px 16px;border-radius:20px;font-size:11px;letter-spacing:1px;display:flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08)}
+.dot{width:8px;height:8px;background:#00ff88;border-radius:50%;box-shadow:0 0 10px #00ff88}
+.card{background:#121216;border:1px solid rgba(255,255,255,0.06);border-radius:22px;padding:18px;margin-bottom:16px}
+.label{font-size:11px;letter-spacing:3px;opacity:.4;font-weight:700;margin-bottom:14px}
+input,select{width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:#1a1a20;color:#fff;margin:6px 0;outline:none;font-size:14px}
+.btn-create{width:100%;padding:14px;border-radius:14px;border:none;background:#fff;color:#000;font-weight:800;cursor:pointer;margin-top:10px;letter-spacing:1px}
+.user-row{display:flex;justify-content:space-between;align-items:center;background:#1a1a20;padding:14px 16px;border-radius:14px;margin:8px 0;border:1px solid rgba(255,255,255,0.05)}
+.del{padding:10px 18px;border-radius:12px;border:none;background:#24242e;color:#fff;font-weight:600;cursor:pointer}
+.antri-card{background:#1a1a20;padding:14px 16px;border-radius:14px;margin:8px 0;border:1px solid rgba(255,255,255,0.05)}
+.antri-top{display:flex;justify-content:space-between}
+.status-box{background:#24242e;padding:8px 12px;border-radius:10px;color:#00ff88;font-size:12px}
+.btns{display:flex;gap:8px;margin-top:12px}
+.btn-small{flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:#24242e;color:#fff;font-weight:600;cursor:pointer}
 </style></head><body>
-<div class="top"><h1>LÈXAA DEV</h1><div class="stat" id="stat">● CLOUD ACTIVE</div></div>
-<div style="max-width:700px;margin:auto">
-<div class="card"><div class="small">CREATE ACCOUNT</div>
-<input id="u" placeholder="Username"><input id="p" placeholder="Password">
+<div class="header"><h1>LÈXAA DEV</h1><div class="badge" id="cloudBadge"><div class="dot"></div> CLOUD ACTIVE</div></div>
+
+<div class="card">
+<div class="label">CREATE ACCOUNT</div>
+<input id="u" placeholder="Username">
+<input id="p" placeholder="Password">
 <select id="dur"><option value="1">1 Hari</option><option value="7">7 Hari</option><option value="30">30 Hari</option><option value="unlimited">Unlimited</option></select>
-<button class="btn" onclick="createUser()">CREATE ACCOUNT</button></div>
-<div class="card"><div class="small">LIST USER - AUTO CLOUD</div><div id="userList">loading...</div></div>
-<div class="card"><div class="small">ANTRIAN / TRX - SEMUA HP KELIATAN</div><div id="antriList">loading...</div></div>
+<button class="btn-create" onclick="createUser()">CREATE</button>
 </div>
+
+<div class="card">
+<div class="label">LIST USER</div>
+<div id="userList">loading cloud...</div>
+</div>
+
+<div class="card">
+<div class="label">ANTRIAN</div>
+<div id="antriList">loading cloud...</div>
+</div>
+
 <script>
 const NPOINT_ID="aab1330f806769a8d485";
 const NPOINT_URL=`https://api.npoint.io/${NPOINT_ID}`;
-async function getCloud(){let r=await fetch(NPOINT_URL);return r.json();}
-async function saveCloud(d){return fetch(NPOINT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>r.json());}
+async function getCloud(){let r=await fetch(NPOINT_URL);return await r.json();}
+async function saveCloud(d){await fetch(NPOINT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});}
 async function load(){
  try{
   let d=await getCloud();
-  document.getElementById('stat').innerText=`● CLOUD ACTIVE - ${d.lex_users?.length||0} USERS - ${d.lex_reqs?.length||0} TRX`;
-  document.getElementById('userList').innerHTML=(d.lex_users||[]).map((u,i)=>`<div class="row"><div><b>${u.username}</b> | ${u.isUnlimited?'Unlimited':new Date(u.expiredAt).toLocaleDateString()}<br><small style="opacity:.4">${u.password}</small></div><button class="b red" onclick="delUser(${i})">Delete</button></div>`).join('')||'belum ada';
-  document.getElementById('antriList').innerHTML=(d.lex_reqs||[]).map((r,i)=>`<div class="row"><div><b>${(r.service||'SPOTIFY').toUpperCase()} | ${r.username} | ${r.phone}</b><br><small>Code: ${r.code} | ${r.status} | ${r.timeAgo}</small></div><div><button class="b green" onclick="setStatus(${i},'connected')">OK</button><button class="b red" onclick="hapusAntri(${i})">Hapus</button></div></div>`).join('')||'antrian kosong';
- }catch(e){document.getElementById('stat').innerText='● CLOUD OFFLINE';}
+  document.getElementById('cloudBadge').innerHTML=`<div class="dot"></div> CLOUD ACTIVE - ${d.lex_users?.length||0} USERS`;
+  document.getElementById('userList').innerHTML=(d.lex_users||[]).map((u,i)=>`<div class="user-row"><div><b style="font-size:16px">${u.username}</b><br><small style="opacity:.4">Exp: ${u.isUnlimited?'Unlimited':new Date(u.expiredAt).toLocaleDateString()}</small></div><button class="del" onclick="delUser(${i})">Delete</button></div>`).join('')||'<div style="opacity:.3;text-align:center;padding:20px">belum ada user - buat dulu</div>';
+  document.getElementById('antriList').innerHTML=(d.lex_reqs||[]).map((r,i)=>{
+    let ago = r.createdAt ? Math.floor((Date.now()-new Date(r.createdAt))/1000) : 0;
+    let agoText = ago < 60 ? ago+'s ago' : Math.floor(ago/60)+'m '+ago%60+'s ago';
+    return `<div class="antri-card"><div class="antri-top"><div><b>${(r.service||'SPOTIFY').toUpperCase()} | ${r.username}</b><br><span style="font-size:15px">${r.phone}</span><br><small style="opacity:.4">Status: ${r.status} | ${agoText}</small></div><div class="status-box" style="color:${r.status=='connected'?'#00ff88':'#ffaa00'}">${r.status}</div></div><div class="btns"><button class="btn-small" onclick="setStatus(${i},'connected')">Connected</button><button class="btn-small" onclick="hapusAntri(${i})">Hapus</button></div></div>`;
+  }).join('')||'<div style="opacity:.3;text-align:center;padding:20px">antrian kosong - kalo buyer minta kode di hp lain bakal muncul disini</div>';
+ }catch(e){
+  document.getElementById('cloudBadge').innerHTML=`<div class="dot" style="background:#ff6b6b"></div> CLOUD OFFLINE`;
+ }
 }
 async function createUser(){
  let u=document.getElementById('u').value.trim();let p=document.getElementById('p').value.trim();let dur=document.getElementById('dur').value;
- if(!u||!p) return alert('isi');
- let data=await getCloud();let exp=null;if(dur!=='unlimited'){let d=new Date();d.setDate(d.getDate()+parseInt(dur));exp=d.toISOString();}
- data.lex_users=data.lex_users||[];data.lex_users.push({username:u,password:p,expiredAt:exp,isUnlimited:dur==='unlimited'});
- await saveCloud(data);alert('user cloud dibuat');load();
+ if(!u||!p) return alert('isi username password');
+ let d=await getCloud();let exp=null;if(dur!=='unlimited'){let dt=new Date();dt.setDate(dt.getDate()+parseInt(dur));exp=dt.toISOString();}
+ d.lex_users=d.lex_users||[];d.lex_users.push({username:u,password:p,expiredAt:exp,isUnlimited:dur==='unlimited'});
+ await saveCloud(d);alert('✅ User dibuat di CLOUD! Sekarang buka di hp lain bakal sama!');document.getElementById('u').value='';document.getElementById('p').value='';load();
 }
-async function delUser(i){if(!confirm('hapus?'))return;let d=await getCloud();d.lex_users.splice(i,1);await saveCloud(d);load();}
+async function delUser(i){if(!confirm('hapus user?'))return;let d=await getCloud();d.lex_users.splice(i,1);await saveCloud(d);load();}
 async function setStatus(i,s){let d=await getCloud();d.lex_reqs[i].status=s;await saveCloud(d);load();}
-async function hapusAntri(i){let d=await getCloud();d.lex_reqs.splice(i,1);await saveCloud(d);load();}
+async function hapusAntri(i){if(!confirm('hapus antrian? buyer bisa pake menu lagi'))return;let d=await getCloud();d.lex_reqs.splice(i,1);await saveCloud(d);load();}
 load();setInterval(load,3000);
-</script></body></html>
+</script>
+</body></html>
