@@ -1,68 +1,136 @@
 <!DOCTYPE html>
-<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
-<style>body{background:#05070d;color:#fff;font-family:'Inter';min-height:100vh;background-image:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.9)),url('../spotify/bg.jpg');background-size:cover}.card{max-width:500px;margin:20px auto;background:rgba(18,22,36,.9);border-radius:20px;padding:20px;border:1px solid rgba(255,255,255,.08)} input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;margin:8px 0;outline:none}.btn{width:100%;padding:14px;border-radius:12px;border:none;background:#8ecfff;color:#000;font-weight:700;cursor:pointer;margin-top:8px}.code{font-size:32px;letter-spacing:6px;text-align:center;margin:16px 0;color:#8ecfff;font-family:'Cormorant Garamond';display:none}.menu{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);display:none}</style>
-</head><body>
-<div style="text-align:center;padding:20px;font-family:'Cormorant Garamond';font-size:28px">Panel <span style="color:#8ecfff">LèxaaMj</span></div>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buyer Panel - LèxaaMj</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
+body { background:#000; color:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+.card { background: rgba(18,18,18,0.9); border:1px solid rgba(255,255,255,0.07); border-radius:20px; padding:24px; width:100%; max-width:420px; }
+input { width:100%; padding:12px 14px; border-radius:12px; border:1px solid #222; background:#0a0a0a; color:#fff; outline:none; margin:8px 0; font-size:13px; }
+.btn-white { width:100%; padding:12px; border-radius:12px; border:none; font-weight:700; cursor:pointer; background:#fff; color:#000; margin-top:10px; }
+.small { font-size:11px; color:#666; margin-top:6px; text-align:center; }
+.code-box { background:#0f0f0f; border:1px solid #1e1e1e; border-radius:14px; padding:16px; margin:14px 0; text-align:center; }
+.code-text { font-size:28px; font-weight:700; letter-spacing:4px; margin:10px 0; color:#fff; }
+.copy-btn { background:#1a1a1a; color:#fff; border:1px solid #262626; padding:8px 16px; border-radius:8px; cursor:pointer; }
+.status { font-size:10px; color:#0f0; text-align:center; margin-bottom:10px; }
+</style>
+</head>
+<body>
 <div class="card">
-<h3 style="font-weight:300;letter-spacing:3px;font-size:11px;opacity:.5">LOGIN BUYER</h3>
-<input id="user" placeholder="username buyer1">
-<input id="pass" type="password" placeholder="password lexa123">
-<input id="nomor" placeholder="628xxxxxxxx (jangan 08)">
-<button class="btn" onclick="mintaKode()">MINTA KODE 8 DIGIT</button>
-<div class="code" id="kode">-</div>
-<div id="status" style="text-align:center;font-size:11px;letter-spacing:1px;opacity:.7;margin-top:10px">isi data dulu</div>
-<div class="menu" id="menuBox">
-<h3 style="font-weight:300;letter-spacing:3px;font-size:11px;opacity:.5">MENU BOT - SUDAH CONNECT</h3>
-<div style="background:rgba(142,207,255,.1);border:1px solid #8ecfff33;padding:12px;border-radius:12px;margin-bottom:12px">
-<input id="q" placeholder="cari lagu spotify...">
-<button class="btn" style="background:transparent;border:1px solid #8ecfff;color:#8ecfff" onclick="searchSpotify()">SEARCH & DOWNLOAD</button>
-<div id="results" style="margin-top:12px"></div>
+<div id="loginView">
+<h3 style="text-align:center; letter-spacing:4px; margin-bottom:10px;">LÈXAA PANEL</h3>
+<div class="status" id="connStatus">● CONNECTING CLOUD...</div>
+<input id="lu" placeholder="Username">
+<input id="lp" type="password" placeholder="Password">
+<button class="btn-white" onclick="login()">LOGIN ACCESS</button>
+<div class="small" id="loginMsg"></div>
 </div>
-<button style="width:100%;padding:10px;opacity:.3;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:10px;margin:4px 0">📤 Bot Pushkontak [SOON]</button>
-<button style="width:100%;padding:10px;opacity:.3;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:10px;margin:4px 0">🐛 Bot Bug [SOON]</button>
+
+<div id="gridView" style="display:none;">
+<h3 style="text-align:center; letter-spacing:3px; font-size:14px;">PILIH LAYANAN</h3>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px;">
+<button class="btn-white" onclick="selectService('whatsapp')">WhatsApp</button>
+<button class="btn-white" onclick="selectService('telegram')">Telegram</button>
+<button class="btn-white" onclick="selectService('instagram')">Instagram</button>
+<button class="btn-white" onclick="selectService('spotify')">Spotify</button>
+</div>
+<div id="phoneBox" style="display:none; margin-top:16px;">
+<input id="phone" placeholder="Nomor WA (628xx)">
+<button class="btn-white" onclick="requestCode()">REQUEST CODE</button>
+</div>
+<div id="detailStatus" style="display:none; margin-top:16px; text-align:center; font-size:13px;"></div>
+<button class="btn-white" style="background:#1a1a1a; color:#fff; border:1px solid #262626; margin-top:20px;" onclick="logout()">LOGOUT</button>
 </div>
 </div>
+
 <script>
-const API_URL = 'https://tune-fans-immigrants-durham.trycloudflare.com';
-async function mintaKode(){
-  let u=document.getElementById('user').value.trim();
-  let p=document.getElementById('pass').value.trim();
-  let n=document.getElementById('nomor').value.trim();
-  if(!u||!p||!n) return alert('isi semua dulu bos');
-  // auto ubah 08 jadi 62
-  if(n.startsWith('08')) n='62'+n.substring(1);
-  if(n.startsWith('0')) n='62'+n.substring(1);
-  document.getElementById('nomor').value=n;
-  document.getElementById('status').innerText='connecting ke Termux...';
-  document.getElementById('kode').style.display='none';
-  try{
-    let r=await fetch(API_URL+'/api/spotify/pairing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p,targetNumber:n})});
-    let j=await r.json();
-    console.log(j);
-    if(j.success){
-      document.getElementById('kode').style.display='block';
-      document.getElementById('kode').innerText=j.pairingCode;
-      document.getElementById('status').innerText='✅ KODE DAPAT! Masukin di WA > Perangkat Tertaut > Tautkan dengan nomor telepon';
-      document.getElementById('status').style.color='#8ecfff';
-      document.getElementById('menuBox').style.display='block';
-    }else{
-      document.getElementById('status').innerText='Gagal: '+j.msg;
-      document.getElementById('status').style.color='#ff6b6b';
-    }
-  }catch(e){
-    document.getElementById('status').innerText='❌ Tunnel mati / server.js mati. Cek Termux!';
-    document.getElementById('status').style.color='#ff6b6b';
-    alert('Tunnel mati Bos, cek sesi 1 & 2 Termux lu masih jalan gak');
-  }
+const NPOINT_ID = "aab1330f806769a8d485";
+const API_URL = `https://api.npoint.io/${NPOINT_ID}`;
+
+let usersData = [];
+let reqsData = [];
+let myUser = null;
+let currentService = null;
+let currentReqId = null;
+
+async function loadCloud(){
+ try{
+   const res = await fetch(API_URL);
+   const data = await res.json();
+   usersData = data.lex_users || [];
+   reqsData = data.lex_reqs || [];
+   document.getElementById('connStatus').innerText = '● CLOUD ACTIVE';
+   return true;
+ }catch(e){
+   document.getElementById('connStatus').innerText = '● OFFLINE';
+   return false;
+ }
 }
-async function searchSpotify(){
-  let q=document.getElementById('q').value; if(!q) return;
-  document.getElementById('results').innerHTML='searching...';
-  let r=await fetch('https://api.spotifydown.com/search/'+encodeURIComponent(q));
-  let j=await r.json();
-  if(j.success){
-    document.getElementById('results').innerHTML=j.trackList.slice(0,5).map(t=>`<div style="display:flex;gap:10px;margin:10px 0;background:rgba(255,255,255,.05);padding:10px;border-radius:12px"><img src="${t.cover}" style="width:50px;height:50px;border-radius:8px"><div><b style="font-size:12px">${t.title}</b><br><small style="opacity:.5">${t.artists}</small><br><a href="https://api.spotifydown.com/download/${t.id}" target="_blank" style="color:#8ecfff;font-size:11px">download full</a></div></div>`).join('');
-  }
+async function saveCloud(){
+ await fetch(API_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({lex_users: usersData, lex_reqs: reqsData}) });
 }
-</script></body></html>
+
+async function login(){
+ const u=document.getElementById('lu').value.trim();
+ const p=document.getElementById('lp').value.trim();
+ if(!u||!p) return alert('isi username password');
+ document.getElementById('loginMsg').innerText = 'Checking...';
+ await loadCloud();
+ const f = usersData.find(x=>x.username==u && x.password==p);
+ if(!f){ document.getElementById('loginMsg').innerText = 'Username / Password Salah'; return; }
+ if(!f.isUnlimited && f.expiredAt && new Date(f.expiredAt) < new Date()){ document.getElementById('loginMsg').innerText = 'Akun Expired'; return; }
+ myUser=f;
+ document.getElementById('loginView').style.display='none';
+ document.getElementById('gridView').style.display='block';
+}
+
+function selectService(s){
+ currentService=s;
+ document.getElementById('phoneBox').style.display='block';
+ document.getElementById('detailStatus').style.display='none';
+}
+
+async function requestCode(){
+ const phone=document.getElementById('phone').value.trim();
+ if(!phone) return alert('Isi nomor WA dulu');
+ await loadCloud();
+ const id=Date.now().toString();
+ const newReq = {id, username:myUser.username, service:currentService, phone, status:'waiting', time:Date.now()};
+ reqsData.push(newReq);
+ await saveCloud();
+ currentReqId=id;
+ const sd=document.getElementById('detailStatus');
+ sd.style.display='block';
+ sd.innerHTML='⏳ Requesting code from LèxaaMj...<br><small>Please wait a moment</small><br><br><b>'+phone+'</b>';
+ checkLoop();
+}
+
+function checkLoop(){
+ if(!currentReqId) return;
+ loadCloud().then(()=>{
+   const r=reqsData.find(x=>x.id==currentReqId);
+   if(!r) return;
+   const s=document.getElementById('detailStatus');
+   if(r.status=='waiting'){
+     s.innerHTML='⏳ Requesting code from LèxaaMj...<br><small>Waiting admin</small><br><br><b>'+r.phone+'</b>';
+     setTimeout(checkLoop, 3000);
+   }else if(r.status=='code_sent'){
+     s.innerHTML=`Your login code is ready:<div class="code-box"><div style="color:#666;font-size:11px">CODE LOGIN</div><div class="code-text">${r.code}</div><button class="copy-btn" onclick="copyCode('${r.code}')">Copy Code</button><br><small style="color:#666">From LèxaaMj</small></div>`;
+   }else if(r.status=='connected'){
+     s.innerHTML=`✅ <b>Bot ${r.service} Connected Successfully</b><br><br><button class="btn-white" onclick="backGrid()">Back to Menu</button>`;
+   }else if(r.status=='failed'){
+     s.innerHTML=`❌ Connection Failed<br><small>${r.reason||'Rejected'}</small><br><br><button class="btn-white" onclick="backGrid()">Try Again</button>`;
+   }
+ });
+}
+
+function copyCode(c){ navigator.clipboard.writeText(c); alert('Copied: '+c); }
+function backGrid(){ document.getElementById('phoneBox').style.display='none'; document.getElementById('detailStatus').style.display='none'; currentReqId=null; }
+function logout(){ location.reload(); }
+
+loadCloud();
+</script>
+</body>
+</html>
