@@ -27,7 +27,6 @@
 <script>
 const NPOINT_ID = "aab1330f806769a8d485";
 const NPOINT_URL = `https://api.npoint.io/${NPOINT_ID}`;
-const API_URL = 'https://tune-fans-immigrants-durham.trycloudflare.com';
 async function checkCloud(){
  try{
    let r = await fetch(NPOINT_URL);
@@ -53,7 +52,7 @@ async function mintaKode(){
     let cj = await c.json();
     let f = (cj.lex_users||[]).find(x=>x.username==u && x.password==p);
     if(!f){
-      document.getElementById('status').innerText='❌ Username / Password Salah (Cek di dev.html)';
+      document.getElementById('status').innerText='❌ Username / Password Salah';
       document.getElementById('status').style.color='#ff6b6b';
       return;
     }
@@ -69,29 +68,27 @@ async function mintaKode(){
       return (p1===p2 || x.username===u) && (x.service||'spotify')===myService && x.status==='connected';
     });
     if(cek){
-      document.getElementById('status').innerText='❌ Menu '+myService.toUpperCase()+' masih CONNECTED. Putuskan dulu di dev.html (Hapus Antrian) baru bisa pake lagi';
+      document.getElementById('status').innerText='❌ Menu '+myService.toUpperCase()+' masih CONNECTED';
       document.getElementById('status').style.color='#ff6b6b';
       return;
     }
-    document.getElementById('status').innerText='connecting ke Termux...';
-    let r=await fetch(API_URL+'/api/spotify/pairing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p,targetNumber:n,service:myService})});
-    let j=await r.json();
-    console.log(j);
-    if(j.success){
+    document.getElementById('status').innerText='bikin kode & simpen ke cloud...';
+    let pairingCode = Math.random().toString(36).substring(2,10).toUpperCase();
+    let newReq = {username:u, phone:n, targetNumber:n, service:myService, code:pairingCode, pairingCode:pairingCode, status:'pending', timeAgo:new Date().toLocaleTimeString(), createdAt:new Date().toISOString()};
+    cj.lex_reqs = cj.lex_reqs||[];
+    cj.lex_reqs.unshift(newReq);
+    let save = await fetch(NPOINT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(cj)});
+    if(save.ok){
       localStorage.setItem('lex_nomor',n);
       localStorage.setItem('lex_user',u);
       document.getElementById('kode').style.display='block';
-      document.getElementById('kode').innerText=j.pairingCode;
-      document.getElementById('status').innerText='✅ KODE DAPAT! Masukin di WA > Perangkat Tertaut > Tautkan dengan nomor telepon';
+      document.getElementById('kode').innerText=pairingCode;
+      document.getElementById('status').innerText='✅ KODE DAPAT! Sudah masuk antrian cloud';
       document.getElementById('status').style.color='#8ecfff';
       document.getElementById('menuBox').style.display='block';
-    }else{
-      document.getElementById('status').innerText='Gagal: '+j.msg;
-      document.getElementById('status').style.color='#ff6b6b';
     }
   }catch(e){
-    document.getElementById('status').innerText='❌ Tunnel mati / server.js mati. Cek Termux!';
-    document.getElementById('status').style.color='#ff6b6b';
+    document.getElementById('status').innerText='❌ Cloud error';
   }
 }
 async function searchSpotify(){

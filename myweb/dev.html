@@ -13,17 +13,17 @@ input,select{width:100%;padding:14px;border-radius:14px;border:1px solid rgba(25
 .btn{width:100%;padding:14px;border-radius:14px;border:none;background:#fff;color:#000;font-weight:700;cursor:pointer;margin-top:6px}
 .row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);padding:14px;border-radius:14px;margin:8px 0}
 .b{padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:#1e1e26;color:#fff;cursor:pointer;font-size:12px;margin-left:4px}
-.b.red{color:#ff6b6b;border-color:rgba(255,107,107,0.2)}
-.b.green{color:#00ff88;border-color:rgba(0,255,136,0.2)}
+.b.red{color:#ff6b6b}
+.b.green{color:#00ff88}
 </style></head><body>
 <div class="top"><h1>LÈXAA DEV</h1><div class="stat" id="stat">● CLOUD ACTIVE</div></div>
 <div style="max-width:700px;margin:auto">
 <div class="card"><div class="small">CREATE ACCOUNT</div>
-<input id="u" placeholder="Username (buyer1)"><input id="p" placeholder="Password (lexa123)">
+<input id="u" placeholder="Username"><input id="p" placeholder="Password">
 <select id="dur"><option value="1">1 Hari</option><option value="7">7 Hari</option><option value="30">30 Hari</option><option value="unlimited">Unlimited</option></select>
 <button class="btn" onclick="createUser()">CREATE ACCOUNT</button></div>
 <div class="card"><div class="small">LIST USER - AUTO CLOUD</div><div id="userList">loading...</div></div>
-<div class="card"><div class="small">ANTRIAN / TRX - REALTIME CLOUD</div><div id="antriList">loading...</div></div>
+<div class="card"><div class="small">ANTRIAN / TRX - SEMUA HP KELIATAN</div><div id="antriList">loading...</div></div>
 </div>
 <script>
 const NPOINT_ID="aab1330f806769a8d485";
@@ -34,19 +34,19 @@ async function load(){
  try{
   let d=await getCloud();
   document.getElementById('stat').innerText=`● CLOUD ACTIVE - ${d.lex_users?.length||0} USERS - ${d.lex_reqs?.length||0} TRX`;
-  document.getElementById('userList').innerHTML=(d.lex_users||[]).map((u,i)=>`<div class="row"><div><b>${u.username}</b> | ${u.isUnlimited?'Unlimited':new Date(u.expiredAt).toLocaleDateString()}<br><small style="opacity:.4">${u.password}</small></div><button class="b red" onclick="delUser(${i})">Delete</button></div>`).join('')||'belum ada user';
-  document.getElementById('antriList').innerHTML=(d.lex_reqs||[]).map((r,i)=>`<div class="row"><div><b>${(r.service||'SPOTIFY').toUpperCase()} | ${r.username} | ${r.phone||r.targetNumber}</b><br><small>Code: ${r.code||r.pairingCode||'-'} | Status: ${r.status} | ${r.timeAgo||''}</small></div><div><button class="b green" onclick="setStatus(${i},'connected')">Connected</button><button class="b red" onclick="hapusAntri(${i})">Hapus</button></div></div>`).join('')||'antrian kosong - buyer di hp lain bakal muncul disini';
+  document.getElementById('userList').innerHTML=(d.lex_users||[]).map((u,i)=>`<div class="row"><div><b>${u.username}</b> | ${u.isUnlimited?'Unlimited':new Date(u.expiredAt).toLocaleDateString()}<br><small style="opacity:.4">${u.password}</small></div><button class="b red" onclick="delUser(${i})">Delete</button></div>`).join('')||'belum ada';
+  document.getElementById('antriList').innerHTML=(d.lex_reqs||[]).map((r,i)=>`<div class="row"><div><b>${(r.service||'SPOTIFY').toUpperCase()} | ${r.username} | ${r.phone}</b><br><small>Code: ${r.code} | ${r.status} | ${r.timeAgo}</small></div><div><button class="b green" onclick="setStatus(${i},'connected')">OK</button><button class="b red" onclick="hapusAntri(${i})">Hapus</button></div></div>`).join('')||'antrian kosong';
  }catch(e){document.getElementById('stat').innerText='● CLOUD OFFLINE';}
 }
 async function createUser(){
  let u=document.getElementById('u').value.trim();let p=document.getElementById('p').value.trim();let dur=document.getElementById('dur').value;
- if(!u||!p) return alert('isi username password');
+ if(!u||!p) return alert('isi');
  let data=await getCloud();let exp=null;if(dur!=='unlimited'){let d=new Date();d.setDate(d.getDate()+parseInt(dur));exp=d.toISOString();}
- data.lex_users=data.lex_users||[];data.lex_users.push({username:u,password:p,expiredAt:exp,isUnlimited:dur==='unlimited',createdAt:new Date().toISOString()});
- await saveCloud(data);alert('user dibuat CLOUD, bisa login di hp lain');load();document.getElementById('u').value='';document.getElementById('p').value='';
+ data.lex_users=data.lex_users||[];data.lex_users.push({username:u,password:p,expiredAt:exp,isUnlimited:dur==='unlimited'});
+ await saveCloud(data);alert('user cloud dibuat');load();
 }
-async function delUser(i){if(!confirm('hapus user?'))return;let d=await getCloud();d.lex_users.splice(i,1);await saveCloud(d);load();}
+async function delUser(i){if(!confirm('hapus?'))return;let d=await getCloud();d.lex_users.splice(i,1);await saveCloud(d);load();}
 async function setStatus(i,s){let d=await getCloud();d.lex_reqs[i].status=s;await saveCloud(d);load();}
-async function hapusAntri(i){if(!confirm('hapus trx ini? buyer bisa pake menu lagi'))return;let d=await getCloud();d.lex_reqs.splice(i,1);await saveCloud(d);load();}
+async function hapusAntri(i){let d=await getCloud();d.lex_reqs.splice(i,1);await saveCloud(d);load();}
 load();setInterval(load,3000);
 </script></body></html>
